@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\IInputManager.cs" />
      <Compile Include="Assets\Scripts\InputAction.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\UnityInputManager.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />
