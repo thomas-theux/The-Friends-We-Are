@@ -319,6 +319,15 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Hub/Editor/2018.2.11f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="Rewired_Core">
+ <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
+ </Reference>
+ <Reference Include="Rewired_OSX_Lib">
+ <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Runtime/Rewired_OSX_Lib.dll</HintPath>
+ </Reference>
+ <Reference Include="Rewired_Editor">
+ <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Users/thomas_ge/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -333,15 +342,6 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>/Users/thomas_ge/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_Core">
- <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_OSX_Lib">
- <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Runtime/Rewired_OSX_Lib.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_Editor">
- <HintPath>/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Hub/Editor/2018.2.11f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

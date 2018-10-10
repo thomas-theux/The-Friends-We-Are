@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/1.0 Title Menu.unity
+- path: Assets/Scenes/Input Test.unity
   isLoaded: 1
   isActive: 1
