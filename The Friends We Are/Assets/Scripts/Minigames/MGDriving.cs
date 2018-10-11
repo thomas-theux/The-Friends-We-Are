@@ -8,9 +8,11 @@ public class MGDriving : MonoBehaviour {
 
 	public Slider rpmGauge;
 
+	private float buttonThreshold = 0.5f;
+
 	private float rpm = 0;
-	private float rpmIncrease = 160;
-	private float rpmDecrease = 60;
+	private float[] rpmChangeSpeed = {200, 160, 120, 80, 40, 10};
+	private int speedIndex = 0;
 	private float rpmCap = 8000;
 
 	private float[] areaArr;
@@ -42,6 +44,8 @@ public class MGDriving : MonoBehaviour {
 
 	void Update() {
 
+		print(rpmChangeSpeed[speedIndex]);
+
 		GetInput();
 
 		PlayerDark();
@@ -67,23 +71,29 @@ public class MGDriving : MonoBehaviour {
 	private void PlayerDark() {
 
 		// Increase the rpm when the player is accelerating
-		if (accelerate > 0.5f && rpm < rpmCap) {
-			rpm += rpmIncrease;
+		if (accelerate > buttonThreshold && rpm < rpmCap) {
+			rpm += rpmChangeSpeed[speedIndex];
 		}
 
 		// Limiting the rpm
 		if (rpm > rpmCap) { rpm = rpmCap; }
 
 		// Lowering the rpm over time
-		if (rpm > 0) { rpm -= rpmDecrease; }
-		else { rpm = 0; }
+		if (rpm > 0 && accelerate < buttonThreshold) {
+			rpm -= rpm * 0.02f;
+		} else if (rpm <= 0) {
+			rpm = 0;
+		}
 		
 		// Visualize the rpm gauge
 		rpmGauge.value = rpm;
 
 		// Shifting gears
-		if (shift && clutch > 0.5f) {
+		if (shift && clutch > buttonThreshold && speedIndex <= rpmChangeSpeed.Length -2) {
 			GetPoints();
+			speedIndex++;
+			print((speedIndex + 1) + ". Gang");
+			rpm = 0;
 		}
 
 	}
@@ -91,12 +101,15 @@ public class MGDriving : MonoBehaviour {
 	// Steer and shift
 	private void PlayerLight() {
 
-		// Player Two hits the clutch for Player One to shift
-		if (accelerate < 0.7f && clutch > 0.5f) {
-			// Success: Player Two hits the clutch while Player One is not accelerating
-		} else if (accelerate >= 0.7f && clutch > 0.5f) {
-			// Fail: Player Two hits the clutch while Player One is accelerating
+		// Hitting the clutch
+		if (speedIndex <= rpmChangeSpeed.Length -2) {
+			if (accelerate < 0.7f && clutch > buttonThreshold) {
+				// Success: Player Two hits the clutch while Player One is not accelerating
+			} else if (accelerate >= 0.7f && clutch > buttonThreshold) {
+				// Fail: Player Two hits the clutch while Player One is accelerating
+			}
 		}
+		
 
 		// GetPoints();
 	}
@@ -106,22 +119,22 @@ public class MGDriving : MonoBehaviour {
 
 		// The 6 areas for shifting
 		if (rpm >= areaArr[0] && rpm < areaArr[1]) {
-			print("-20 Punkte");
+			// print("-20 Punkte");
 		}
 		if (rpm >= areaArr[1] && rpm < areaArr[2]) {
-			print("10 Punkte");
+			// print("10 Punkte");
 		}
 		if (rpm >= areaArr[2] && rpm < areaArr[3]) {
-			print("50 Punkte");
+			// print("50 Punkte");
 		}
 		if (rpm >= areaArr[3] && rpm < areaArr[4]) {
-			print("100 Punkte");
+			// print("100 Punkte");
 		}
 		if (rpm >= areaArr[4] && rpm < areaArr[5]) {
-			print("10 Punkte");
+			// print("10 Punkte");
 		}
 		if (rpm >= areaArr[5] && rpm < areaArr[6]) {
-			print("-20 Punkte");
+			// print("-20 Punkte");
 		}
 
 	}
