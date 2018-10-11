@@ -55,8 +55,11 @@ public class MGDriving : MonoBehaviour {
 		accelerate = playerDark.GetAxis("R2");
 		shift = playerDark.GetButtonDown("X");
 
-		clutch = playerLight.GetAxis("L2");
-		steer = playerLight.GetAxis("LS Horizontal");
+		clutch = playerDark.GetAxis("L2");
+		steer = playerDark.GetAxis("LS Horizontal");
+
+		// clutch = playerLight.GetAxis("L2");
+		// steer = playerLight.GetAxis("LS Horizontal");
 
 	}
 
@@ -80,7 +83,7 @@ public class MGDriving : MonoBehaviour {
 
 		// Shifting gears
 		if (shift && clutch > 0.5f) {
-			print("Gschaltet!");
+			GetPoints();
 		}
 
 	}
@@ -91,10 +94,8 @@ public class MGDriving : MonoBehaviour {
 		// Player Two hits the clutch for Player One to shift
 		if (accelerate < 0.7f && clutch > 0.5f) {
 			// Success: Player Two hits the clutch while Player One is not accelerating
-			// print("Clutch");
 		} else if (accelerate >= 0.7f && clutch > 0.5f) {
 			// Fail: Player Two hits the clutch while Player One is accelerating
-			print("FAIL");
 		}
 
 		// GetPoints();
@@ -105,22 +106,22 @@ public class MGDriving : MonoBehaviour {
 
 		// The 6 areas for shifting
 		if (rpm >= areaArr[0] && rpm < areaArr[1]) {
-			print("Area 01");
+			print("-20 Punkte");
 		}
 		if (rpm >= areaArr[1] && rpm < areaArr[2]) {
-			print("Area 02");
+			print("10 Punkte");
 		}
 		if (rpm >= areaArr[2] && rpm < areaArr[3]) {
-			print("Area 03");
+			print("50 Punkte");
 		}
 		if (rpm >= areaArr[3] && rpm < areaArr[4]) {
-			print("Area 04");
+			print("100 Punkte");
 		}
 		if (rpm >= areaArr[4] && rpm < areaArr[5]) {
-			print("Area 05");
+			print("10 Punkte");
 		}
 		if (rpm >= areaArr[5] && rpm < areaArr[6]) {
-			print("Area 06");
+			print("-20 Punkte");
 		}
 
 	}

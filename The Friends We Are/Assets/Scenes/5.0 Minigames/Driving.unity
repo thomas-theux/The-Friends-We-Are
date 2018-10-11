@@ -1328,6 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rpmGauge: {fileID: 1235732821}
+  drivingScore: 0
 --- !u!4 &1803797722
 Transform:
   m_ObjectHideFlags: 0
