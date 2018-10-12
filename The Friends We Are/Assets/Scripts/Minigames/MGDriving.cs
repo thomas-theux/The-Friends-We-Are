@@ -8,6 +8,7 @@ public class MGDriving : MonoBehaviour {
 
 	public Slider rpmGauge;
 	public Text gearText;
+	public Text minigameScore;
 
 	private float buttonThreshold = 0.5f;
 
@@ -19,6 +20,8 @@ public class MGDriving : MonoBehaviour {
 	private float[] areaArr;
 
 	public float drivingScore = 0;
+	float pointsToAdd = 200;
+	float pointsToSubtract;
 
 	private float clutchSeconds;
 
@@ -95,6 +98,11 @@ public class MGDriving : MonoBehaviour {
 			StartCoroutine(DecreaseRPM());
 		}
 
+		// Getting points for keeping pace
+		if (speedIndex == rpmChangeSpeed.Length -1) {
+			CheckAreas();
+		}
+
 	}
 
 	// Steer and shift
@@ -118,25 +126,48 @@ public class MGDriving : MonoBehaviour {
 	// Calculating points for shifting
 	private void GetPoints() {
 
+		// Reset values
+		pointsToAdd = 200;
+		pointsToSubtract = 0;
+
+		// Check if playes shifted outside the perfect are and calculate accordingly
+		if (rpm < areaArr[3]) {
+			pointsToSubtract = (areaArr[3] - rpm) / 10;
+		} else if (rpm > areaArr[4]) {
+			pointsToSubtract = (rpm - areaArr[4]) / 10;
+		}
+
 		// The 6 areas for shifting
 		if (rpm >= areaArr[0] && rpm < areaArr[1]) {
 			// print("-20 Punkte");
+			pointsToSubtract *= 3;
 		}
 		if (rpm >= areaArr[1] && rpm < areaArr[2]) {
 			// print("10 Punkte");
+			pointsToSubtract *= 2;
 		}
 		if (rpm >= areaArr[2] && rpm < areaArr[3]) {
 			// print("50 Punkte");
+			pointsToSubtract *= 1;
 		}
 		if (rpm >= areaArr[3] && rpm < areaArr[4]) {
 			// print("100 Punkte");
 		}
 		if (rpm >= areaArr[4] && rpm < areaArr[5]) {
 			// print("10 Punkte");
+			pointsToSubtract *= 1;
 		}
 		if (rpm >= areaArr[5] && rpm < areaArr[6]) {
 			// print("-20 Punkte");
+			pointsToSubtract *= 3;
 		}
+
+		// Calculate points and push to overall minigame score
+		pointsToAdd -= pointsToSubtract;
+		drivingScore += pointsToAdd;
+
+		// Display score
+		minigameScore.text = Mathf.Ceil(drivingScore) + "";
 
 	}
 
@@ -144,6 +175,32 @@ public class MGDriving : MonoBehaviour {
 		// Starting to count seconds when clutch has been hit
 		// clutchSeconds += Time.deltaTime;
 		// print(clutchSeconds);
+	}
+
+	private void CheckAreas() {
+		// The 6 areas for getting points
+		if (rpm >= areaArr[0] && rpm < areaArr[1]) {
+			pointsToAdd = 0;
+		}
+		if (rpm >= areaArr[1] && rpm < areaArr[2]) {
+			pointsToAdd = -1;
+		}
+		if (rpm >= areaArr[2] && rpm < areaArr[3]) {
+			pointsToAdd = 1;
+		}
+		if (rpm >= areaArr[3] && rpm < areaArr[4]) {
+			pointsToAdd = 3;
+		}
+		if (rpm >= areaArr[4] && rpm < areaArr[5]) {
+			pointsToAdd = 1;
+		}
+		if (rpm >= areaArr[5] && rpm < areaArr[6]) {
+			pointsToAdd = -1;
+		}
+
+		// Display score
+		drivingScore += pointsToAdd;
+		minigameScore.text = Mathf.Ceil(drivingScore) + "";
 	}
 
 	IEnumerator DecreaseRPM() {
