@@ -7,11 +7,12 @@ using Rewired;
 public class MGDriving : MonoBehaviour {
 
 	public Slider rpmGauge;
+	public Text gearText;
 
 	private float buttonThreshold = 0.5f;
 
 	private float rpm = 0;
-	private float[] rpmChangeSpeed = {200, 160, 120, 80, 40, 10};
+	private float[] rpmChangeSpeed = {200, 160, 120, 80, 40, 20};
 	private int speedIndex = 0;
 	private float rpmCap = 8000;
 
@@ -19,22 +20,22 @@ public class MGDriving : MonoBehaviour {
 
 	public float drivingScore = 0;
 
-	private bool clutchHit = false;
+	private float clutchSeconds;
 
 	// REWIRED PLUGIN
 	private Player playerDark;
-	private Player playerLight;
+	// private Player playerLight;
 
 	private float accelerate;
 	private bool shift;
 	private float clutch;
-	private float steer;
+	// private float steer;
 
 
 	void Awake() {
 
 		playerDark = ReInput.players.GetPlayer(0);
-		playerLight = ReInput.players.GetPlayer(1);
+		// playerLight = ReInput.players.GetPlayer(1);
 
 	}
 
@@ -43,8 +44,6 @@ public class MGDriving : MonoBehaviour {
 	}
 
 	void Update() {
-
-		print(rpmChangeSpeed[speedIndex]);
 
 		GetInput();
 
@@ -60,7 +59,7 @@ public class MGDriving : MonoBehaviour {
 		shift = playerDark.GetButtonDown("X");
 
 		clutch = playerDark.GetAxis("L2");
-		steer = playerDark.GetAxis("LS Horizontal");
+		// steer = playerDark.GetAxis("LS Horizontal");
 
 		// clutch = playerLight.GetAxis("L2");
 		// steer = playerLight.GetAxis("LS Horizontal");
@@ -92,8 +91,8 @@ public class MGDriving : MonoBehaviour {
 		if (shift && clutch > buttonThreshold && speedIndex <= rpmChangeSpeed.Length -2) {
 			GetPoints();
 			speedIndex++;
-			print((speedIndex + 1) + ". Gang");
-			rpm = 0;
+			gearText.text = (speedIndex + 1) + "";
+			StartCoroutine(DecreaseRPM());
 		}
 
 	}
@@ -101,17 +100,19 @@ public class MGDriving : MonoBehaviour {
 	// Steer and shift
 	private void PlayerLight() {
 
-		// Hitting the clutch
+		// Hitting the clutch but only if the car isn't already in 6th gear
 		if (speedIndex <= rpmChangeSpeed.Length -2) {
-			if (accelerate < 0.7f && clutch > buttonThreshold) {
-				// Success: Player Two hits the clutch while Player One is not accelerating
-			} else if (accelerate >= 0.7f && clutch > buttonThreshold) {
-				// Fail: Player Two hits the clutch while Player One is accelerating
+			if (clutch > buttonThreshold) {
+				if (accelerate < 0.7f) {
+					// Success: Player Two hits the clutch while Player One is not accelerating
+					StartShifting();
+				} else if (accelerate >= 0.7f) {
+					// Fail: Player Two hits the clutch while Player One is accelerating
+				}
 			}
+			
 		}
 		
-
-		// GetPoints();
 	}
 
 	// Calculating points for shifting
@@ -137,6 +138,19 @@ public class MGDriving : MonoBehaviour {
 			// print("-20 Punkte");
 		}
 
+	}
+
+	private void StartShifting() {
+		// Starting to count seconds when clutch has been hit
+		// clutchSeconds += Time.deltaTime;
+		// print(clutchSeconds);
+	}
+
+	IEnumerator DecreaseRPM() {
+		while (rpm > 0) {
+			rpm -= 400;
+			yield return null;
+		}
 	}
 
 }
