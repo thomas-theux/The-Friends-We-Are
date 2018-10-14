@@ -83,7 +83,11 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Minigames\MGDriving.cs" />
+     <Compile Include="Assets\Scripts\LoadLevel.cs" />
+     <Compile Include="Assets\Scripts\SectionSpawner.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory.cs" />
+     <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
+     <Compile Include="Assets\Scripts\xxArchive\MGDriving.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />
      <None Include="Assets\Rewired\Documentation\ReleaseNotes.txt" />
