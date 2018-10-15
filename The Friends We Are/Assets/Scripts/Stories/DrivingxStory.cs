@@ -10,7 +10,14 @@ public class DrivingxStory : MonoBehaviour {
 	public Camera mainCamera;
 
 	private Rigidbody rb;
+	private float currentSpeed;
+	private float tempSpeed;
 	private float speed = 10;
+	private float speedMax = 40;
+	private float speedIncrease = 1.0f;
+	private float speedDecrease = 0.8f;
+
+	private bool isAccelerating = false;
 
 	// Actions for this story/minigame
 	private float accelerating;
@@ -31,7 +38,9 @@ public class DrivingxStory : MonoBehaviour {
 		ActionsDark();
 		ActionsLight();
 
-		string printSpeed = Mathf.Round(rb.velocity.magnitude * 10f) / 10f  + " km/h";
+		currentSpeed = rb.velocity.magnitude;
+
+		string printSpeed = Mathf.Round(currentSpeed * 10f) / 10f  + " km/h";
 		print(printSpeed);
 	}
 
@@ -49,26 +58,45 @@ public class DrivingxStory : MonoBehaviour {
 	private void ActionsDark() {
 		// Increase speed by accelerating
 		if (accelerating > 0) {
+			isAccelerating = true;
 			Vector3 movement = new Vector3(0, 0, accelerating);
 			rb.AddForce(movement * speed);
+		} else {
+			isAccelerating = false;
 		}
 
 		// Decrease speed by braking
 		if (braking > 0.5f) {
-			print("Bremsen");
+			rb.drag += 0.01f;
+		} else {
+			rb.drag = 0.5f;
 		}
 
-		if (speed < 50) {
-			speed = rb.velocity.magnitude + 1;
+		// Limit speed when bus reaches maximum
+		if (accelerating > 0) {
+			if (speed < speedMax) {
+				speed = currentSpeed + speedIncrease;
+			} else {
+				speed = speedMax;
+			}
 		} else {
-			speed = 50;
+			if (speed > 0) {
+				speed -= speedDecrease;
+			} else {
+				speed = 0;
+			}
 		}
 	}
 
 
 	private void ActionsLight() {
-		if (steering > 0.5f) {
-			print("Lenken");
+		// Steering the bus
+		if (currentSpeed > 0) {
+			tempSpeed = Mathf.Pow(currentSpeed, -0.7f);
+		}
+		if (steering != 0) {
+			Vector3 steer = new Vector3(steering, 0, 0);
+			rb.AddForce(steer * tempSpeed * 300);
 		}
 	}
 
@@ -77,8 +105,7 @@ public class DrivingxStory : MonoBehaviour {
 	IEnumerator DisableGravity() {
 		yield return new WaitForSeconds(2);
 		rb.useGravity = false;
-		rb.constraints = RigidbodyConstraints.FreezeRotation;
-		rb.constraints = RigidbodyConstraints.FreezePositionY;
+		rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 		mainCamera.transform.SetParent(bus.transform);
 	}
 

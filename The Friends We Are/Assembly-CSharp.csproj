@@ -82,6 +82,7 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
+     <Compile Include="Assets\Scripts\DestroyTrigger.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
      <Compile Include="Assets\Scripts\SectionSpawner.cs" />

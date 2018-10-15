@@ -6,7 +6,7 @@ public class SectionSpawner : MonoBehaviour {
 
 	public GameObject section;
 	public GameObject worldParent;
-	private int spawnAmount = 10;
+	private int spawnAmount = 100;
 
 	private void Start() {
 		for (int i = 0; i < spawnAmount; i++) {
