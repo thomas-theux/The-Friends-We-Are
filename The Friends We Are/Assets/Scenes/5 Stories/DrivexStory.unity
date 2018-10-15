@@ -379,7 +379,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 348432263}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1283037283}
@@ -512,6 +512,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 440322001}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &443267087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443267088}
+  - component: {fileID: 443267089}
+  m_Layer: 0
+  m_Name: PointSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &443267088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443267087}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283037283}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &443267089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443267087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04bd42307f932478e8905a56af9d34de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: {fileID: 1847991528553898, guid: 8e102900958d341dd8e1e081b22768ea, type: 2}
 --- !u!1 &542782702
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +682,7 @@ GameObject:
   - component: {fileID: 685602038}
   m_Layer: 0
   m_Name: Bus
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,8 +766,8 @@ Rigidbody:
   m_GameObject: {fileID: 685602033}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.5
-  m_AngularDrag: 0.05
+  m_Drag: 0.3
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -910,7 +951,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   section: {fileID: 1539833369866530, guid: 913ad50a6bab74be7b847d51bd8ec332, type: 2}
-  worldParent: {fileID: 1283037282}
 --- !u!1 &797866880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1604,7 @@ Transform:
   m_Children:
   - {fileID: 348432265}
   - {fileID: 793895472}
+  - {fileID: 443267088}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

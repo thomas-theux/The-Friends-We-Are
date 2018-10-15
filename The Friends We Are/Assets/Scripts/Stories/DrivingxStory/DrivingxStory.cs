@@ -12,12 +12,15 @@ public class DrivingxStory : MonoBehaviour {
 	private Rigidbody rb;
 	private float currentSpeed;
 	private float tempSpeed;
+	private float steerThreshold = 20.0f;
 	private float speed = 10;
-	private float speedMax = 40;
+	private float speedMax = 30;
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
 	private bool isAccelerating = false;
+
+	public static float drivingScore = 0;
 
 	// Actions for this story/minigame
 	private float accelerating;
@@ -41,7 +44,7 @@ public class DrivingxStory : MonoBehaviour {
 		currentSpeed = rb.velocity.magnitude;
 
 		string printSpeed = Mathf.Round(currentSpeed * 10f) / 10f  + " km/h";
-		print(printSpeed);
+		print(rb.velocity.z);
 	}
 
 
@@ -69,7 +72,7 @@ public class DrivingxStory : MonoBehaviour {
 		if (braking > 0.5f) {
 			rb.drag += 0.01f;
 		} else {
-			rb.drag = 0.5f;
+			rb.drag = 0.3f;
 		}
 
 		// Limit speed when bus reaches maximum
@@ -91,12 +94,16 @@ public class DrivingxStory : MonoBehaviour {
 
 	private void ActionsLight() {
 		// Steering the bus
-		if (currentSpeed > 0) {
-			tempSpeed = Mathf.Pow(currentSpeed, -0.7f);
-		}
 		if (steering != 0) {
+			if (currentSpeed < steerThreshold) {
+				tempSpeed = currentSpeed;
+			} else {
+				tempSpeed = Mathf.Pow(currentSpeed, -0.7f) * 300;
+			}
+		}
+		if (rb.velocity.z > 1) {
 			Vector3 steer = new Vector3(steering, 0, 0);
-			rb.AddForce(steer * tempSpeed * 300);
+			rb.AddForce(steer * tempSpeed);
 		}
 	}
 

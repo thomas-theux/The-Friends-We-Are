@@ -82,11 +82,13 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
-     <Compile Include="Assets\Scripts\DestroyTrigger.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
-     <Compile Include="Assets\Scripts\SectionSpawner.cs" />
-     <Compile Include="Assets\Scripts\Stories\DrivingxStory.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\CollectPoint.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroyTrigger.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\DrivingxStory.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
      <Compile Include="Assets\Scripts\xxArchive\MGDriving.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
