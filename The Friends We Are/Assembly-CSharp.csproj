@@ -85,7 +85,7 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\CollectPoint.cs" />
-     <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroyTrigger.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroySection.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DrivingxStory.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />

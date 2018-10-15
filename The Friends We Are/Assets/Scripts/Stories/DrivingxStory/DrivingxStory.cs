@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Rewired;
 
@@ -18,7 +19,11 @@ public class DrivingxStory : MonoBehaviour {
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
+	public Text velocity;
+	public Text score;
+
 	private bool isAccelerating = false;
+	private bool isBraking = false;
 
 	public static float drivingScore = 0;
 
@@ -42,9 +47,8 @@ public class DrivingxStory : MonoBehaviour {
 		ActionsLight();
 
 		currentSpeed = rb.velocity.magnitude;
-
-		string printSpeed = Mathf.Round(currentSpeed * 10f) / 10f  + " km/h";
-		print(rb.velocity.z);
+		velocity.text = Mathf.Round(currentSpeed * 10f) / 10f  + " km/h";
+		score.text = drivingScore + "";
 	}
 
 
@@ -60,18 +64,20 @@ public class DrivingxStory : MonoBehaviour {
 
 	private void ActionsDark() {
 		// Increase speed by accelerating
-		if (accelerating > 0) {
+		if (accelerating > 0 && !isBraking) {
 			isAccelerating = true;
 			Vector3 movement = new Vector3(0, 0, accelerating);
 			rb.AddForce(movement * speed);
-		} else {
+		} else if (accelerating <= 0) {
 			isAccelerating = false;
 		}
 
 		// Decrease speed by braking
-		if (braking > 0.5f) {
-			rb.drag += 0.01f;
-		} else {
+		if (braking > 0.5f && !isAccelerating) {
+			isBraking = true;
+			rb.drag += 0.02f;
+		} else if (braking <= 0.5f) {
+			isBraking = false;
 			rb.drag = 0.3f;
 		}
 
