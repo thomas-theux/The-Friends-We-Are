@@ -11,11 +11,11 @@ public class DrivingxStory : MonoBehaviour {
 	public Camera mainCamera;
 
 	private Rigidbody rb;
-	private float currentSpeed;
+	public static float currentSpeed;
 	private float tempSpeed;
 	private float steerThreshold = 20.0f;
 	private float speed = 10;
-	private float speedMax = 30;
+	public float speedMax = 20;
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
@@ -47,7 +47,8 @@ public class DrivingxStory : MonoBehaviour {
 		ActionsLight();
 
 		currentSpeed = rb.velocity.magnitude;
-		velocity.text = Mathf.Round(currentSpeed * 10f) / 10f  + " km/h";
+		// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
+		velocity.text = currentSpeed.ToString("F0") + " km/h";
 		score.text = drivingScore + "";
 	}
 

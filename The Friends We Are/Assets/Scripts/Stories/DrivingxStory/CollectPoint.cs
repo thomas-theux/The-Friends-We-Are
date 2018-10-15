@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class CollectPoint : MonoBehaviour {
 
+	public GameObject collectEffect;
+
+
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Character") {
-			DrivingxStory.drivingScore += 10;
+			Instantiate(collectEffect, this.transform.position, collectEffect.transform.rotation);
+			DrivingxStory.drivingScore += Mathf.Ceil(DrivingxStory.currentSpeed * 0.2f);
 			Destroy(gameObject);
 		}
 	}

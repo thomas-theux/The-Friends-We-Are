@@ -84,7 +84,9 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\BusAudio.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\CollectPoint.cs" />
+     <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroyEffect.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroySection.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DrivingxStory.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
