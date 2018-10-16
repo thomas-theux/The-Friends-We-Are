@@ -7,47 +7,61 @@ public class StartLevelCountdown : MonoBehaviour {
 
 	public Text levelStartCountdownText;
 	public AudioSource countdownSound;
+	public AudioSource goSound;
 
 	private float levelStartCountdownTime = 3;
-	private bool stopCountdown = false;
+	private bool startCountdown = false;
+	private int beepAmount = 3;
 
 	public static bool startLevel = false;
 
 
 	private void Start() {
-		StartCoroutine(CounterBeep());
+		StartCoroutine(StartCountdownDelay());
 	}
 
 
 	private void Update() {
-		CountDown();
-	}
-
-
-	private void CountDown() {
-		if (!stopCountdown) {
-			if (levelStartCountdownTime > 0.1f) {
-				levelStartCountdownTime -= Time.deltaTime;
-				levelStartCountdownText.text = Mathf.Ceil(levelStartCountdownTime) + "";
-			} else {
-				levelStartCountdownTime = 0;
-				levelStartCountdownText.text = "GO!";
-				StartCoroutine(DeleteTextDelay());
-				startLevel = true;
-				stopCountdown = true;
-			}
+		if (startCountdown) {
+			CountDown();
 		}
 	}
 
 
+	// Initially wait 1 second before countdown starts
+	IEnumerator StartCountdownDelay() {
+		yield return new WaitForSeconds(1);
+		startCountdown = true;
+		StartCoroutine(CounterBeep());
+	}
+
+
+	// Countdown until the level begins
+	private void CountDown() {
+		if (levelStartCountdownTime > 0.1f) {
+			levelStartCountdownTime -= Time.deltaTime;
+			levelStartCountdownText.text = Mathf.Ceil(levelStartCountdownTime) + "";
+		} else {
+			levelStartCountdownTime = 0;
+			levelStartCountdownText.text = "GO!";
+			StartCoroutine(DeleteTextDelay());
+			startLevel = true;
+			startCountdown = false;
+		}
+	}
+
+
+	// Countdown sound
 	IEnumerator CounterBeep() {
-		while (levelStartCountdownTime > 0.1f) {
+		while (beepAmount > 0) {
 			yield return new WaitForSeconds(1);
 			countdownSound.Play();
+			beepAmount--;
 		}
 	}
 
 
+	// Show GO! message for another 2 seconds before disabling it
 	IEnumerator DeleteTextDelay() {
 		yield return new WaitForSeconds(2);
 		levelStartCountdownText.enabled = false;
