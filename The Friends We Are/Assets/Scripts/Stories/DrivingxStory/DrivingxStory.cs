@@ -41,16 +41,24 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	private void Update() {
-		GetInput();
+		if (StartLevelCountdown.startLevel) {
+			GetInput();
 
+			currentSpeed = rb.velocity.magnitude;
+			// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
+			velocity.text = currentSpeed.ToString("F0") + " km/h";
+			score.text = drivingScore + "";
+		}
+	}
+
+
+	private void FixedUpdate() {
 		ActionsDark();
 		ActionsLight();
+	}
 
-		currentSpeed = rb.velocity.magnitude;
-		// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
-		velocity.text = currentSpeed.ToString("F0") + " km/h";
-		score.text = drivingScore + "";
 
+	private void LateUpdate() {
 		CameraMovement();
 	}
 

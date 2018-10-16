@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour {
 		offset = new Vector3(-20, -20, -8);
 	}
 
-	private void Update() {
+	private void LateUpdate() {
 		this.gameObject.transform.position = character.transform.position - offset;
 	}
 
