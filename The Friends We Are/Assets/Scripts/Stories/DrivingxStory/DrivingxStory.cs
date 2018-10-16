@@ -50,6 +50,8 @@ public class DrivingxStory : MonoBehaviour {
 		// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
 		velocity.text = currentSpeed.ToString("F0") + " km/h";
 		score.text = drivingScore + "";
+
+		CameraMovement();
 	}
 
 
@@ -115,12 +117,17 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
+	private void CameraMovement() {
+		mainCamera.orthographicSize = 16 + (currentSpeed / 20);
+	}
+
+
 	// Disable gravity after the bus has fallen down on the street
 	IEnumerator DisableGravity() {
 		yield return new WaitForSeconds(2);
 		rb.useGravity = false;
 		rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-		mainCamera.transform.SetParent(bus.transform);
+		// mainCamera.transform.SetParent(bus.transform);
 	}
 
 }
