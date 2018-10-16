@@ -38,11 +38,11 @@ public class StartLevelCountdown : MonoBehaviour {
 
 	// Countdown until the level begins
 	private void CountDown() {
-		if (levelStartCountdownTime > 0.1f) {
+		if (levelStartCountdownTime > 0.01f) {
 			levelStartCountdownTime -= Time.deltaTime;
 			levelStartCountdownText.text = Mathf.Ceil(levelStartCountdownTime) + "";
 		} else {
-			levelStartCountdownTime = 0;
+			levelStartCountdownTime = 1;
 			levelStartCountdownText.text = "GO!";
 			StartCoroutine(DeleteTextDelay());
 			startLevel = true;
@@ -54,15 +54,17 @@ public class StartLevelCountdown : MonoBehaviour {
 	// Countdown sound
 	IEnumerator CounterBeep() {
 		while (beepAmount > 0) {
-			yield return new WaitForSeconds(1);
 			countdownSound.Play();
 			beepAmount--;
+			yield return new WaitForSeconds(1);
 		}
 	}
 
 
 	// Show GO! message for another 2 seconds before disabling it
 	IEnumerator DeleteTextDelay() {
+		// yield return new WaitForSeconds(0.1f);
+		goSound.Play();
 		yield return new WaitForSeconds(2);
 		levelStartCountdownText.enabled = false;
 	}
