@@ -19,6 +19,11 @@ public class DrivingxStory : MonoBehaviour {
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
+	private float maxSpeed;
+	private float allSpeedValues;
+	private int divideSpeed;
+	private float averageSpeed;
+
 	public Text velocity;
 	public Text score;
 
@@ -26,6 +31,9 @@ public class DrivingxStory : MonoBehaviour {
 	private bool isBraking = false;
 
 	public static float drivingScore = 0;
+
+	private bool statsSaved = false;
+
 
 	// Actions for this story/minigame
 	private float accelerating;
@@ -48,6 +56,27 @@ public class DrivingxStory : MonoBehaviour {
 			// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
 			velocity.text = currentSpeed.ToString("F0") + " km/h";
 			score.text = drivingScore + "";
+
+			MaximumSpeed();
+
+			AverageSpeed();
+		}
+
+		if (LevelTimer.levelEnd && !statsSaved) {
+
+			StatsManager.transferredValue01 = Mathf.Ceil(bus.transform.position.z);
+			StatsManager.transferredText01 = "Meters Driven";
+			
+			StatsManager.transferredValue02 = Mathf.Ceil(maxSpeed);
+			StatsManager.transferredText02 = "Maximum Speed";
+			
+			StatsManager.transferredValue03 = Mathf.Ceil(averageSpeed);
+			StatsManager.transferredText03 = "Average Speed";
+			
+			StatsManager.transferredValue04 = drivingScore;
+			StatsManager.transferredText04 = "Experience Gained";
+
+			statsSaved = true;
 		}
 	}
 
@@ -130,12 +159,25 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
+	private void MaximumSpeed() {
+		if (currentSpeed > maxSpeed) {
+			maxSpeed = currentSpeed;
+		}
+	}
+
+
+	private void AverageSpeed() {
+		allSpeedValues += currentSpeed;
+		divideSpeed++;
+		averageSpeed = allSpeedValues / divideSpeed;
+	}
+
+
 	// Disable gravity after the bus has fallen down on the street
 	IEnumerator DisableGravity() {
 		yield return new WaitForSeconds(2);
 		rb.useGravity = false;
 		rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-		// mainCamera.transform.SetParent(bus.transform);
 	}
 
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	public static Player playerLight;
 
 	private void Awake() {
-		DontDestroyOnLoad(this.gameObject);
+		// DontDestroyOnLoad(this.gameObject);
 		
 		playerDark = ReInput.players.GetPlayer(0);
 		playerLight = ReInput.players.GetPlayer(1);

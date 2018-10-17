@@ -82,11 +82,17 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
+     <Compile Include="Assets\Scripts\BusRide.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\HonkHorns.cs" />
+     <Compile Include="Assets\Scripts\LevelFade.cs" />
+     <Compile Include="Assets\Scripts\LevelTimer.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
+     <Compile Include="Assets\Scripts\ShowStats.cs" />
      <Compile Include="Assets\Scripts\StartLevelCountdown.cs" />
+     <Compile Include="Assets\Scripts\StatsManager.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\BusAudio.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\CollectPoint.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroyEffect.cs" />
@@ -95,6 +101,7 @@
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
+     <Compile Include="Assets\Scripts\TestStats.cs" />
      <Compile Include="Assets\Scripts\xxArchive\MGDriving.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />

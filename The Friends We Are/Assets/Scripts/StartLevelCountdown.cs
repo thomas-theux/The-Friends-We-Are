@@ -61,11 +61,11 @@ public class StartLevelCountdown : MonoBehaviour {
 	}
 
 
-	// Show GO! message for another 2 seconds before disabling it
+	// Show GO! message for another 1 seconds before disabling it
 	IEnumerator DeleteTextDelay() {
 		// yield return new WaitForSeconds(0.1f);
 		goSound.Play();
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1);
 		levelStartCountdownText.enabled = false;
 	}
 

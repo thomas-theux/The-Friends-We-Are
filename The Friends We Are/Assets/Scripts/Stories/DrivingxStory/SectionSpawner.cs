@@ -6,7 +6,7 @@ public class SectionSpawner : MonoBehaviour {
 
 	public GameObject section;
 	public GameObject asphalt;
-	private int spawnAmount = 50;
+	public int spawnAmount = 50;
 
 	private void Start() {
 		for (int i = 0; i < spawnAmount; i++) {
