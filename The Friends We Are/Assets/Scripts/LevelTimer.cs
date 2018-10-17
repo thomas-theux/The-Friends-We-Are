@@ -11,6 +11,7 @@ public class LevelTimer : MonoBehaviour {
 	public static bool levelEnd;
 
 	public KillAllPoints killAllPointsScript;
+	public LevelFade levelFadeScript;
 
 
 	private void Start() {
@@ -39,7 +40,8 @@ public class LevelTimer : MonoBehaviour {
 	private void LevelEnd() {
 
 		// Load Story Overview screen
-		SceneManager.LoadScene("6 Summary");
+		levelFadeScript.FadeToLevel("6 Summary");
+		// SceneManager.LoadScene("6 Summary");
 
 	}
 

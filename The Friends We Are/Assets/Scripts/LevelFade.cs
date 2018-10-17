@@ -12,13 +12,6 @@ public class LevelFade : MonoBehaviour {
 	}
 
 
-	private void Update() {
-		if (Input.GetMouseButtonDown(0)) {
-			FadeToLevel("6 Summary");
-		}
-	}
-
-
 	public void FadeToLevel(string levelName) {
 		levelToLoad = levelName;
 		animator.SetTrigger("Fading");

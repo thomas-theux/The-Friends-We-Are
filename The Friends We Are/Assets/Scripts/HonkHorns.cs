@@ -10,11 +10,13 @@ public class HonkHorns : MonoBehaviour {
 
 
 	private void Update() {
-		if (!isHonking) {
-			StartCoroutine(Honking());
+		if (LevelTimer.levelEnd) {
+			if (!isHonking) {
+				StartCoroutine(Honking());
+			}
 		}
 
-		if (GameManager.playerDark.GetButtonDown("X") && !honkManually) {
+		if (GameManager.playerDark.GetButtonDown("R1") && !honkManually) {
 			StartCoroutine(HonkManually());
 		}
 	}
@@ -23,7 +25,7 @@ public class HonkHorns : MonoBehaviour {
 	IEnumerator HonkManually() {
 		honkManually = true;
 		hornSound.Play();
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0.5f);
 		honkManually = false;
 	}
 

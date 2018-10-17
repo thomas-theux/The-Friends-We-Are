@@ -9,6 +9,8 @@ public class StartLevelCountdown : MonoBehaviour {
 	public AudioSource countdownSound;
 	public AudioSource goSound;
 
+	public GameObject burnout;
+
 	private float levelStartCountdownTime = 3;
 	private bool startCountdown = false;
 	private int beepAmount = 3;
@@ -64,6 +66,8 @@ public class StartLevelCountdown : MonoBehaviour {
 	// Show GO! message for another 1 seconds before disabling it
 	IEnumerator DeleteTextDelay() {
 		// yield return new WaitForSeconds(0.1f);
+		Instantiate(burnout, new Vector3(6, 0, -2), burnout.transform.rotation);
+		Instantiate(burnout, new Vector3(4, 0, -2), burnout.transform.rotation);
 		goSound.Play();
 		yield return new WaitForSeconds(1);
 		levelStartCountdownText.enabled = false;

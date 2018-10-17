@@ -11,6 +11,10 @@ public class DrivingxStory : MonoBehaviour {
 	public Camera mainCamera;
 
 	private Rigidbody rb;
+
+	private bool initialStart;
+
+	private Vector3 movement;
 	public static float currentSpeed;
 	private float tempSpeed;
 	private float steerThreshold = 20.0f;
@@ -82,8 +86,14 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	private void FixedUpdate() {
-		ActionsDark();
-		ActionsLight();
+		if (StartLevelCountdown.startLevel) {
+			if (initialStart) {
+				ActionsDark();
+				ActionsLight();
+			} else {
+				InitialStart();
+			}
+		}
 	}
 
 
@@ -102,11 +112,22 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
+	// Giving the players a quick start for a better player experience
+	private void InitialStart() {
+		if (currentSpeed < 10) {
+			movement = new Vector3(0, 0, 2f);
+			rb.AddForce(movement * speed);
+		} else {
+			initialStart = true;
+		}
+	}
+
+
 	private void ActionsDark() {
 		// Increase speed by accelerating
 		if (accelerating > 0 && !isBraking) {
 			isAccelerating = true;
-			Vector3 movement = new Vector3(0, 0, accelerating);
+			movement = new Vector3(0, 0, accelerating);
 			rb.AddForce(movement * speed);
 		} else if (accelerating <= 0) {
 			isAccelerating = false;
