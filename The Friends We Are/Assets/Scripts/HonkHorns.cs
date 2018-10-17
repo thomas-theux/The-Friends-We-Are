@@ -6,12 +6,25 @@ public class HonkHorns : MonoBehaviour {
 
 	public AudioSource hornSound;
 	private bool isHonking = false;
+	private bool honkManually = false;
 
 
 	private void Update() {
 		if (!isHonking) {
 			StartCoroutine(Honking());
 		}
+
+		if (GameManager.playerDark.GetButtonDown("X") && !honkManually) {
+			StartCoroutine(HonkManually());
+		}
+	}
+
+
+	IEnumerator HonkManually() {
+		honkManually = true;
+		hornSound.Play();
+		yield return new WaitForSeconds(1);
+		honkManually = false;
 	}
 
 

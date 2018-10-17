@@ -13,8 +13,10 @@ public class BusRide : MonoBehaviour {
 
 
 	private void Update() {
-		Vector3 movement = new Vector3(0, 0, 24);
-		rb.AddForce(movement);
+		if (LevelTimer.levelEnd) {
+			Vector3 movement = new Vector3(0, 0, 24);
+			rb.AddForce(movement);
+		}
 	}
 
 }
