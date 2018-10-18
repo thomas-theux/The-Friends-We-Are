@@ -237,6 +237,11 @@ MonoBehaviour:
   text03: {fileID: 460014527}
   value04: {fileID: 803919969}
   text04: {fileID: 1664029775}
+  showValues:
+  - {fileID: 1836281600}
+  - {fileID: 1761499474}
+  - {fileID: 1392639605}
+  - {fileID: 803919969}
 --- !u!1 &348432263
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 204
+  m_Text: 0
 --- !u!222 &803919970
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1078,7 +1083,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 64
+  m_Text: 00
 --- !u!222 &1392639606
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1571,7 +1576,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 98
+  m_Text: 00
 --- !u!222 &1761499475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1646,7 +1651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 24
+  m_Text: 0
 --- !u!222 &1836281601
 CanvasRenderer:
   m_ObjectHideFlags: 0

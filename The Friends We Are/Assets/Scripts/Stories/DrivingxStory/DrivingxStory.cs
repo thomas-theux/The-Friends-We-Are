@@ -32,6 +32,8 @@ public class DrivingxStory : MonoBehaviour {
 	private int divideSpeed;
 	private float averageSpeed;
 
+	private float transfer;
+
 	public Text velocity;
 	public Text score;
 
@@ -81,16 +83,39 @@ public class DrivingxStory : MonoBehaviour {
 
 		if (LevelTimer.levelEnd && !statsSaved) {
 
-			StatsManager.transferredValue01 = Mathf.Ceil(bus.transform.position.z);
+			for (int i = 0; i < 4; i++) {
+				switch (i) {
+					case 0:
+						transfer = Mathf.Ceil(bus.transform.position.z);
+						break;
+					case 1:
+						transfer = Mathf.Ceil(maxSpeed);
+						break;
+					case 2:
+						transfer = Mathf.Ceil(averageSpeed);
+						break;
+					case 3:
+						transfer = drivingScore;
+						break;
+				}
+				StatsManager.transferValues[i] = transfer;
+			}
+
+			StatsManager.transferValues = new float[] {
+				Mathf.Ceil(bus.transform.position.z),
+				Mathf.Ceil(maxSpeed),
+				Mathf.Ceil(averageSpeed),
+				drivingScore
+			};
+
+			StatsManager.transferValues[0] = Mathf.Ceil(bus.transform.position.z);
+			StatsManager.transferValues[1] = Mathf.Ceil(maxSpeed);
+			StatsManager.transferValues[2] = Mathf.Ceil(averageSpeed);
+			StatsManager.transferValues[3] = drivingScore;
+
 			StatsManager.transferredText01 = "Meters Driven";
-			
-			StatsManager.transferredValue02 = Mathf.Ceil(maxSpeed);
 			StatsManager.transferredText02 = "Maximum Speed";
-			
-			StatsManager.transferredValue03 = Mathf.Ceil(averageSpeed);
 			StatsManager.transferredText03 = "Average Speed";
-			
-			StatsManager.transferredValue04 = drivingScore;
 			StatsManager.transferredText04 = "Experience Gained";
 
 			statsSaved = true;
@@ -121,7 +146,7 @@ public class DrivingxStory : MonoBehaviour {
 		braking = GameManager.playerDark.GetAxis("L2");
 
 		// Get input from player two (light)
-		steering = GameManager.playerDark.GetAxis("LS Horizontal");
+		steering = GameManager.playerLight.GetAxis("LS Horizontal");
 	}
 
 

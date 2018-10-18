@@ -5,23 +5,19 @@ using UnityEngine.UI;
 
 public class ShowStats : MonoBehaviour {
 
-	public Text value01;
 	public Text text01;
-	private float increase01;
-
-	public Text value02;
 	public Text text02;
-	private float increase02;
-
-	public Text value03;
 	public Text text03;
-	private float increase03;
-
-	public Text value04;
 	public Text text04;
-	private float increase04;
 
-	private int increaseNext = 0;
+	public Text[] showValues;
+	private int index = 0;
+
+	private float increaseTime = 1.4f;
+	private float tempTime = 0;
+	private float currentValue = 0;
+	private float calculatedValue = 0;
+	private float[] increasingValues = {0, 0, 0, 0};
 
 
 	private void Start() {
@@ -29,44 +25,44 @@ public class ShowStats : MonoBehaviour {
 		text02.text = StatsManager.transferredText02;
 		text03.text = StatsManager.transferredText03;
 		text04.text = StatsManager.transferredText04;
+
+		StartCoroutine(IncreaseValue());
 	}
 
 
-	private void Update() {
+	IEnumerator IncreaseValue() {
+		yield return new WaitForSeconds(1);
 
-		for (int i = 0; i < 4; i++) {
-			while (increase01 < StatsManager.transferredValue01) {
-				increase01 += 4;
+		while (index < 4) {
+			while (tempTime < increaseTime) {
+				tempTime += Time.deltaTime;
+				MapFunction(tempTime, 0, increaseTime, 0, 1);
+				ApplyFormula(currentValue);
+				MapFunction(calculatedValue, 0, 1, 0, StatsManager.transferValues[index]);
+				increasingValues[index] = currentValue;
+
+				showValues[index].text = Mathf.Floor(increasingValues[index]) + "";
+
+				yield return null;
 			}
-			increase01 = StatsManager.transferredValue01;
+			tempTime = 0;
+			index++;
+
+			yield return new WaitForSeconds(0.2f);
 		}
 
+		index = 3;
+	}
 
-	
-		
-		if (increase02 < StatsManager.transferredValue02 && increaseNext == 1) { increase02 += 1; }
-		else if (increaseNext == 1) {
-			increase02 = StatsManager.transferredValue02;
-			increaseNext++;
-		}
-		
-		if (increase03 < StatsManager.transferredValue03 && increaseNext == 2) { increase03 += 1; }
-		else if (increaseNext == 2) {
-			increase03 = StatsManager.transferredValue03;
-			increaseNext++;
-		}
-		
-		if (increase04 < StatsManager.transferredValue04 && increaseNext == 3) { increase04 += 3; }
-		else if (increaseNext == 3) {
-			increase04 = StatsManager.transferredValue04;
-			increaseNext++;
-		}
 
-		value01.text = increase01 + "";
-		value02.text = increase02 + "";
-		value03.text = increase03 + "";
-		value04.text = increase04 + "";
-		
+	private void ApplyFormula(float currentValue) {
+		// Formula: y = (x-1)^3 + 1
+		calculatedValue = Mathf.Pow(currentValue, 1);
+	}
+
+
+	private void MapFunction(float number, float oldMin, float oldMax, float newMin, float newMax) {
+		currentValue = newMin + (newMax - newMin) * (number - oldMin) / (oldMax - oldMin);
 	}
 
 }

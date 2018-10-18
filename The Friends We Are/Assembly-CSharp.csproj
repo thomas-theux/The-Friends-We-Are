@@ -104,7 +104,6 @@
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />
      <Compile Include="Assets\Scripts\StoryManager.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
-     <Compile Include="Assets\Scripts\TestStats.cs" />
      <Compile Include="Assets\Scripts\xxArchive\MGDriving.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />
