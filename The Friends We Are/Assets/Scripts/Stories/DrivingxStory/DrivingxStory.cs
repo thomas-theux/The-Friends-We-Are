@@ -10,16 +10,20 @@ public class DrivingxStory : MonoBehaviour {
 	public GameObject bus;
 	public Camera mainCamera;
 
+	public GameObject burnout;
+	public AudioSource burnoutSound;
+
 	private Rigidbody rb;
 
 	private bool initialStart;
+	private bool spawnBurnouts;
 
 	private Vector3 movement;
 	public static float currentSpeed;
 	private float tempSpeed;
 	private float steerThreshold = 20.0f;
 	private float speed = 10;
-	public float speedMax = 20;
+	public float speedMax = 24;
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
@@ -53,6 +57,15 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	private void Update() {
+		// Spawn burnouts when level starts
+		if (StartLevelCountdown.startLevel && !spawnBurnouts) {
+			Instantiate(burnout, new Vector3(6, 0, -2), burnout.transform.rotation);
+			Instantiate(burnout, new Vector3(4, 0, -2), burnout.transform.rotation);
+			burnoutSound.Play();
+
+			spawnBurnouts = true;
+		}
+
 		if (StartLevelCountdown.startLevel) {
 			GetInput();
 
@@ -162,6 +175,14 @@ public class DrivingxStory : MonoBehaviour {
 	private void ActionsLight() {
 		// Steering the bus
 		if (steering != 0) {
+			// Rotate bus when steering
+			// if (bus.transform.rotation.y < 0.05f && steering > 0) {
+			// 	bus.transform.Rotate(0, steering, 0);
+			// }
+			// if (bus.transform.rotation.y > -0.05f && steering < 0) {
+			// 	bus.transform.Rotate(0, steering, 0);
+			// }
+
 			if (currentSpeed < steerThreshold) {
 				tempSpeed = currentSpeed;
 			} else {

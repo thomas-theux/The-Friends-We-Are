@@ -80,7 +80,6 @@ public class StoryManager : MonoBehaviour {
 
 		// Save name of chosen (by index) story level in string
 		string nextStoryName = storyArr[randStoryIndex];
-		print(nextStoryName);
 
 		// Delete this story level from storyArr
 		storyArr.RemoveAt(randStoryIndex);
