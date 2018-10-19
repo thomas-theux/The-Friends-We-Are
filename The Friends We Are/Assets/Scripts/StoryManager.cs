@@ -10,7 +10,7 @@ public class StoryManager : MonoBehaviour {
 	private LevelFade levelFadeScript;
 
 	public static List<string> storyArr = new List<string>();
-	public GameObject hideStats;
+	public Radio radioScript;
 	public AudioSource acceptBtn;
 
 
@@ -29,6 +29,7 @@ public class StoryManager : MonoBehaviour {
 
 	private void Start() {
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
+		GameManager.enableNavigation = true;
 	}
 
 
@@ -39,9 +40,15 @@ public class StoryManager : MonoBehaviour {
 
 	private void GetInput() {
 		// Get input from player one (dark)
-		if(GameManager.playerDark.GetButtonDown("X")) {
-			acceptBtn.Play();
-			StartCoroutine(Continue());
+		if (GameManager.enableNavigation) {
+			if(GameManager.playerDark.GetButtonDown("X")) {
+				if (!GameManager.skipStats) {
+					GameManager.skipStats = true;
+				} else {
+					StartCoroutine(Continue());
+				}
+				acceptBtn.Play();
+			}
 		}
 	}
 
@@ -51,25 +58,16 @@ public class StoryManager : MonoBehaviour {
 		int randomEvent = Random.Range(0, 100);
 
 		// Start radio event
-		if (randomEvent >= 0 && randomEvent < 30) {
+		if (randomEvent >= 0 && randomEvent < 100) {
 			print("Radio!");
-			StartRadio();
+			radioScript.StartRadio();
 		}
 
 		// Start story event
-		if (randomEvent >= 30 && randomEvent < 100) {
-			print("Story!");
-			NextStory();
-		}
-	}
-
-
-	// Starting the Radio
-	private void StartRadio() {
-		// Hide stats interface
-		hideStats.SetActive(false);
-
-		// Call radio script
+		// if (randomEvent >= 30 && randomEvent < 100) {
+		// 	print("Story!");
+		// 	NextStory();
+		// }
 	}
 
 

@@ -7,6 +7,8 @@ using Rewired;
 public class GameManager : MonoBehaviour {
 
 	public static int playerCount = 2;
+	public static bool enableNavigation;
+	public static bool skipStats = false;
 
 	// REWIRED PLUGIN
 	public static Player playerDark;

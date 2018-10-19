@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class ShowStats : MonoBehaviour {
 
-	public Text text01;
-	public Text text02;
-	public Text text03;
-	public Text text04;
+	private IEnumerator increaseValues;
 
 	public AudioSource increaseValue;
 	public AudioSource finishedIncreasing;
@@ -17,7 +14,7 @@ public class ShowStats : MonoBehaviour {
 	public Text[] showTexts;
 	private int index = 0;
 
-	private float increaseTime = 1.0f;
+	private float increaseTime = 0.8f;
 	private float tempTime = 0;
 	private float currentValue = 0;
 	private float calculatedValue = 0;
@@ -29,8 +26,20 @@ public class ShowStats : MonoBehaviour {
 		for (int i = 0; i < 4; i++) {
 			showTexts[i].text = StatsManager.transferTexts[i];
 		}
+		increaseValues = IncreaseValue();
+		StartCoroutine(increaseValues);
+	}
 
-		StartCoroutine(IncreaseValue());
+
+	private void Update() {
+		if (GameManager.skipStats) {
+			StopCoroutine(increaseValues);
+
+			for (int j = 0; j < 4; j++) {
+				showValues[j].text = StatsManager.transferValues[j] + "";
+				showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
+			}
+		}
 	}
 
 
@@ -56,6 +65,7 @@ public class ShowStats : MonoBehaviour {
 				yield return null;
 			}
 			finishedIncreasing.Play();
+			showValues[index].color = new Color(1.0f, 0.427451f, 0.003921569f);
 
 			tempTime = 0;
 			index++;
