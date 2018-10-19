@@ -83,24 +83,7 @@ public class DrivingxStory : MonoBehaviour {
 
 		if (LevelTimer.levelEnd && !statsSaved) {
 
-			for (int i = 0; i < 4; i++) {
-				switch (i) {
-					case 0:
-						transfer = Mathf.Ceil(bus.transform.position.z);
-						break;
-					case 1:
-						transfer = Mathf.Ceil(maxSpeed);
-						break;
-					case 2:
-						transfer = Mathf.Ceil(averageSpeed);
-						break;
-					case 3:
-						transfer = drivingScore;
-						break;
-				}
-				StatsManager.transferValues[i] = transfer;
-			}
-
+			// Save the single values for the stats overview
 			StatsManager.transferValues = new float[] {
 				Mathf.Ceil(bus.transform.position.z),
 				Mathf.Ceil(maxSpeed),
@@ -108,15 +91,13 @@ public class DrivingxStory : MonoBehaviour {
 				drivingScore
 			};
 
-			StatsManager.transferValues[0] = Mathf.Ceil(bus.transform.position.z);
-			StatsManager.transferValues[1] = Mathf.Ceil(maxSpeed);
-			StatsManager.transferValues[2] = Mathf.Ceil(averageSpeed);
-			StatsManager.transferValues[3] = drivingScore;
-
-			StatsManager.transferredText01 = "Meters Driven";
-			StatsManager.transferredText02 = "Maximum Speed";
-			StatsManager.transferredText03 = "Average Speed";
-			StatsManager.transferredText04 = "Experience Gained";
+			// Save the titles for the stats
+			StatsManager.transferTexts = new string[] {
+				"Meters Driven",
+				"Maximum Speed",
+				"Average Speed",
+				"Experience Gained"
+			};
 
 			statsSaved = true;
 		}
@@ -146,7 +127,7 @@ public class DrivingxStory : MonoBehaviour {
 		braking = GameManager.playerDark.GetAxis("L2");
 
 		// Get input from player two (light)
-		steering = GameManager.playerLight.GetAxis("LS Horizontal");
+		steering = GameManager.playerDark.GetAxis("LS Horizontal");
 	}
 
 
@@ -221,11 +202,13 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
+	// Move camera out if the bus drives faster
 	private void CameraMovement() {
 		mainCamera.orthographicSize = 16 + (currentSpeed / 20);
 	}
 
 
+	// Get stats for highest speed
 	private void MaximumSpeed() {
 		if (currentSpeed > maxSpeed) {
 			maxSpeed = currentSpeed;
@@ -233,6 +216,7 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
+	// Get stats for average speed
 	private void AverageSpeed() {
 		allSpeedValues += currentSpeed;
 		divideSpeed++;
