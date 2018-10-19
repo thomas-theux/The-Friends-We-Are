@@ -59,13 +59,11 @@ public class StoryManager : MonoBehaviour {
 
 		// Start radio event
 		if (randomEvent >= 0 && randomEvent < 100) {
-			print("Radio!");
 			radioScript.StartRadio();
 		}
 
 		// Start story event
 		// if (randomEvent >= 30 && randomEvent < 100) {
-		// 	print("Story!");
 		// 	NextStory();
 		// }
 	}

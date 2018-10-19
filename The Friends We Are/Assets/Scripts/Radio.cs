@@ -25,6 +25,7 @@ public class Radio : MonoBehaviour {
 
 	IEnumerator BootRadio() {
 		yield return new WaitForSeconds(0.5f);
+		radioInterface.SetActive(true);
 		hissSound.Play();
 		yield return new WaitForSeconds(2.4f);
 		ShowRadio();
@@ -32,7 +33,6 @@ public class Radio : MonoBehaviour {
 
 
 	private void ShowRadio() {
-		// radioInterface.SetActive(true);
 		radioBG.Play();
 		if (!firstVoice) {
 			radioVoiceIntro.Play();
