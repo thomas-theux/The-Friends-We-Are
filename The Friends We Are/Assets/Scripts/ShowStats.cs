@@ -35,9 +35,11 @@ public class ShowStats : MonoBehaviour {
 		if (GameManager.skipStats) {
 			StopCoroutine(increaseValues);
 
-			for (int j = 0; j < 4; j++) {
-				showValues[j].text = StatsManager.transferValues[j] + "";
-				showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
+			if (StoryManager.didSkip) {
+				for (int j = 0; j < 4; j++) {
+					showValues[j].text = StatsManager.transferValues[j] + "";
+					showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
+				}
 			}
 		}
 	}
@@ -56,9 +58,11 @@ public class ShowStats : MonoBehaviour {
 				increasingValues[index] = currentValue;
 
 				if (increasingValues[index] < 10) {
-					showValues[index].text = "0" + Mathf.Floor(increasingValues[index]);
+					// showValues[index].text = "0" + Mathf.Ceil(increasingValues[index]);
+					showValues[index].text = "0" + increasingValues[index].ToString("F0");
 				} else {
-					showValues[index].text = Mathf.Floor(increasingValues[index]) + "";
+					// showValues[index].text = Mathf.Ceil(increasingValues[index]) + "";
+					showValues[index].text = increasingValues[index].ToString("F0");
 				}
 				increaseValue.Play();
 
@@ -74,6 +78,9 @@ public class ShowStats : MonoBehaviour {
 		}
 
 		index = 3;
+
+		// Stats can not be skipped anymore after they are fully displayed
+		GameManager.skipStats = true;
 	}
 
 

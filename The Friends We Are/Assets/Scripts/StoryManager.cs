@@ -13,6 +13,8 @@ public class StoryManager : MonoBehaviour {
 	public Radio radioScript;
 	public AudioSource acceptBtn;
 
+	public static bool didSkip;
+
 
 	private void Awake() {
 		DontDestroyOnLoad(this.gameObject);
@@ -43,6 +45,7 @@ public class StoryManager : MonoBehaviour {
 		if (GameManager.enableNavigation) {
 			if(GameManager.playerDark.GetButtonDown("X")) {
 				if (!GameManager.skipStats) {
+					didSkip = true;
 					GameManager.skipStats = true;
 				} else {
 					StartCoroutine(Continue());
