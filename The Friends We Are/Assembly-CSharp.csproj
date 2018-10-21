@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\LevelTimer.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
      <Compile Include="Assets\Scripts\Radio.cs" />
+     <Compile Include="Assets\Scripts\RadioQuestions.cs" />
      <Compile Include="Assets\Scripts\ShowStats.cs" />
      <Compile Include="Assets\Scripts\StartLevelCountdown.cs" />
      <Compile Include="Assets\Scripts\StatsManager.cs" />

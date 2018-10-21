@@ -9,6 +9,9 @@ public class Radio : MonoBehaviour {
 	public GameObject radioInterface;
 	public GameObject showQuestion;
 	public GameObject showAnswers;
+	public GameObject answerIndicatorOne;
+	public GameObject answerIndicatorTwo;
+	public GameObject sameAnswer;
 	public Slider questionTimer;
 
 	public Text questionsText;
@@ -21,38 +24,34 @@ public class Radio : MonoBehaviour {
 	public AudioSource popupSound;
 	public AudioSource clockTicking;
 	public AudioSource timeOver;
+	public AudioSource answerSoundOne;
+	public AudioSource answerSoundTwo;
+	public AudioSource showIndicators;
+	public AudioSource sameAnswerSound;
+	public AudioSource notSameAnswerSound;
 
 	private bool firstVoice = false;
 	private float waitDelay = 0;
 	private float answerTime = 10.0f;
+	private bool answeringOpen = false;
+
+	private int answerOne = 0;
+	private int answerTwo = 0;
+	private bool pOneAnswered = false;
+	private bool pTwoAnswered = false;
 
 	private IEnumerator clockTicker;
 
-	private List<string> questionsArr = new List<string>();
-	private List<string> answersArr = new List<string>();
+	public static List<string> questionsArr = new List<string>();
+	public static List<string> answersArr = new List<string>();
 
 	private int randomIndex;
 
 
-
-	private void Start() {
-
-		questionsArr.AddRange(new string[] {
-			"If you find out that a very close friend has incurable cancer – what would you do?",
-			"twentyfour"
-		});
-
-		answersArr.AddRange(new string[] {
-			"Spend more time with her/him." + "\n" +
-			"Don’t spend any time anymore." + "\n" +
-			"Slowly distance myself from her/him." + "\n" +
-			"I would not change anything.",
-
-			"twentyfour" + "\n" +
-			"twentyfour" + "\n" +
-			"twentyfour" + "\n" +
-			"twentyfour"
-		});
+	private void Update() {
+		if (answeringOpen) {
+			RegisterInput();
+		}
 	}
 
 
@@ -123,6 +122,7 @@ public class Radio : MonoBehaviour {
 		yield return new WaitForSeconds(3.0f);
 
 		StartCoroutine(StartTimer());
+		answeringOpen = true;
 
 		clockTicker = ClockTick();
 		StartCoroutine(clockTicker);
@@ -135,11 +135,8 @@ public class Radio : MonoBehaviour {
 			questionTimer.value = answerTime * 10;
 			yield return null;
 		}
-		// StopCoroutine(clockTicker);
-		clockTicking.Stop();
 		timeOver.Play();
-
-		CompareAnswers();
+		StopAnswering();
 	}
 
 
@@ -149,13 +146,84 @@ public class Radio : MonoBehaviour {
 	}
 
 
-	private void RegisterInput() {
+	private void StopAnswering() {
+		answeringOpen = false;
+		clockTicking.Stop();
 
+		CompareAnswers();
+	}
+
+
+	private void RegisterInput() {
+		// Check if player one answered
+		if (!pOneAnswered) {
+			if (GameManager.playerDark.GetButton("X")) {
+				answerOne = 1;
+				pOneAnswered = true;
+				answerSoundOne.Play();
+			}
+			if (GameManager.playerDark.GetButton("Circle")) {
+				answerOne = 2;
+				pOneAnswered = true;
+				answerSoundOne.Play();
+			}
+			if (GameManager.playerDark.GetButton("Square")) {
+				answerOne = 3;
+				pOneAnswered = true;
+				answerSoundOne.Play();
+			}
+			if (GameManager.playerDark.GetButton("Triangle")) {
+				answerOne = 4;
+				pOneAnswered = true;
+				answerSoundOne.Play();
+			}
+		}
+		
+		// Check if player two answered
+		if (!pTwoAnswered) {
+			if (GameManager.playerLight.GetButton("X")) {
+				answerOne = 1;
+				pTwoAnswered = true;
+				answerSoundTwo.Play();
+			}
+			if (GameManager.playerLight.GetButton("Circle")) {
+				answerOne = 2;
+				pTwoAnswered = true;
+				answerSoundTwo.Play();
+			}
+			if (GameManager.playerLight.GetButton("Square")) {
+				answerOne = 3;
+				pTwoAnswered = true;
+				answerSoundTwo.Play();
+			}
+			if (GameManager.playerLight.GetButton("Triangle")) {
+				answerOne = 4;
+				pTwoAnswered = true;
+				answerSoundTwo.Play();
+			}
+		}
+
+		if (pOneAnswered && pTwoAnswered) {
+			StopAnswering();
+		}
 	}
 
 
 	private void CompareAnswers() {
-		
+		answerIndicatorOne.SetActive(true);
+		answerIndicatorOne.transform.position = new Vector3(answerIndicatorOne.transform.position.x, -39 - ((answerOne-1) * 70), 0);
+		answerIndicatorTwo.SetActive(true);
+		answerIndicatorOne.transform.position = new Vector3(answerIndicatorTwo.transform.position.x, -39 - ((answerTwo-1) * 70), 0);
+		showIndicators.Play();
+
+		if (answerOne == answerTwo) {
+			sameAnswer.SetActive(true);
+			sameAnswer.transform.position = new Vector3(sameAnswer.transform.position.x, -33 - ((answerOne-1) * 70), 0);
+			sameAnswerSound.Play();
+			GetPoints();
+		} else {
+			notSameAnswerSound.Play();
+		}
 	}
 
 
