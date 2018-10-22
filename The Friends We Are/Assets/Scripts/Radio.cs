@@ -9,6 +9,8 @@ public class Radio : MonoBehaviour {
 	public GameObject radioInterface;
 	public GameObject showQuestion;
 	public GameObject showAnswers;
+	public GameObject answerEnteredOne;
+	public GameObject answerEnteredTwo;
 	public GameObject answerIndicatorOne;
 	public GameObject answerIndicatorTwo;
 	public GameObject sameAnswer;
@@ -167,23 +169,19 @@ public class Radio : MonoBehaviour {
 		if (!pOneAnswered) {
 			if (GameManager.playerDark.GetButton("X")) {
 				answerOne = 1;
-				pOneAnswered = true;
-				answerSoundOne.Play();
+				OneAnswered();
 			}
 			if (GameManager.playerDark.GetButton("Circle")) {
 				answerOne = 2;
-				pOneAnswered = true;
-				answerSoundOne.Play();
+				OneAnswered();
 			}
 			if (GameManager.playerDark.GetButton("Square")) {
 				answerOne = 3;
-				pOneAnswered = true;
-				answerSoundOne.Play();
+				OneAnswered();
 			}
 			if (GameManager.playerDark.GetButton("Triangle")) {
 				answerOne = 4;
-				pOneAnswered = true;
-				answerSoundOne.Play();
+				OneAnswered();
 			}
 		}
 		
@@ -191,29 +189,39 @@ public class Radio : MonoBehaviour {
 		if (!pTwoAnswered) {
 			if (GameManager.playerLight.GetButton("X")) {
 				answerTwo = 1;
-				pTwoAnswered = true;
-				answerSoundTwo.Play();
+				TwoAnswered();
 			}
 			if (GameManager.playerLight.GetButton("Circle")) {
 				answerTwo = 2;
-				pTwoAnswered = true;
-				answerSoundTwo.Play();
+				TwoAnswered();
 			}
 			if (GameManager.playerLight.GetButton("Square")) {
 				answerTwo = 3;
-				pTwoAnswered = true;
-				answerSoundTwo.Play();
+				TwoAnswered();
 			}
 			if (GameManager.playerLight.GetButton("Triangle")) {
 				answerTwo = 4;
-				pTwoAnswered = true;
-				answerSoundTwo.Play();
+				TwoAnswered();
 			}
 		}
 
 		if (pOneAnswered && pTwoAnswered) {
 			StopAnswering();
 		}
+	}
+
+
+	private void OneAnswered() {
+		pOneAnswered = true;
+		answerSoundOne.Play();
+		answerEnteredOne.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+	}
+
+
+	private void TwoAnswered() {
+		pTwoAnswered = true;
+		answerSoundTwo.Play();
+		answerEnteredTwo.GetComponent<Image>().color = new Color(1, 1, 1, 1);
 	}
 
 
@@ -230,7 +238,7 @@ public class Radio : MonoBehaviour {
 			showIndicators.Play();
 		}
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.1f);
 
 		// Show indicator of player one
 		if (answerTwo > 0) {
@@ -242,7 +250,7 @@ public class Radio : MonoBehaviour {
 			showIndicators.Play();
 		}
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.4f);
 
 		// If both players have chosen the same answer they will get points
 		if (answerOne != 0 && answerOne == answerTwo) {
@@ -263,7 +271,7 @@ public class Radio : MonoBehaviour {
 	private void GetPoints() {
 		float addPoints = Mathf.Ceil(getPoints + (answerTime * 2));
 		print("Score increased by " + addPoints + " points!");
-		
+
 		GameManager.overallScore += addPoints;
 	}
 
