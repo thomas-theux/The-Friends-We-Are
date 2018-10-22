@@ -1279,19 +1279,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.017386038
       objectReference: {fileID: 0}
     - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0015210818
       objectReference: {fileID: 0}
     - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.087142505
       objectReference: {fileID: 0}
     - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99604297
       objectReference: {fileID: 0}
     - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
       propertyPath: m_RootOrder
@@ -1302,6 +1302,14 @@ Prefab:
       propertyPath: hornSound
       value: 
       objectReference: {fileID: 689647564}
+    - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634475659921772, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83648de8bba60489ba2c384062cec0a0, type: 2}
   m_IsPrefabAsset: 0
