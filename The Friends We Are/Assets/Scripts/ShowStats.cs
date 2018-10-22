@@ -26,6 +26,9 @@ public class ShowStats : MonoBehaviour {
 
 
 	private void Start() {
+		// Set old score to current overall score that is saved in Game Manager
+		oldScore.value = GameManager.overallScore;
+
 		// Show text in UI that got transferred from the Story
 		for (int i = 0; i < 4; i++) {
 			showTexts[i].text = StatsManager.transferTexts[i];
@@ -52,9 +55,11 @@ public class ShowStats : MonoBehaviour {
 				newScore.value = StatsManager.transferValues[overallValues-1];
 				GameManager.skipStats = false;
 			}
+			// Save new friends score to Game Manager
+			GameManager.overallScore = newScore.value;
 
-			// Save current score for UI slider interface
-			oldScore.value = newScore.value;
+			// // Save current score for UI slider interface
+			// oldScore.value = newScore.value;
 		}
 	}
 

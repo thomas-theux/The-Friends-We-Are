@@ -42,7 +42,8 @@ public class Radio : MonoBehaviour {
 	private bool pOneAnswered = false;
 	private bool pTwoAnswered = false;
 
-	private float getPoints = 200.0f;
+	private float getPoints = 5.0f;
+	private float remainingTime;
 
 	private IEnumerator clockTicker;
 
@@ -109,7 +110,7 @@ public class Radio : MonoBehaviour {
 
 
 	IEnumerator WaitForQuestion() {
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(3.0f);
 		ShowAnswers();
 	}
 
@@ -157,6 +158,7 @@ public class Radio : MonoBehaviour {
 
 
 	private void StopAnswering() {
+		remainingTime = answerTime;
 		answeringOpen = false;
 		clockTicking.Stop();
 
@@ -238,7 +240,7 @@ public class Radio : MonoBehaviour {
 			showIndicators.Play();
 		}
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 
 		// Show indicator of player one
 		if (answerTwo > 0) {
@@ -269,7 +271,7 @@ public class Radio : MonoBehaviour {
 
 
 	private void GetPoints() {
-		float addPoints = Mathf.Ceil(getPoints + (answerTime * 2));
+		float addPoints = getPoints + (remainingTime / 2);
 		print("Score increased by " + addPoints + " points!");
 
 		GameManager.overallScore += addPoints;
