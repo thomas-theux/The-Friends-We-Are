@@ -34,7 +34,7 @@ public class DrivingxStory : MonoBehaviour {
 	private int divideSpeed;
 	private float averageSpeed;
 	private float addFriendsScore;
-	private float addToScore = 100;
+	private float scoreMultiplier = 0.75f;
 
 	private float transfer;
 
@@ -180,7 +180,7 @@ public class DrivingxStory : MonoBehaviour {
 		// Decrease speed by braking
 		if (braking > 0.5f && !isAccelerating) {
 			isBraking = true;
-			rb.drag += 0.02f;
+			rb.drag += 0.04f;
 		} else if (braking <= 0.5f) {
 			isBraking = false;
 			rb.drag = 0.3f;
@@ -269,7 +269,8 @@ public class DrivingxStory : MonoBehaviour {
 		float rankMultiplier = 0;
 
 		// CALCULATING THE SCORE WITHOUT RANKS
-		rankMultiplier = (overallScore + addToScore) / 1000;
+		rankMultiplier = (overallScore / 1000) * scoreMultiplier;
+
 
 		// CALCULATING THE SCORE WITH RANKS
 		// Get rank D

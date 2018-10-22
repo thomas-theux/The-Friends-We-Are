@@ -52,6 +52,9 @@ public class ShowStats : MonoBehaviour {
 				newScore.value = StatsManager.transferValues[overallValues-1];
 				GameManager.skipStats = false;
 			}
+
+			// Save current score for UI slider interface
+			oldScore.value = newScore.value;
 		}
 	}
 
