@@ -21,7 +21,7 @@ public class RadioQuestions : MonoBehaviour {
 			"I would not change anything.",
 
 			"Spring" + "\n" +
-			"Sommer" + "\n" +
+			"Summer" + "\n" +
 			"Fall" + "\n" +
 			"Winter",
 

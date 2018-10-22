@@ -74,8 +74,8 @@ public class Radio : MonoBehaviour {
 	private void ShowRadio() {
 		radioBG.Play();
 		if (!firstVoice) {
-			radioVoiceIntro.Play();
-			waitDelay = 10.5f;
+			// radioVoiceIntro.Play();
+			waitDelay = 0.5f;
 			firstVoice = true;
 		} else {
 			radioVoice.Play();
@@ -105,7 +105,7 @@ public class Radio : MonoBehaviour {
 
 
 	IEnumerator WaitForQuestion() {
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(1.0f);
 		ShowAnswers();
 	}
 
@@ -119,10 +119,10 @@ public class Radio : MonoBehaviour {
 
 
 	IEnumerator WaitForAnswer() {
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(1.0f);
 
-		StartCoroutine(StartTimer());
 		answeringOpen = true;
+		StartCoroutine(StartTimer());
 
 		clockTicker = ClockTick();
 		StartCoroutine(clockTicker);
@@ -130,13 +130,19 @@ public class Radio : MonoBehaviour {
 
 
 	IEnumerator StartTimer() {
-		while(answerTime > 0) {
-			answerTime -= Time.deltaTime;
-			questionTimer.value = answerTime * 10;
+		while (answerTime > 0) {
+			if (answeringOpen) {
+				answerTime -= Time.deltaTime;
+				questionTimer.value = answerTime * 10;
+			} else {
+				answerTime = 0;
+			}
 			yield return null;
 		}
-		timeOver.Play();
-		StopAnswering();
+		if (answeringOpen) {
+			timeOver.Play();
+			StopAnswering();
+		}
 	}
 
 
@@ -182,22 +188,22 @@ public class Radio : MonoBehaviour {
 		// Check if player two answered
 		if (!pTwoAnswered) {
 			if (GameManager.playerLight.GetButton("X")) {
-				answerOne = 1;
+				answerTwo = 1;
 				pTwoAnswered = true;
 				answerSoundTwo.Play();
 			}
 			if (GameManager.playerLight.GetButton("Circle")) {
-				answerOne = 2;
+				answerTwo = 2;
 				pTwoAnswered = true;
 				answerSoundTwo.Play();
 			}
 			if (GameManager.playerLight.GetButton("Square")) {
-				answerOne = 3;
+				answerTwo = 3;
 				pTwoAnswered = true;
 				answerSoundTwo.Play();
 			}
 			if (GameManager.playerLight.GetButton("Triangle")) {
-				answerOne = 4;
+				answerTwo = 4;
 				pTwoAnswered = true;
 				answerSoundTwo.Play();
 			}
@@ -210,15 +216,28 @@ public class Radio : MonoBehaviour {
 
 
 	private void CompareAnswers() {
-		answerIndicatorOne.SetActive(true);
-		answerIndicatorOne.transform.position = new Vector3(answerIndicatorOne.transform.position.x, -39 - ((answerOne-1) * 70), 0);
-		answerIndicatorTwo.SetActive(true);
-		answerIndicatorOne.transform.position = new Vector3(answerIndicatorTwo.transform.position.x, -39 - ((answerTwo-1) * 70), 0);
+		if (answerOne > 0) {
+			answerIndicatorOne.SetActive(true);
+			answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.x,
+				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
+			);
+		}
+		if (answerTwo > 0) {
+			answerIndicatorTwo.SetActive(true);
+			answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.x,
+				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.y - ((answerTwo-1) * 70)
+			);
+		}
 		showIndicators.Play();
 
 		if (answerOne == answerTwo) {
 			sameAnswer.SetActive(true);
-			sameAnswer.transform.position = new Vector3(sameAnswer.transform.position.x, -33 - ((answerOne-1) * 70), 0);
+			sameAnswer.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+				sameAnswer.GetComponent<RectTransform>().anchoredPosition.x,
+				sameAnswer.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
+			);
 			sameAnswerSound.Play();
 			GetPoints();
 		} else {
@@ -228,7 +247,7 @@ public class Radio : MonoBehaviour {
 
 
 	private void GetPoints() {
-
+		print("Friendscore increased!");
 	}
 
 
