@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 	public static bool enableNavigation;
 	public static bool skipStats = false;
 
+	public static float overallScore;
+
 	// REWIRED PLUGIN
 	public static Player playerDark;
 	public static Player playerLight;

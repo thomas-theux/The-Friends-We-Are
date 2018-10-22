@@ -18,7 +18,9 @@ public class ShowStats : MonoBehaviour {
 	private float tempTime = 0;
 	private float currentValue = 0;
 	private float calculatedValue = 0;
-	private float[] increasingValues = {0, 0, 0, 0};
+	private float[] increasingValues = {0, 0, 0, 0, 0};
+
+	private int overallValues = 5;
 
 
 	private void Start() {
@@ -40,6 +42,7 @@ public class ShowStats : MonoBehaviour {
 					showValues[j].text = StatsManager.transferValues[j] + "";
 					showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
 				}
+				showValues[4].text = "+" + StatsManager.transferValues[4];
 			}
 		}
 	}
@@ -49,7 +52,7 @@ public class ShowStats : MonoBehaviour {
 	IEnumerator IncreaseValue() {
 		yield return new WaitForSeconds(1);
 
-		while (index < 4) {
+		while (index < overallValues) {
 			while (tempTime < increaseTime) {
 				tempTime += Time.deltaTime;
 				MapFunction(tempTime, 0, increaseTime, 0, 1);
@@ -57,12 +60,19 @@ public class ShowStats : MonoBehaviour {
 				MapFunction(calculatedValue, 0, 1, 0, StatsManager.transferValues[index]);
 				increasingValues[index] = currentValue;
 
-				if (increasingValues[index] < 10) {
-					// showValues[index].text = "0" + Mathf.Ceil(increasingValues[index]);
-					showValues[index].text = "0" + increasingValues[index].ToString("F0");
+				if (increasingValues[index] < 9) {
+					if (index < overallValues - 1) {
+						showValues[index].text = "+0" + increasingValues[index].ToString("F0");
+					} else {
+						showValues[index].text = "0" + increasingValues[index].ToString("F0");
+					}
+					
 				} else {
-					// showValues[index].text = Mathf.Ceil(increasingValues[index]) + "";
-					showValues[index].text = increasingValues[index].ToString("F0");
+					if (index < overallValues - 1) {
+						showValues[index].text = increasingValues[index].ToString("F0");
+					} else {
+						showValues[index].text = "+" + increasingValues[index].ToString("F0");
+					}
 				}
 				increaseValue.Play();
 
@@ -77,7 +87,7 @@ public class ShowStats : MonoBehaviour {
 			// yield return new WaitForSeconds(0.05f);
 		}
 
-		index = 3;
+		index = overallValues - 1;
 
 		// Stats can not be skipped anymore after they are fully displayed
 		GameManager.skipStats = true;

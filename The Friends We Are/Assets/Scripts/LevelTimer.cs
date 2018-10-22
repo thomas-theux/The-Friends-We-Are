@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelTimer : MonoBehaviour {
 
 	public Text levelTimeText;
-	private float levelTime = 4;
+	private float levelTime = 24;
 	public static bool levelEnd;
 
 	public KillAllPoints killAllPointsScript;
@@ -38,10 +38,8 @@ public class LevelTimer : MonoBehaviour {
 
 
 	private void LevelEnd() {
-
 		// Load Story Overview screen
 		levelFadeScript.FadeToLevel("6 Summary");
-		// SceneManager.LoadScene("6 Summary");
 
 	}
 

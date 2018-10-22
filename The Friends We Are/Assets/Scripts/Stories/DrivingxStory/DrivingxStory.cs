@@ -88,7 +88,12 @@ public class DrivingxStory : MonoBehaviour {
 				Mathf.Ceil(bus.transform.position.z),
 				Mathf.Ceil(maxSpeed),
 				Mathf.Ceil(averageSpeed),
-				drivingScore
+				drivingScore,
+				(Mathf.Ceil(bus.transform.position.z) / 1000) * (
+					Mathf.Ceil(maxSpeed) +
+					Mathf.Ceil(averageSpeed) +
+					drivingScore
+				)
 			};
 
 			// Save the titles for the stats
@@ -96,7 +101,8 @@ public class DrivingxStory : MonoBehaviour {
 				"Meters Driven",
 				"Maximum Speed",
 				"Average Speed",
-				"Experience Gained"
+				"Experience Gained",
+				"Friends Score"
 			};
 
 			statsSaved = true;

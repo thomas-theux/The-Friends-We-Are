@@ -40,6 +40,8 @@ public class Radio : MonoBehaviour {
 	private bool pOneAnswered = false;
 	private bool pTwoAnswered = false;
 
+	private float getPoints = 200.0f;
+
 	private IEnumerator clockTicker;
 
 	public static List<string> questionsArr = new List<string>();
@@ -156,7 +158,7 @@ public class Radio : MonoBehaviour {
 		answeringOpen = false;
 		clockTicking.Stop();
 
-		CompareAnswers();
+		StartCoroutine(CompareAnswers());
 	}
 
 
@@ -215,30 +217,42 @@ public class Radio : MonoBehaviour {
 	}
 
 
-	private void CompareAnswers() {
+	IEnumerator CompareAnswers() {
+		yield return new WaitForSeconds(0.5f);
+
+		// Show indicator of player one
 		if (answerOne > 0) {
 			answerIndicatorOne.SetActive(true);
 			answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(
 				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.x,
 				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
 			);
+			showIndicators.Play();
 		}
+
+		yield return new WaitForSeconds(0.5f);
+
+		// Show indicator of player one
 		if (answerTwo > 0) {
 			answerIndicatorTwo.SetActive(true);
 			answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
 				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.x,
 				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.y - ((answerTwo-1) * 70)
 			);
+			showIndicators.Play();
 		}
-		showIndicators.Play();
 
-		if (answerOne == answerTwo) {
+		yield return new WaitForSeconds(0.5f);
+
+		// If both players have chosen the same answer they will get points
+		if (answerOne != 0 && answerOne == answerTwo) {
 			sameAnswer.SetActive(true);
 			sameAnswer.GetComponent<RectTransform>().anchoredPosition = new Vector2(
 				sameAnswer.GetComponent<RectTransform>().anchoredPosition.x,
 				sameAnswer.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
 			);
 			sameAnswerSound.Play();
+			yield return new WaitForSeconds(0.5f);
 			GetPoints();
 		} else {
 			notSameAnswerSound.Play();
@@ -247,7 +261,10 @@ public class Radio : MonoBehaviour {
 
 
 	private void GetPoints() {
-		print("Friendscore increased!");
+		float addPoints = Mathf.Ceil(getPoints + (answerTime * 2));
+		print("Score increased by " + addPoints + " points!");
+		
+		GameManager.overallScore += addPoints;
 	}
 
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StatsManager : MonoBehaviour {
 
-	public static float[] transferValues = {0, 0, 0, 0};
-	public static string[] transferTexts = {"", "", "", ""};
+	public static float[] transferValues = {0, 0, 0, 0, 0};
+	public static string[] transferTexts = {"", "", "", "", ""};
 
 
 	private void Awake() {
