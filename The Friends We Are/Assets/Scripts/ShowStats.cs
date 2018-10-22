@@ -12,6 +12,8 @@ public class ShowStats : MonoBehaviour {
 
 	public Text[] showValues;
 	public Text[] showTexts;
+	public Slider oldScore;
+	public Slider newScore;
 	private int index = 0;
 
 	private float increaseTime = 0.8f;
@@ -39,10 +41,11 @@ public class ShowStats : MonoBehaviour {
 
 			if (StoryManager.didSkip) {
 				for (int j = 0; j < 4; j++) {
-					showValues[j].text = StatsManager.transferValues[j] + "";
+					showValues[j].text = StatsManager.transferValues[j].ToString("F0") + "";
 					showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
 				}
-				showValues[4].text = "+" + StatsManager.transferValues[4];
+				showValues[overallValues-1].text = "+" + StatsManager.transferValues[overallValues-1].ToString("F1") + "%";
+				newScore.value = StatsManager.transferValues[overallValues-1];
 			}
 		}
 	}
@@ -62,24 +65,37 @@ public class ShowStats : MonoBehaviour {
 
 				if (increasingValues[index] < 9) {
 					if (index < overallValues - 1) {
-						showValues[index].text = "+0" + increasingValues[index].ToString("F0");
-					} else {
+						// Show other stats
 						showValues[index].text = "0" + increasingValues[index].ToString("F0");
+					} else {
+						// Show friends score
+						showValues[index].text = "+" + increasingValues[index].ToString("F1") + "%";
+						newScore.value = increasingValues[index];
 					}
 					
 				} else {
 					if (index < overallValues - 1) {
+						// Show other stats
 						showValues[index].text = increasingValues[index].ToString("F0");
 					} else {
-						showValues[index].text = "+" + increasingValues[index].ToString("F0");
+						// Show friends score
+						showValues[index].text = "+" + increasingValues[index].ToString("F1") + "%";
+						newScore.value = increasingValues[index];
 					}
 				}
 				increaseValue.Play();
 
 				yield return null;
 			}
-			finishedIncreasing.Play();
+			// After increasing the values we show the final value that got transferred from the story script
+			if (index < overallValues - 1) {
+				showValues[index].text = StatsManager.transferValues[index].ToString("F0") + "";
+			} else {
+				showValues[index].text = "+" + StatsManager.transferValues[index].ToString("F1") + "%";
+			}
+			// Color the increased value orange
 			showValues[index].color = new Color(1.0f, 0.427451f, 0.003921569f);
+			finishedIncreasing.Play();
 
 			tempTime = 0;
 			index++;

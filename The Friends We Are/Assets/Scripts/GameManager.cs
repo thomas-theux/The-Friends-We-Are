@@ -7,6 +7,16 @@ using Rewired;
 public class GameManager : MonoBehaviour {
 
 	public static int playerCount = 2;
+
+	public static int tripDays = 5;
+
+	public static int storyAP = 3;
+	public static int radioAP = 2;
+	public static int maxAP = 6;
+
+	public static int storyChance = 60;
+	public static int radioChance = 40;
+
 	public static bool enableNavigation;
 	public static bool skipStats = false;
 
@@ -18,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
 	private void Awake() {
 		// DontDestroyOnLoad(this.gameObject);
+		Cursor.visible = false;
 		
 		playerDark = ReInput.players.GetPlayer(0);
 		playerLight = ReInput.players.GetPlayer(1);

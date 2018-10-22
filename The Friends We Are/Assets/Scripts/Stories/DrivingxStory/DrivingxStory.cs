@@ -20,6 +20,8 @@ public class DrivingxStory : MonoBehaviour {
 
 	private Vector3 movement;
 	public static float currentSpeed;
+	public static int collectedPoints;
+	private float steeringMultiplier = 1.4f;
 	private float tempSpeed;
 	private float steerThreshold = 20.0f;
 	private float speed = 10;
@@ -31,6 +33,8 @@ public class DrivingxStory : MonoBehaviour {
 	private float allSpeedValues;
 	private int divideSpeed;
 	private float averageSpeed;
+	private float addFriendsScore;
+	private float addToScore = 100;
 
 	private float transfer;
 
@@ -40,9 +44,15 @@ public class DrivingxStory : MonoBehaviour {
 	private bool isAccelerating = false;
 	private bool isBraking = false;
 
-	public static float drivingScore = 0;
+	private float experienceScore = 0;
+	public static float experiencePerPoint;
 
 	private bool statsSaved = false;
+
+	private int tier1 = 130;
+	private int tier2 = 420;
+	private int tier3 = 710;
+	private int tier4 = 1000;
 
 
 	// Actions for this story/minigame
@@ -72,29 +82,38 @@ public class DrivingxStory : MonoBehaviour {
 			GetInput();
 
 			currentSpeed = rb.velocity.magnitude;
-			// velocity.text = Mathf.Round(currentSpeed * 1f) / 1f  + " km/h";
 			velocity.text = currentSpeed.ToString("F0") + " km/h";
-			score.text = drivingScore + "";
+			score.text = experienceScore + "";
 
 			MaximumSpeed();
 
 			AverageSpeed();
+
+			DrivingScore();
 		}
 
 		if (LevelTimer.levelEnd && !statsSaved) {
 
+			// Calculate the percentage the friends score is increasing
+			CalculatePercentage();
+
 			// Save the single values for the stats overview
 			StatsManager.transferValues = new float[] {
-				Mathf.Ceil(bus.transform.position.z),
-				Mathf.Ceil(maxSpeed),
-				Mathf.Ceil(averageSpeed),
-				drivingScore,
-				(Mathf.Ceil(bus.transform.position.z) / 1000) * (
-					Mathf.Ceil(maxSpeed) +
-					Mathf.Ceil(averageSpeed) +
-					drivingScore
-				)
+				bus.transform.position.z,
+				maxSpeed,
+				averageSpeed,
+				experienceScore,
+				addFriendsScore
 			};
+
+			// Transfer values WITH ceiling
+			// StatsManager.transferValues = new float[] {
+			// 	Mathf.Ceil(bus.transform.position.z),
+			// 	Mathf.Ceil(maxSpeed),
+			// 	Mathf.Ceil(averageSpeed),
+			// 	drivingScore,
+			// 	addFriendsScore
+			// };
 
 			// Save the titles for the stats
 			StatsManager.transferTexts = new string[] {
@@ -202,7 +221,7 @@ public class DrivingxStory : MonoBehaviour {
 			}
 		}
 		if (rb.velocity.z > 1) {
-			Vector3 steer = new Vector3(steering, 0, 0);
+			Vector3 steer = new Vector3(steering * steeringMultiplier, 0, 0);
 			rb.AddForce(steer * tempSpeed);
 		}
 	}
@@ -227,6 +246,60 @@ public class DrivingxStory : MonoBehaviour {
 		allSpeedValues += currentSpeed;
 		divideSpeed++;
 		averageSpeed = allSpeedValues / divideSpeed;
+	}
+
+
+	private void DrivingScore() {
+		experienceScore = experiencePerPoint * (collectedPoints / 10);
+	}
+
+
+	private void CalculatePercentage() {
+		float overallScore = (bus.transform.position.z / 1000) * (
+			maxSpeed +
+			averageSpeed +
+			experienceScore
+		);
+
+		float minEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.storyAP);
+		float maxEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.radioAP);
+
+		float calculateAllEvents = (minEvents * GameManager.storyChance + maxEvents * GameManager.radioChance) / 100;
+
+		float rankMultiplier = 0;
+
+		// CALCULATING THE SCORE WITHOUT RANKS
+		rankMultiplier = (overallScore + addToScore) / 1000;
+
+		// CALCULATING THE SCORE WITH RANKS
+		// Get rank D
+		// if (overallScore < tier1) {
+		// 	rankMultiplier = 0.6f;
+		// 	print("Rank D");
+		// }
+		// // Get rank C
+		// if (overallScore >= tier1 && overallScore < tier2) {
+		// 	rankMultiplier = 0.7f;
+		// 	print("Rank C");
+		// }
+		// // Get rank B
+		// if (overallScore >= tier2 && overallScore < tier3) {
+		// 	rankMultiplier = 0.8f;
+		// 	print("Rank B");
+		// }
+		// // Get rank A
+		// if (overallScore >= tier3 && overallScore < tier4) {
+		// 	rankMultiplier = 0.9f;
+		// 	print("Rank A");
+		// }
+		// // Get rank S
+		// if (overallScore >= tier4) {
+		// 	rankMultiplier = 1.0f;
+		// 	print("Rank S");
+		// }
+
+		addFriendsScore = (100 / calculateAllEvents) * rankMultiplier;
+
 	}
 
 
