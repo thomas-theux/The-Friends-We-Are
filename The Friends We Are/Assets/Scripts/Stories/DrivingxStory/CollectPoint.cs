@@ -10,8 +10,11 @@ public class CollectPoint : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Character") {
 			Instantiate(collectEffect, this.transform.position, collectEffect.transform.rotation);
-			DrivingxStory.experiencePerPoint += DrivingxStory.currentSpeed * 0.1f;
+
+			float temp = DrivingxStory.currentSpeed * 0.1f;
+			DrivingxStory.experiencePerPoint += temp;
 			// DrivingxStory.drivingScore += Mathf.Ceil(DrivingxStory.currentSpeed * 0.1f);
+
 			DrivingxStory.collectedPoints++;
 			Destroy(gameObject);
 		}

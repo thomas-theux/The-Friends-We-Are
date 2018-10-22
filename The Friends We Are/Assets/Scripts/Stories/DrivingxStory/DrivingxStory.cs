@@ -20,7 +20,7 @@ public class DrivingxStory : MonoBehaviour {
 
 	private Vector3 movement;
 	public static float currentSpeed;
-	public static int collectedPoints;
+	public static float collectedPoints;
 	private float steeringMultiplier = 1.4f;
 	private float tempSpeed;
 	private float steerThreshold = 20.0f;
@@ -49,10 +49,10 @@ public class DrivingxStory : MonoBehaviour {
 
 	private bool statsSaved = false;
 
-	private int tier1 = 130;
-	private int tier2 = 420;
-	private int tier3 = 710;
-	private int tier4 = 1000;
+	// private int tier1 = 130;
+	// private int tier2 = 420;
+	// private int tier3 = 710;
+	// private int tier4 = 1000;
 
 
 	// Actions for this story/minigame
