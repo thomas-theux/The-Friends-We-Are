@@ -53,7 +53,7 @@ public class ShowStats : MonoBehaviour {
 				}
 				showValues[overallValues-1].text = "+" + StatsManager.transferValues[overallValues-1].ToString("F1") + "%";
 				newScore.value = StatsManager.transferValues[overallValues-1];
-				GameManager.skipStats = false;
+				// GameManager.skipStats = false;
 			}
 			// Save new friends score to Game Manager
 			GameManager.overallScore = newScore.value;
