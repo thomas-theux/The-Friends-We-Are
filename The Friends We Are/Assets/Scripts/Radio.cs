@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Radio : MonoBehaviour {
 
-	public GameObject statsInterface;
+	public GameObject hideStats;
 	public GameObject radioInterface;
 	public GameObject showQuestion;
 	public GameObject showAnswers;
@@ -14,6 +14,7 @@ public class Radio : MonoBehaviour {
 	public GameObject answerIndicatorOne;
 	public GameObject answerIndicatorTwo;
 	public GameObject sameAnswer;
+<<<<<<< HEAD
 	public GameObject questionsFriendsScore;
 	// public Slider questionTimer;
 	public Image questionTime;
@@ -23,6 +24,12 @@ public class Radio : MonoBehaviour {
 	public Text questionsText;
 	public Text[] answersText;
 	public Text friendsScoreValue;
+=======
+	public Slider questionTimer;
+
+	public Text questionsText;
+	public Text answersText;
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 
 	public AudioSource hissSound;
 	public AudioSource radioVoiceIntro;
@@ -63,16 +70,10 @@ public class Radio : MonoBehaviour {
 	private IEnumerator clockTickerCo;
 	private IEnumerator increaseValueCo;
 
-	public static List<RadioQuestions.RadioQuestion> questionsArr;
-	// public static List<List<string>> questionsArr = new List<List<string>>();
-	// public static List<string> answersArr = new List<string>();
+	public static List<string> questionsArr = new List<string>();
+	public static List<string> answersArr = new List<string>();
 
 	private int randomIndex;
-
-
-	private void Start() {
-		statsInterface.SetActive(true);
-	}
 
 
 	private void Update() {
@@ -95,7 +96,7 @@ public class Radio : MonoBehaviour {
 
 	public void StartRadio() {
 		GameManager.enableNavigation = false;
-		statsInterface.SetActive(false);
+		hideStats.SetActive(false);
 		StartCoroutine(BootRadio());
 	}
 
@@ -132,10 +133,7 @@ public class Radio : MonoBehaviour {
 	private void ShowQuestions() {
 		// Pick random question from array
 		randomIndex = Random.Range(0, questionsArr.Count);
-		questionsText.text = questionsArr[randomIndex].question;
-		for (int i = 0; i < 4; i++) {
-			answersText[i].text = questionsArr[randomIndex].answers[i];
-		}
+		questionsText.text = questionsArr[randomIndex];
 		questionsArr.RemoveAt(randomIndex);
 		
 		popupSound.Play();
@@ -154,7 +152,7 @@ public class Radio : MonoBehaviour {
 	private void ShowAnswers() {
 		popupSound.Play();
 		showAnswers.SetActive(true);
-		// answersText.text = answersArr[randomIndex];
+		answersText.text = answersArr[randomIndex];
 		StartCoroutine(WaitForAnswer());
 	}
 
@@ -174,8 +172,7 @@ public class Radio : MonoBehaviour {
 		while (answerTime > 0) {
 			if (answeringOpen) {
 				answerTime -= Time.deltaTime;
-				// questionTimer.value = answerTime * 10;
-				questionTime.fillAmount = answerTime / 10;
+				questionTimer.value = answerTime * 10;
 			} else {
 				answerTime = 0;
 			}
