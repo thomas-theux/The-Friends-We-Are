@@ -38,7 +38,7 @@ public class RadioQuestions : MonoBehaviour {
 			},
 
 			{ new RadioQuestion(
-				"What is Player One's best attribute of the followoing?",
+				"What is Player One's best attribute?",
 				new List<string> {
 					"Punctuality",
 					"Discipline",

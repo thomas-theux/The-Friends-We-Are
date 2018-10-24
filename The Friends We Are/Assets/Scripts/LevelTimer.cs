@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelTimer : MonoBehaviour {
 
 	public Text levelTimeText;
-	private float levelTime = 4;
+	private float levelTime = 24;
 	public static bool levelEnd;
 
 	public KillAllPoints killAllPointsScript;

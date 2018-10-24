@@ -14,11 +14,15 @@ public class Radio : MonoBehaviour {
 	public GameObject answerIndicatorOne;
 	public GameObject answerIndicatorTwo;
 	public GameObject sameAnswer;
+	public GameObject questionsFriendsScore;
 	// public Slider questionTimer;
 	public Image questionTime;
+	public Slider oldScore;
+	public Slider newScore;
 
 	public Text questionsText;
 	public Text[] answersText;
+	public Text friendsScoreValue;
 
 	public AudioSource hissSound;
 	public AudioSource radioVoiceIntro;
@@ -32,11 +36,13 @@ public class Radio : MonoBehaviour {
 	public AudioSource showIndicators;
 	public AudioSource sameAnswerSound;
 	public AudioSource notSameAnswerSound;
+	public AudioSource increaseValue;
 
 	private bool firstVoice = false;
 	private float waitDelay = 0;
 	private float answerTime = 10.0f;
 	private bool answeringOpen = false;
+	private bool questionOver = false;
 
 	private int answerOne = 0;
 	private int answerTwo = 0;
@@ -45,8 +51,17 @@ public class Radio : MonoBehaviour {
 
 	private float getPoints = 5.0f;
 	private float remainingTime;
+	private float addPoints;
+	private float oldScoreValue;
+	private float newScoreValue;
 
-	private IEnumerator clockTicker;
+	private float tempTime = 0;
+	private float increaseTime = 2.0f;
+	private float currentValue = 0;
+	private float calculatedValue = 0;
+
+	private IEnumerator clockTickerCo;
+	private IEnumerator increaseValueCo;
 
 	public static List<RadioQuestions.RadioQuestion> questionsArr;
 	// public static List<List<string>> questionsArr = new List<List<string>>();
@@ -63,6 +78,17 @@ public class Radio : MonoBehaviour {
 	private void Update() {
 		if (answeringOpen) {
 			RegisterInput();
+		}
+
+		if (GameManager.enableNavigation && questionOver) {
+			if(GameManager.playerDark.GetButtonDown("X")) {
+				StopCoroutine(increaseValueCo);
+
+				newScore.value = newScoreValue;
+				friendsScoreValue.text = "+" + newScoreValue.ToString("F1") + "%";
+
+				sameAnswerSound.Play();
+			}
 		}
 	}
 
@@ -139,8 +165,8 @@ public class Radio : MonoBehaviour {
 		answeringOpen = true;
 		StartCoroutine(StartTimer());
 
-		clockTicker = ClockTick();
-		StartCoroutine(clockTicker);
+		clockTickerCo = ClockTick();
+		StartCoroutine(clockTickerCo);
 	}
 
 
@@ -282,10 +308,65 @@ public class Radio : MonoBehaviour {
 
 
 	private void GetPoints() {
-		float addPoints = getPoints + (remainingTime / 2);
-		print("Score increased by " + addPoints + " points!");
+		addPoints = getPoints + (remainingTime / 2);
 
-		GameManager.overallScore += addPoints;
+		oldScoreValue = GameManager.overallScore;
+		newScoreValue = GameManager.overallScore + addPoints;
+		questionsFriendsScore.SetActive(true);
+		oldScore.value = GameManager.overallScore;
+
+		increaseValueCo = IncreaseScore(oldScoreValue, newScoreValue);
+		StartCoroutine(increaseValueCo);
+
+		GameManager.enableNavigation = true;
+		questionOver = true;
+
+		// Save new friends score to overallScore
+		GameManager.overallScore = newScore.value;
+	}
+
+
+	IEnumerator IncreaseScore(float oldScoreValue, float newScoreValue) {
+		yield return new WaitForSeconds(1.0f);
+
+		while (tempTime < increaseTime) {
+			tempTime += Time.deltaTime;
+
+			// Calculate value for slider
+			MapFunction(tempTime, 0, increaseTime, 0, 1);
+			ApplyFormula(currentValue);
+			MapFunction(calculatedValue, 0, 1, oldScoreValue, newScoreValue);
+
+			// Display calculated value on slider
+			newScore.value = currentValue;
+
+			// Calculate value for text field
+			MapFunction(tempTime, 0, increaseTime, 0, 1);
+			ApplyFormula(currentValue);
+			MapFunction(calculatedValue, 0, 1, 0, addPoints);
+
+			// Display calculated value in text field
+			friendsScoreValue.text = "+" + currentValue.ToString("F1") + "%";
+
+			increaseValue.Play();
+			yield return null;
+		}
+
+		sameAnswerSound.Play();
+		print("FERTICH");
+	}
+
+
+	// Map function to map the numbers / Dreisatz
+	private void MapFunction(float number, float oldMin, float oldMax, float newMin, float newMax) {
+		currentValue = newMin + (newMax - newMin) * (number - oldMin) / (oldMax - oldMin);
+	}
+
+
+	// The formula with which the stats gets increased
+	private void ApplyFormula(float currentValue) {
+		// Formula: y = (x-1)^3 + 1
+		calculatedValue = Mathf.Pow(currentValue, 1);
 	}
 
 
