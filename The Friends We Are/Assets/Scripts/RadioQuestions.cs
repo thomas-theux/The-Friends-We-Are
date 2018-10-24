@@ -7,6 +7,7 @@ public class RadioQuestions : MonoBehaviour {
 	private void Start() {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			{ new RadioQuestion(
 				"What is Player One's best attribute?",
 				new List<string> {
@@ -39,6 +40,8 @@ public class RadioQuestions : MonoBehaviour {
 
 		};
 =======
+=======
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 		Radio.questionsArr.AddRange(new string[] {
 			"If you find out that a very close friend has incurable cancer – what would you do?",
 			"Which is your favorite season?",
@@ -74,6 +77,9 @@ public class RadioQuestions : MonoBehaviour {
 			"Melons"
 		});
 		
+<<<<<<< HEAD
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+=======
 >>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 	}
 

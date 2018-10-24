@@ -15,6 +15,7 @@ public class Radio : MonoBehaviour {
 	public GameObject answerIndicatorTwo;
 	public GameObject sameAnswer;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public GameObject questionsFriendsScore;
 	// public Slider questionTimer;
 	public Image questionTime;
@@ -24,6 +25,12 @@ public class Radio : MonoBehaviour {
 	public Text questionsText;
 	public Text[] answersText;
 	public Text friendsScoreValue;
+=======
+	public Slider questionTimer;
+
+	public Text questionsText;
+	public Text answersText;
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 =======
 	public Slider questionTimer;
 
@@ -67,14 +74,22 @@ public class Radio : MonoBehaviour {
 	private float currentValue = 0;
 	private float calculatedValue = 0;
 
+<<<<<<< HEAD
 	private IEnumerator clockTickerCo;
 	private IEnumerator increaseValueCo;
+=======
+	public static List<string> questionsArr = new List<string>();
+	public static List<string> answersArr = new List<string>();
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 
 	public static List<string> questionsArr = new List<string>();
 	public static List<string> answersArr = new List<string>();
 
+<<<<<<< HEAD
 	private int randomIndex;
 
+=======
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 
 	private void Update() {
 		if (answeringOpen) {

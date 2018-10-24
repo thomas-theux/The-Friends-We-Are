@@ -610,6 +610,7 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &365394420
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +834,8 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 459317488}
   m_CullTransparentMesh: 0
+=======
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 =======
 >>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 --- !u!1 &460014525
@@ -1729,6 +1732,7 @@ MonoBehaviour:
   answerIndicatorTwo: {fileID: 1572223487}
   sameAnswer: {fileID: 921902709}
 <<<<<<< HEAD
+<<<<<<< HEAD
   questionsFriendsScore: {fileID: 365394420}
   questionTime: {fileID: 1391828598}
   oldScore: {fileID: 148828224}
@@ -1740,6 +1744,11 @@ MonoBehaviour:
   - {fileID: 1572888653}
   - {fileID: 459317490}
   friendsScoreValue: {fileID: 1804094119}
+=======
+  questionTimer: {fileID: 1380850703}
+  questionsText: {fileID: 2133258099}
+  answersText: {fileID: 184134474}
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 =======
   questionTimer: {fileID: 1380850703}
   questionsText: {fileID: 2133258099}
@@ -3371,8 +3380,13 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 740, y: 163}
+=======
+  m_AnchoredPosition: {x: 0, y: -156}
+  m_SizeDelta: {x: 740, y: 197}
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 =======
   m_AnchoredPosition: {x: 0, y: -156}
   m_SizeDelta: {x: 740, y: 197}
@@ -3671,6 +3685,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1392639603
+<<<<<<< HEAD
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3746,6 +3761,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 1392639603}
   m_CullTransparentMesh: 0
 --- !u!1 &1405516973
+=======
+>>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
