@@ -32,7 +32,7 @@ public class HonkHorns : MonoBehaviour {
 
 	IEnumerator Honking() {
 		isHonking = true;
-		float hornDelay = Random.Range(10, 30);
+		float hornDelay = Random.Range(10, 20);
 		yield return new WaitForSeconds(hornDelay);
 		hornSound.Play();
 		isHonking = false;

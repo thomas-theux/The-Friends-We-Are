@@ -24,15 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-<<<<<<< HEAD
-<<<<<<< HEAD
-  controlID: 6206
-=======
-  controlID: 24983
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-  controlID: 24983
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+  controlID: 5770
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -54,11 +46,11 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 369
+    y: 347
     width: 926
-    height: 509
+    height: 531
   m_PersistentViewDataDictionary: {fileID: 0}
-  m_MaximizeOnPlay: 1
+  m_MaximizeOnPlay: 0
   m_Gizmos: 0
   m_Stats: 0
   m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -70,8 +62,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -231.5
     m_HBaseRangeMax: 231.5
-    m_VBaseRangeMin: -123
-    m_VBaseRangeMax: 123
+    m_VBaseRangeMin: -128.5
+    m_VBaseRangeMax: 128.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -90,9 +82,9 @@ MonoBehaviour:
       x: 0
       y: 17
       width: 926
-      height: 492
+      height: 514
     m_Scale: {x: 2, y: 2}
-    m_Translation: {x: 463, y: 246}
+    m_Translation: {x: 463, y: 257}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -100,14 +92,14 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -231.5
-      y: -123
+      y: -128.5
       width: 463
-      height: 246
+      height: 257
     m_MinimalGUI: 1
   m_defaultScale: 2
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
-  m_LastWindowPixelSize: {x: 1852, y: 1018}
+  m_LastWindowPixelSize: {x: 1852, y: 1062}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -135,15 +127,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 342}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-  controlID: 6207
-=======
-  controlID: 24984
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-  controlID: 24984
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+  controlID: 5771
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -161,9 +145,9 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 928
-    height: 275
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+    height: 253
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 5}
@@ -272,7 +256,7 @@ MonoBehaviour:
     x: 0
     y: 94
     width: 926
-    height: 254
+    height: 232
   m_PersistentViewDataDictionary: {fileID: 0}
 --- !u!114 &7
 MonoBehaviour:
@@ -289,11 +273,11 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 275
+    y: 253
     width: 928
-    height: 530
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+    height: 552
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -322,15 +306,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-  controlID: 6178
-=======
-  controlID: 24936
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-  controlID: 24936
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+  controlID: 5744
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -349,8 +325,8 @@ MonoBehaviour:
     y: 0
     width: 235
     height: 372
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 10}
   m_Panes:
   - {fileID: 10}
@@ -383,21 +359,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-<<<<<<< HEAD
-<<<<<<< HEAD
-    m_SelectedIDs: d440e9ff
-    m_LastClickedID: -1490732
-    m_ExpandedIDs: 0eabafff484ab1ffca44bdfffe76beffe874c9ffc678c9ff0c86e0ff9ae2e1ff1ce6e1ff5289e3ff70fee3ff42f8e7ff5275e8ffc83ee9ff6444e9ffca6ce9ff2e24eaff1250eaffc69cebffcca3ebffc2c5ebff1a03ecff92cdecff3a46edffde98edff9e65eeff7636efff06a6efffdcafeffffa0ff0ff6c30f0fff246f0ff66a8f1ff8217f2ff5e31f2ffa25ef3ffb4f1f4ff58c4f5fffa96f6ffb465f7ff963ff8ff3607f9ffee08f9ffee0af9ff1a12f9ffbcccf9ff04f0f9ff5802fafffc86fdff9091fdff92f5ffff48f9ffffe6fbffff00000000de3100008a500000f0500000ba53000020540000e85600004e570000165a00007c5a0000445d0000aa5d000072600000d8600000a063000006640000fc690000626a000092740000f8740000ee7a0000547b0000907c0000f67c00007a800000e0800000a88300000e840000d68600003c870000c2870000048a00006a8a0000328d0000988d0000d48e00003a8f00004cc60000
-=======
-    m_SelectedIDs: 4c2d0000
-    m_LastClickedID: 0
-    m_ExpandedIDs: 0eabafff484ab1ffca44bdfffe76beffe874c9ffc678c9ff0c86e0ff9ae2e1ff1ce6e1ff5289e3ff70fee3ff42f8e7ff5275e8ffc83ee9ff6444e9ff2e24eaffc69cebffcca3ebff1a03ecff92cdecffde98edff9e65eeff7636efff06a6efffdcafeffffa0ff0ff66a8f1ff8217f2ff5e31f2ffa25ef3ffb4f1f4ff58c4f5fffa96f6ffb465f7ff963ff8ff1a12f9ff04f0f9fffc86fdff9091fdff92f5ffffe6fbffff00000000de3100008a500000f0500000ba53000020540000e85600004e570000165a00007c5a0000445d0000aa5d000072600000d8600000a063000006640000fc690000626a000092740000f8740000ee7a0000547b0000907c0000f67c00007a800000e0800000a88300000e840000d68600003c870000048a00006a8a0000328d0000988d0000d48e00003a8f00004cc60000
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-    m_SelectedIDs: 4c2d0000
-    m_LastClickedID: 0
-    m_ExpandedIDs: 0eabafff484ab1ffca44bdfffe76beffe874c9ffc678c9ff0c86e0ff9ae2e1ff1ce6e1ff5289e3ff70fee3ff42f8e7ff5275e8ffc83ee9ff6444e9ff2e24eaffc69cebffcca3ebff1a03ecff92cdecffde98edff9e65eeff7636efff06a6efffdcafeffffa0ff0ff66a8f1ff8217f2ff5e31f2ffa25ef3ffb4f1f4ff58c4f5fffa96f6ffb465f7ff963ff8ff1a12f9ff04f0f9fffc86fdff9091fdff92f5ffffe6fbffff00000000de3100008a500000f0500000ba53000020540000e85600004e570000165a00007c5a0000445d0000aa5d000072600000d8600000a063000006640000fc690000626a000092740000f8740000ee7a0000547b0000907c0000f67c00007a800000e0800000a88300000e840000d68600003c870000048a00006a8a0000328d0000988d0000d48e00003a8f00004cc60000
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+    m_SelectedIDs: d8860000
+    m_LastClickedID: 34520
+    m_ExpandedIDs: 0eabafff484ab1ffca44bdfffe76beffe874c9ffc678c9ff0c86e0ff9ae2e1ff1ce6e1ff5289e3ff70fee3ff42f8e7ff5275e8ffc83ee9ff6444e9ff2e24eaff1250eaffc69cebffcca3ebffc2c5ebff1a03ecff92cdecff3a46edffde98edff9e65eeff7636efff06a6efffdcafeffffa0ff0ff6c30f0fff246f0ff66a8f1ff8217f2ff5e31f2ffa25ef3ffb4f1f4ff58c4f5fffa96f6ffb465f7ff963ff8ff3607f9ffee08f9ffee0af9ff1a12f9ffbcccf9ff04f0f9ff5802fafffc86fdff9091fdff92f5ffff48f9ffffe6fbffff00000000de3100008a500000f0500000ba53000020540000e85600004e570000165a00007c5a0000445d0000aa5d000072600000d8600000a063000006640000fc690000626a000092740000f8740000ee7a0000547b0000907c0000f67c00007a800000e0800000a88300000e840000d68600003c870000c2870000048a00006a8a0000328d0000988d0000d48e00003a8f00004cc60000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -481,8 +445,7 @@ MonoBehaviour:
     m_ScenePaths: []
     m_ShowAllHits: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Scenes
+    m_Folders: []
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders:
@@ -496,7 +459,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: c62a0000
     m_LastClickedID: 10950
-    m_ExpandedIDs: ffffffff00000000d22a0000542b0000a82c0000ea2c0000d0300000
+    m_ExpandedIDs: ffffffff00000000d22a0000ea2c0000d8300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -522,21 +485,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_AssetTreeState:
     scrollPos: {x: 0, y: 0}
-<<<<<<< HEAD
-<<<<<<< HEAD
-    m_SelectedIDs: d440e9ff
+    m_SelectedIDs: d8860000
     m_LastClickedID: 0
     m_ExpandedIDs: ffffffff00000000d22a0000ea2c0000d8300000
-=======
-    m_SelectedIDs: 4c2d0000
-    m_LastClickedID: 11596
-    m_ExpandedIDs: ffffffff00000000d22a0000542b0000a82c0000ea2c0000d0300000
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-    m_SelectedIDs: 4c2d0000
-    m_LastClickedID: 11596
-    m_ExpandedIDs: ffffffff00000000d22a0000542b0000a82c0000ea2c0000d0300000
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -552,7 +503,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 11}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -561,18 +512,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-<<<<<<< HEAD
-<<<<<<< HEAD
-    m_SelectedInstanceIDs: d440e9ff
-    m_LastClickedInstanceID: -1490732
-=======
-    m_SelectedInstanceIDs: 4c2d0000
-    m_LastClickedInstanceID: 11596
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
-=======
-    m_SelectedInstanceIDs: 4c2d0000
-    m_LastClickedInstanceID: 11596
->>>>>>> parent of e564554... Improved radio interface and reworked displaying answers
+    m_SelectedInstanceIDs: d8860000
+    m_LastClickedInstanceID: 34520
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
