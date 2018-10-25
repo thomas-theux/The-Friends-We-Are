@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 443267089}
   - component: {fileID: 443267090}
   m_Layer: 0
-  m_Name: PointSpawner
+  m_Name: EXPSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
