@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelTimer : MonoBehaviour {
 
+	public GameObject statsManager;
+	public GameObject levelInterface;
+
 	public Text levelTimeText;
 	private float levelTime = 4;
 	public static bool levelEnd;
@@ -37,13 +40,6 @@ public class LevelTimer : MonoBehaviour {
 	}
 
 
-	private void LevelEnd() {
-		// Load Story Overview screen
-		levelFadeScript.FadeToLevel("6 Summary");
-
-	}
-
-
 	IEnumerator LastSeconds() {
 		// End the level
 		levelEnd = true;
@@ -55,6 +51,15 @@ public class LevelTimer : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 
 		LevelEnd();
+	}
+
+
+	private void LevelEnd() {
+		// Load Story Overview screen
+		levelInterface.SetActive(false);
+		statsManager.SetActive(true);
+		// levelFadeScript.FadeToLevel("6 Summary");
+
 	}
 	
 }

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/5 Stories/DrivexStory.unity
+    path: Assets/Scenes/4 DrivexStory.unity
     guid: 28067816181ca40bdaa9c30257d6eeed
   - enabled: 1
     path: Assets/Scenes/6 Summary.unity
     guid: cac49d8b6644044e8b518652f4179dd8
+  - enabled: 1
+    path: Assets/Scenes/5 Announcement.unity
+    guid: 59967cae085f74d8688a83235c30dcae
   m_configObjects: {}

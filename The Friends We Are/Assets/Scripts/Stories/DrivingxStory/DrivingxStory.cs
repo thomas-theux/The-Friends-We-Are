@@ -98,7 +98,7 @@ public class DrivingxStory : MonoBehaviour {
 			CalculatePercentage();
 
 			// Save the single values for the stats overview
-			StatsManager.transferValues = new float[] {
+			StatsHolder.transferValues = new float[] {
 				bus.transform.position.z,
 				maxSpeed,
 				averageSpeed,
@@ -107,7 +107,7 @@ public class DrivingxStory : MonoBehaviour {
 			};
 
 			// Transfer values WITH ceiling
-			// StatsManager.transferValues = new float[] {
+			// StatsHolder.transferValues = new float[] {
 			// 	Mathf.Ceil(bus.transform.position.z),
 			// 	Mathf.Ceil(maxSpeed),
 			// 	Mathf.Ceil(averageSpeed),
@@ -116,7 +116,7 @@ public class DrivingxStory : MonoBehaviour {
 			// };
 
 			// Save the titles for the stats
-			StatsManager.transferTexts = new string[] {
+			StatsHolder.transferTexts = new string[] {
 				"Meters Driven",
 				"Maximum Speed",
 				"Average Speed",
