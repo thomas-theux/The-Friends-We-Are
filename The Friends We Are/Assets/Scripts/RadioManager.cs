@@ -40,6 +40,9 @@ public class RadioManager : MonoBehaviour {
 	private float answerTime = 10.0f;
 	private bool answeringOpen = false;
 
+	private int xDistance = 25;
+	private int yDistance = 8;
+
 	private int answerOne = 0;
 	private int answerTwo = 0;
 	private bool pOneAnswered = false;
@@ -158,7 +161,7 @@ public class RadioManager : MonoBehaviour {
 
 
 	IEnumerator WaitForAnswer() {
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(0.3f);
 
 		answeringOpen = true;
 		StartCoroutine(StartTimer());
@@ -206,19 +209,19 @@ public class RadioManager : MonoBehaviour {
 	private void RegisterInput() {
 		// Check if player one answered
 		if (!pOneAnswered) {
-			if (GameManager.playerDark.GetButton("X")) {
+			if (GameManager.playerDark.GetButton("Square")) {
 				answerOne = 1;
 				OneAnswered();
 			}
-			if (GameManager.playerDark.GetButton("Circle")) {
+			if (GameManager.playerDark.GetButton("Triangle")) {
 				answerOne = 2;
 				OneAnswered();
 			}
-			if (GameManager.playerDark.GetButton("Square")) {
+			if (GameManager.playerDark.GetButton("Circle")) {
 				answerOne = 3;
 				OneAnswered();
 			}
-			if (GameManager.playerDark.GetButton("Triangle")) {
+			if (GameManager.playerDark.GetButton("X")) {
 				answerOne = 4;
 				OneAnswered();
 			}
@@ -226,19 +229,19 @@ public class RadioManager : MonoBehaviour {
 		
 		// Check if player two answered
 		if (!pTwoAnswered) {
-			if (GameManager.playerLight.GetButton("X")) {
+			if (GameManager.playerLight.GetButton("Square")) {
 				answerTwo = 1;
 				TwoAnswered();
 			}
-			if (GameManager.playerLight.GetButton("Circle")) {
+			if (GameManager.playerLight.GetButton("Triangle")) {
 				answerTwo = 2;
 				TwoAnswered();
 			}
-			if (GameManager.playerLight.GetButton("Square")) {
+			if (GameManager.playerLight.GetButton("Circle")) {
 				answerTwo = 3;
 				TwoAnswered();
 			}
-			if (GameManager.playerLight.GetButton("Triangle")) {
+			if (GameManager.playerLight.GetButton("X")) {
 				answerTwo = 4;
 				TwoAnswered();
 			}
@@ -271,8 +274,10 @@ public class RadioManager : MonoBehaviour {
 		if (answerOne > 0) {
 			answerEnteredOne.SetActive(true);
 			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-				answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
-				answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
+				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.x - xDistance,
+				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.y + yDistance
+				// answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
+				// answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
 			);
 			showIndicatorsSound.Play();
 		}
@@ -283,8 +288,8 @@ public class RadioManager : MonoBehaviour {
 		if (answerTwo > 0) {
 			answerEnteredTwo.SetActive(true);
 			answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-				answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.x,
-				answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.y - ((answerTwo-1) * 70)
+				showAnswers[answerTwo-1].GetComponent<RectTransform>().anchoredPosition.x + xDistance,
+				showAnswers[answerTwo-1].GetComponent<RectTransform>().anchoredPosition.y + yDistance
 			);
 			showIndicatorsSound.Play();
 		}
@@ -295,8 +300,8 @@ public class RadioManager : MonoBehaviour {
 		if (answerOne != 0 && answerOne == answerTwo) {
 			sameAnswer.SetActive(true);
 			sameAnswer.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-				sameAnswer.GetComponent<RectTransform>().anchoredPosition.x,
-				sameAnswer.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
+				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.x,
+				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.y + 26
 			);
 			sameAnswerSound.Play();
 			yield return new WaitForSeconds(0.5f);
