@@ -18,12 +18,12 @@ public class RadioQuestions : MonoBehaviour {
 		RadioManager.questionsArr = new List<RadioQuestion> {
 
 			{ new RadioQuestion(
-				"If you find out that a very close friend has incurable cancer – what would you do?",
+				"What would you do when you find out that a close friend has incurable cancer?",
 				new List<string> {
 					"Spend more time with her/him.",
-					"Don’t spend any time anymore.",
+					"Don’t spend any more time.",
 					"Slowly distance myself from her/him.",
-					"I would not change anything."
+					"I wouldn't change anything."
 				})
 			},
 
@@ -38,7 +38,7 @@ public class RadioQuestions : MonoBehaviour {
 			},
 
 			{ new RadioQuestion(
-				"What is Player One's best attribute of the followoing?",
+				"What is Player One's best attribute?",
 				new List<string> {
 					"Punctuality",
 					"Discipline",
@@ -58,12 +58,22 @@ public class RadioQuestions : MonoBehaviour {
 			},
 
 			{ new RadioQuestion(
-				"Which one of you is the party dude/dudess?",
+				"Who do you think is the party dude/dudess among you?",
 				new List<string> {
 					"Player One",
 					"Player Two",
 					"Both of us",
 					"No one"
+				})
+			},
+
+			{ new RadioQuestion(
+				"What is Player Two's preferred food?",
+				new List<string> {
+					"Italian",
+					"Asian",
+					"American",
+					"German"
 				})
 			},
 

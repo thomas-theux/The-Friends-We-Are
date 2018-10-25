@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour {
 
-	public GameObject radioManager;
+	public GameObject questionManagerScript;
 
 	private LevelFade levelFadeScript;
 
@@ -60,7 +60,7 @@ public class EventManager : MonoBehaviour {
 
 
 	private void QuestionManager() {
-		radioManager.SetActive(true);
+		questionManagerScript.SetActive(true);
 	}
 
 

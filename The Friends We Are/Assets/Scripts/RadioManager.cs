@@ -6,25 +6,27 @@ using UnityEngine.UI;
 public class RadioManager : MonoBehaviour {
 
 	// public GameObject statsInterface;
-	public GameObject radioInterface;
+	public GameObject questionInterface;
 	public GameObject showQuestion;
-	public GameObject showAnswers;
+
+	public GameObject[] showAnswers;
+
+	public GameObject showTimer;
+
 	public GameObject answerEnteredOne;
 	public GameObject answerEnteredTwo;
-	public GameObject answerIndicatorOne;
-	public GameObject answerIndicatorTwo;
 	public GameObject sameAnswer;
-	// public Slider questionTimer;
+	
 	public Image questionTime;
 
 	public Text questionsText;
-	public Text[] answersText;
 
 	public AudioSource hissSound;
 	public AudioSource radioIntroVoice;
 	public AudioSource radioVoice;
 	public AudioSource radioBGMusic;
 	public AudioSource popupSound;
+	public AudioSource startTimerSound;
 	public AudioSource clockTickingSound;
 	public AudioSource timeOverSound;
 	public AudioSource answerOneSound;
@@ -49,14 +51,11 @@ public class RadioManager : MonoBehaviour {
 	private IEnumerator clockTicker;
 
 	public static List<RadioQuestions.RadioQuestion> questionsArr;
-	// public static List<List<string>> questionsArr = new List<List<string>>();
-	// public static List<string> answersArr = new List<string>();
 
 	private int randomIndex;
 
 
 	private void Start() {
-		// statsInterface.SetActive(true);
 		StartRadio();
 	}
 
@@ -65,19 +64,19 @@ public class RadioManager : MonoBehaviour {
 		if (answeringOpen) {
 			RegisterInput();
 		}
+		// print(questionsText.cachedTextGenerator.lineCount);
 	}
 
 
 	public void StartRadio() {
 		GameManager.enableNavigation = false;
-		// statsInterface.SetActive(false);
 		StartCoroutine(BootRadio());
 	}
 
 
 	IEnumerator BootRadio() {
 		yield return new WaitForSeconds(0.5f);
-		radioInterface.SetActive(true);
+		questionInterface.SetActive(true);
 		hissSound.Play();
 		yield return new WaitForSeconds(2.4f);
 		ShowRadio();
@@ -86,6 +85,8 @@ public class RadioManager : MonoBehaviour {
 
 	private void ShowRadio() {
 		radioBGMusic.Play();
+
+		// Check if questions have been played before or not and play the according voice file
 		if (!firstVoice) {
 			// radioIntroVoice.Play();
 			waitDelay = 0.5f;
@@ -105,16 +106,27 @@ public class RadioManager : MonoBehaviour {
 
 
 	private void ShowQuestions() {
-		// Pick random question from array
+		// Pick a random question from the array
 		randomIndex = Random.Range(0, questionsArr.Count);
+
+		// Write text for question
 		questionsText.text = questionsArr[randomIndex].question;
+		
+		// Write texts for answers
 		for (int i = 0; i < 4; i++) {
-			answersText[i].text = questionsArr[randomIndex].answers[i];
+			showAnswers[i].transform.GetChild(0).GetComponent<Text>().text = questionsArr[randomIndex].answers[i];
+			// answersText[i].text = questionsArr[randomIndex].answers[i];
 		}
+		// Remove the posed question from the array
 		questionsArr.RemoveAt(randomIndex);
 		
+		// Show question
 		popupSound.Play();
 		showQuestion.SetActive(true);
+
+		// Show inidcators for players
+		answerEnteredOne.SetActive(true);
+		answerEnteredTwo.SetActive(true);
 
 		StartCoroutine(WaitForQuestion());
 	}
@@ -122,14 +134,25 @@ public class RadioManager : MonoBehaviour {
 
 	IEnumerator WaitForQuestion() {
 		yield return new WaitForSeconds(3.0f);
-		ShowAnswers();
+		StartCoroutine(ShowAnswers());
 	}
 
 
-	private void ShowAnswers() {
-		popupSound.Play();
-		showAnswers.SetActive(true);
-		// answersText.text = answersArr[randomIndex];
+	IEnumerator ShowAnswers() {
+		int popAnswers = 0;
+
+		// Pop up all answers one after another
+		while (popAnswers < 4) {
+			showAnswers[popAnswers].SetActive(true);
+			popupSound.Play();
+			yield return new WaitForSeconds(0.2f);
+			popAnswers++;
+			yield return null;
+		}
+
+		// Display timer
+		showTimer.SetActive(true);
+
 		StartCoroutine(WaitForAnswer());
 	}
 
@@ -139,6 +162,8 @@ public class RadioManager : MonoBehaviour {
 
 		answeringOpen = true;
 		StartCoroutine(StartTimer());
+
+		startTimerSound.Play();
 
 		clockTicker = ClockTick();
 		StartCoroutine(clockTicker);
@@ -244,10 +269,10 @@ public class RadioManager : MonoBehaviour {
 
 		// Show indicator of player one
 		if (answerOne > 0) {
-			answerIndicatorOne.SetActive(true);
-			answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.x,
-				answerIndicatorOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
+			answerEnteredOne.SetActive(true);
+			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+				answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
+				answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.y - ((answerOne-1) * 70)
 			);
 			showIndicatorsSound.Play();
 		}
@@ -256,10 +281,10 @@ public class RadioManager : MonoBehaviour {
 
 		// Show indicator of player one
 		if (answerTwo > 0) {
-			answerIndicatorTwo.SetActive(true);
-			answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
-				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.x,
-				answerIndicatorTwo.GetComponent<RectTransform>().anchoredPosition.y - ((answerTwo-1) * 70)
+			answerEnteredTwo.SetActive(true);
+			answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+				answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.x,
+				answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.y - ((answerTwo-1) * 70)
 			);
 			showIndicatorsSound.Play();
 		}
