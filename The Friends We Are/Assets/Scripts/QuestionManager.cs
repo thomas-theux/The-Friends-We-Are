@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour {
 
+	public GameObject eventManager;
 	public GameObject questionInterface;
 	public GameObject showQuestion;
 	public GameObject[] showAnswers;
@@ -44,6 +45,7 @@ public class QuestionManager : MonoBehaviour {
 	private float waitDelay = 0;
 	private float answerTime = 10.0f;
 	private bool answeringOpen = false;
+	private bool stillIncreasing = false;
 
 	private int xDistance = 25;
 	private int yDistance = 8;
@@ -68,8 +70,33 @@ public class QuestionManager : MonoBehaviour {
 
 	private int randomIndex;
 
+	private Color defaultColorIndicator = new Color(1, 1, 1, 0.5f);
+	private Vector2 indicatorOnePos;
+	private Vector2 indicatorTwoPos;
 
-	private void Start() {
+
+	// private void Awake() {
+	// 	eventManager.SetActive(false);
+
+	// 	StartRadio();
+
+	// 	increaseValuesCo = IncreaseValues();
+	// }
+
+
+	private void OnEnable() {
+		// Save initial positions of indicators
+		indicatorOnePos = new Vector2(
+			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
+			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.y
+		);
+		indicatorTwoPos = new Vector2(
+			answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.x,
+			answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition.y
+		);
+
+		eventManager.SetActive(false);
+
 		StartRadio();
 
 		increaseValuesCo = IncreaseValues();
@@ -80,8 +107,136 @@ public class QuestionManager : MonoBehaviour {
 		if (answeringOpen) {
 			RegisterInput();
 		}
+
+		if (GameManager.enableNavigation) {
+			GetInput();
+		}
 	}
 
+
+	private void GetInput() {
+		if(GameManager.playerDark.GetButtonDown("X")) {
+			if (stillIncreasing) {
+				// Skip stats increasing animation
+				SkipStatsAnim();
+			} else {
+				// Disable navigation
+				GameManager.enableNavigation = false;
+
+				// Reset all gameobjects, values and texts
+				HardReset();
+
+				// Get next random event
+				eventManager.SetActive(true);
+			}
+		}
+	}
+
+
+	private void HardReset() {
+		///////////
+		// Reset all gameobjects, values and texts
+		///////////
+
+		// Reset all stat values
+		for (int k = 0; k < statValues.Length; k++) {
+			if (k < statValues.Length -1) {
+				statValues[k].text = "0.00";
+			} else {
+				statValues[k].text = "+0.0%";
+			}
+			// Reset stats colors
+			statValues[k].GetComponent<GradientText>().enabled = false;
+		}
+
+		// Reset all other bools
+		stillIncreasing = false;
+		GameManager.enableNavigation = false;
+		answersMatch = false;
+		answeringOpen = false;
+
+		// Hide review interface popup
+		reviewInterface.SetActive(false);
+
+		// Hide "same answer" indicator
+		sameAnswer.SetActive(false);
+
+		// Reset answers match bool
+		answersMatch = false;
+
+		// Reset indicator positions
+		answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = indicatorOnePos;
+		answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition = indicatorTwoPos;
+
+		// Hide player indicators
+		answerEnteredOne.SetActive(false);
+		answerEnteredTwo.SetActive(false);
+
+		// Reset opacity of indicators
+		answerEnteredOne.GetComponent<Image>().color = defaultColorIndicator;
+		answerEnteredTwo.GetComponent<Image>().color = defaultColorIndicator;
+
+		// Reset answers
+		answerOne = 0;
+		answerTwo = 0;
+		pOneAnswered = false;
+		pTwoAnswered = false;
+
+		// Reset timer
+		answerTime = 10.0f;
+		questionTime.fillAmount = 1;
+
+		// Hide timer
+		showTimer.SetActive(false);
+
+		// Hide answer popups
+		for (int j = 0; j < showAnswers.Length; j++) {
+			showAnswers[j].SetActive(false);
+		}
+
+		// Hide indicators for players
+		answerEnteredOne.SetActive(false);
+		answerEnteredTwo.SetActive(false);
+
+		// Hide question popup
+		showQuestion.SetActive(false);
+
+		// Reset answer texts
+		for (int i = 0; i < 4; i++) {
+			showAnswers[i].transform.GetChild(0).GetComponent<Text>().text = "";
+		}
+
+		// Reset question text
+		questionsText.text = "";
+
+		// Hide whole Interface
+		questionInterface.SetActive(false);
+
+		///////////
+		// Reset END
+		///////////
+	}
+
+
+	private void SkipStatsAnim() {
+		stillIncreasing = false;
+
+		StopCoroutine(increaseValuesCo);
+
+		for (int i = 0; i < statValues.Length; i++) {
+			if (i < statValues.Length -1) {
+				statValues[i].text = valuesArr[i].ToString("F2");
+			} else {
+				statValues[i].text = "+" + valuesArr[i].ToString("F1") + "%";
+				newScoreSlider.value = oldScoreSlider.value + valuesArr[i];
+			}
+
+			// Color the increased value with a gradient
+			statValues[i].GetComponent<GradientText>().enabled = true;
+			finishedIncreasingSound.Play();
+		}
+	}
+	
 
 	public void StartRadio() {
 		GameManager.enableNavigation = false;
@@ -104,11 +259,13 @@ public class QuestionManager : MonoBehaviour {
 		// Check if questions have been played before or not and play the according voice file
 		if (!firstVoice) {
 			// radioIntroVoice.Play();
+			// waitDelay = 10.5f;
 			waitDelay = 0.5f;
 			firstVoice = true;
 		} else {
-			radioVoice.Play();
-			waitDelay = 5.5f;
+			// radioVoice.Play();
+			// waitDelay = 5.5f;
+			waitDelay = 0.5f;
 		}
 		StartCoroutine(WaitForVoice(waitDelay));
 	}
@@ -189,7 +346,6 @@ public class QuestionManager : MonoBehaviour {
 		while (answerTime > 0) {
 			if (answeringOpen) {
 				answerTime -= Time.deltaTime;
-				// questionTimer.value = answerTime * 10;
 				questionTime.fillAmount = answerTime / 10;
 			} else {
 				answerTime = 0;
@@ -294,7 +450,7 @@ public class QuestionManager : MonoBehaviour {
 			showIndicatorsSound.Play();
 		}
 
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.2f);
 
 		// Show indicator of player one
 		if (answerTwo > 0) {
@@ -306,7 +462,7 @@ public class QuestionManager : MonoBehaviour {
 			showIndicatorsSound.Play();
 		}
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.4f);
 
 		// If both players have chosen the same answer they will get points
 		if (answerOne != 0 && answerOne == answerTwo) {
@@ -317,11 +473,11 @@ public class QuestionManager : MonoBehaviour {
 				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.y + 26
 			);
 			sameAnswerSound.Play();
-			yield return new WaitForSeconds(2.0f);
+			yield return new WaitForSeconds(1.4f);
 		} else {
 			answersMatch = false;
 			notSameAnswerSound.Play();
-			yield return new WaitForSeconds(2.0f);
+			yield return new WaitForSeconds(1.4f);
 		}
 
 		GetPoints();
@@ -351,6 +507,10 @@ public class QuestionManager : MonoBehaviour {
 
 	IEnumerator IncreaseValues() {
 		yield return new WaitForSeconds(0.5f);
+
+		// Enable navigation so players can skip if they like
+		GameManager.enableNavigation = true;
+		stillIncreasing = true;
 
 		float tempTime = 0;
 		float increaseTime = 1.0f;
@@ -391,6 +551,9 @@ public class QuestionManager : MonoBehaviour {
 			tempTime = 0;
 			tempIndex++;
 		}
+
+		// Stop the possibility to skip the increasing animation
+		stillIncreasing = false;
 	}
 
 

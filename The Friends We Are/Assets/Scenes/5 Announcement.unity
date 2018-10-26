@@ -5568,6 +5568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff469ffee0ab54f6c8410301e43d4a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventManager: {fileID: 1329409930}
   questionInterface: {fileID: 979479511}
   showQuestion: {fileID: 1283130459}
   showAnswers:

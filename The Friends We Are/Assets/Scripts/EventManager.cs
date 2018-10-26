@@ -17,7 +17,7 @@ public class EventManager : MonoBehaviour {
 
 
 	private void Awake() {
-		DontDestroyOnLoad(this.gameObject);
+		// DontDestroyOnLoad(this.gameObject);
 
 		// Get all names of the stories in the Story folder
 		string mapsFolder = Application.dataPath + "/Scenes/6 Stories";
@@ -31,10 +31,15 @@ public class EventManager : MonoBehaviour {
 
 	private void Start() {
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
-		GameManager.enableNavigation = true;
+		// GameManager.enableNavigation = true;
 
 		// Display small radio interface
 		radioInterface.SetActive(true);
+	}
+
+	private void OnEnable() {
+		// Disable question manager
+		questionManagerScript.SetActive(false);
 
 		StartCoroutine(Continue());
 	}
@@ -49,6 +54,7 @@ public class EventManager : MonoBehaviour {
 
 	// Chosing a random number to check if the next event is a Story or Radio
 	private void RandomEvent() {
+
 		int randomEvent = Random.Range(0, 100);
 
 		// Start radio event
