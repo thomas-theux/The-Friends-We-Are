@@ -87,11 +87,12 @@
      <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GradientText.cs" />
      <Compile Include="Assets\Scripts\HonkHorns.cs" />
      <Compile Include="Assets\Scripts\LevelFade.cs" />
      <Compile Include="Assets\Scripts\LevelTimer.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
-     <Compile Include="Assets\Scripts\RadioManager.cs" />
+     <Compile Include="Assets\Scripts\QuestionManager.cs" />
      <Compile Include="Assets\Scripts\RadioQuestions.cs" />
      <Compile Include="Assets\Scripts\StartLevelCountdown.cs" />
      <Compile Include="Assets\Scripts\StatsDisplayer.cs" />

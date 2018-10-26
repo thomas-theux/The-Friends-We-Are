@@ -84,7 +84,9 @@ public class StatsDisplayer : MonoBehaviour {
 					} else {
 						showValues[j].text = "0" + StatsHolder.transferValues[j].ToString("F0") + "";
 					}
-					showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
+					// Color the increased value with a gradient
+					showValues[index].GetComponent<GradientText>().enabled = true;
+					// showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
 				}
 				showValues[overallValues-1].text = "+" + StatsHolder.transferValues[overallValues-1].ToString("F1") + "%";
 				newScore.value = StatsHolder.transferValues[overallValues-1];
@@ -145,8 +147,9 @@ public class StatsDisplayer : MonoBehaviour {
 			} else {
 				showValues[index].text = "+" + StatsHolder.transferValues[index].ToString("F1") + "%";
 			}
-			// Color the increased value orange
-			showValues[index].color = new Color(1.0f, 0.427451f, 0.003921569f);
+			// Color the increased value with a gradient
+			showValues[index].GetComponent<GradientText>().enabled = true;
+			// showValues[index].color = new Color(1.0f, 0.427451f, 0.003921569f);
 			finishedIncreasing.Play();
 
 			tempTime = 0;

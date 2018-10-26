@@ -16,7 +16,7 @@ public class RadioQuestions : MonoBehaviour {
 
 
 	private void Start() {
-		RadioManager.questionsArr = new List<RadioQuestion> {
+		QuestionManager.questionsArr = new List<RadioQuestion> {
 
 			{ new RadioQuestion(
 				"What would you do when you find out that a close friend has incurable cancer?",

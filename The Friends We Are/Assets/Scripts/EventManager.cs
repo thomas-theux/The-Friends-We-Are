@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class EventManager : MonoBehaviour {
 
 	public GameObject questionManagerScript;
+	public GameObject radioInterface;
 
 	private LevelFade levelFadeScript;
 
@@ -31,6 +32,9 @@ public class EventManager : MonoBehaviour {
 	private void Start() {
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
 		GameManager.enableNavigation = true;
+
+		// Display small radio interface
+		radioInterface.SetActive(true);
 
 		StartCoroutine(Continue());
 	}

@@ -362,12 +362,12 @@ RectTransform:
   - {fileID: 801162121}
   - {fileID: 1894084030}
   m_Father: {fileID: 1806246142}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -525}
-  m_SizeDelta: {x: 1040, y: 40}
+  m_AnchoredPosition: {x: 0, y: -513}
+  m_SizeDelta: {x: 1032, y: 64}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &183855312
 MonoBehaviour:
@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 240976475}
   - component: {fileID: 240976476}
   - component: {fileID: 240976477}
+  - component: {fileID: 240976478}
   m_Layer: 5
   m_Name: ValueStat05
   m_TagString: Untagged
@@ -540,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.42745098, b: 0.003921569, a: 1}
+  m_Color: {r: 0.92156863, g: 0.9607843, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -560,7 +561,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: +0
+  m_Text: +0.0%
+--- !u!114 &240976478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 240976474}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &291875058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1031,7 @@ GameObject:
   - component: {fileID: 474048323}
   - component: {fileID: 474048324}
   - component: {fileID: 474048325}
+  - component: {fileID: 474048326}
   m_Layer: 5
   m_Name: ValueStat02
   m_TagString: Untagged
@@ -1076,6 +1097,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 00
+--- !u!114 &474048326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 474048322}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &528971893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,6 +1390,90 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &634115841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634115842}
+  - component: {fileID: 634115844}
+  - component: {fileID: 634115843}
+  - component: {fileID: 634115845}
+  m_Layer: 5
+  m_Name: ScoreBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &634115842
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 634115841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1806246142}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -529}
+  m_SizeDelta: {x: 1032, y: 32}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &634115843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 634115841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.13725491, g: 0.1764706, b: 0.21568628, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &634115844
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 634115841}
+  m_CullTransparentMesh: 0
+--- !u!114 &634115845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 634115841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.92156863, g: 0.9607843, b: 1, a: 1}
+  m_EffectDistance: {x: 4, y: 4}
+  m_UseGraphicAlpha: 1
 --- !u!1 &689647562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1827,7 @@ GameObject:
   - component: {fileID: 793754726}
   - component: {fileID: 793754727}
   - component: {fileID: 793754728}
+  - component: {fileID: 793754729}
   m_Layer: 5
   m_Name: TextStat05
   m_TagString: Untagged
@@ -1747,7 +1872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.42745098, b: 0.003921569, a: 1}
+  m_Color: {r: 0.92156863, g: 0.9607843, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1768,6 +1893,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: FRIENDS SCORE
+--- !u!114 &793754729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 793754725}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &793895471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1997,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 801162120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1867,7 +2011,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 801162120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1995,6 +2139,7 @@ GameObject:
   - component: {fileID: 909240297}
   - component: {fileID: 909240298}
   - component: {fileID: 909240299}
+  - component: {fileID: 909240300}
   m_Layer: 5
   m_Name: ValueStat01
   m_TagString: Untagged
@@ -2060,6 +2205,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &909240300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909240296}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &950136943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,6 +2668,7 @@ GameObject:
   - component: {fileID: 1308182844}
   - component: {fileID: 1308182845}
   - component: {fileID: 1308182846}
+  - component: {fileID: 1308182847}
   m_Layer: 5
   m_Name: ValueStat04
   m_TagString: Untagged
@@ -2569,6 +2734,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &1308182847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1308182843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &1346711580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,8 +2958,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000091552734, y: -525}
-  m_SizeDelta: {x: 1040, y: 40}
+  m_AnchoredPosition: {x: 0, y: -513}
+  m_SizeDelta: {x: 1032, y: 64}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &1455658922
 Prefab:
@@ -2846,6 +3030,7 @@ GameObject:
   - component: {fileID: 1462767484}
   - component: {fileID: 1462767486}
   - component: {fileID: 1462767485}
+  - component: {fileID: 1462767487}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -2883,7 +3068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.42745098, b: 0.003921569, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2905,6 +3090,25 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1462767483}
   m_CullTransparentMesh: 0
+--- !u!114 &1462767487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1462767483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &1486177686
 GameObject:
   m_ObjectHideFlags: 0
@@ -3624,8 +3828,9 @@ RectTransform:
   - {fileID: 793754726}
   - {fileID: 104522666}
   - {fileID: 1567225149}
-  - {fileID: 183855311}
+  - {fileID: 634115842}
   - {fileID: 1351405205}
+  - {fileID: 183855311}
   m_Father: {fileID: 1797977661}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4018,6 +4223,7 @@ GameObject:
   - component: {fileID: 1966014481}
   - component: {fileID: 1966014483}
   - component: {fileID: 1966014482}
+  - component: {fileID: 1966014484}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -4077,6 +4283,25 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1966014480}
   m_CullTransparentMesh: 0
+--- !u!114 &1966014484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1966014480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 2516676095
+  EndColor:
+    serializedVersion: 2
+    rgba: 2524905727
 --- !u!1 &2033120781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4087,6 +4312,7 @@ GameObject:
   - component: {fileID: 2033120782}
   - component: {fileID: 2033120783}
   - component: {fileID: 2033120784}
+  - component: {fileID: 2033120785}
   m_Layer: 5
   m_Name: ValueStat03
   m_TagString: Untagged
@@ -4152,6 +4378,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 00
+--- !u!114 &2033120785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2033120781}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e14c9eba6dcd464a881784ba2583cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradientType: 1
+  Offset: 0
+  StartColor:
+    serializedVersion: 2
+    rgba: 4278283775
+  EndColor:
+    serializedVersion: 2
+    rgba: 4286513407
 --- !u!1 &2040835946
 GameObject:
   m_ObjectHideFlags: 0
