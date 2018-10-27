@@ -152,7 +152,7 @@ public class DrivingxStory : MonoBehaviour {
 		braking = GameManager.playerDark.GetAxis("L2");
 
 		// Get input from player two (light)
-		steering = GameManager.playerDark.GetAxis("LS Horizontal");
+		steering = GameManager.playerLight.GetAxis("LS Horizontal");
 	}
 
 

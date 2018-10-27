@@ -528,8 +528,13 @@ public class QuestionManager : MonoBehaviour {
 				if (tempIndex < statValues.Length -1) {
 					statValues[tempIndex].text = currentValue.ToString("F2");
 				} else {
-					statValues[tempIndex].text = "+" + currentValue.ToString("F1") + "%";
-					newScoreSlider.value = oldScoreSlider.value + currentValue;
+					if (answersMatch) {
+						statValues[tempIndex].text = "+" + currentValue.ToString("F1") + "%";
+						newScoreSlider.value = oldScoreSlider.value + currentValue;
+					} else {
+						tempTime = increaseTime;
+						notSameAnswerSound.Play();
+					}
 				}
 
 				increaseSound.Play();
