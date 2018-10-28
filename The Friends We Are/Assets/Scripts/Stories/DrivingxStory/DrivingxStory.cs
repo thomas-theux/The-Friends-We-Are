@@ -264,7 +264,7 @@ public class DrivingxStory : MonoBehaviour {
 		float minEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.storyAP);
 		float maxEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.radioAP);
 
-		float calculateAllEvents = (minEvents * GameManager.storyChance + maxEvents * GameManager.radioChance) / 100;
+		float calculateAllEvents = (minEvents * GameManager.storyChance + maxEvents * GameManager.questionChance) / 100;
 
 		float rankMultiplier = 0;
 

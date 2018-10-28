@@ -58,12 +58,12 @@ public class EventManager : MonoBehaviour {
 		int randomEvent = Random.Range(0, 100);
 
 		// Start radio event
-		if (randomEvent >= 0 && randomEvent < 100) {
+		if (randomEvent >= 0 && randomEvent < GameManager.questionChance) {
 			QuestionManager();
 		}
 
 		// Start story event
-		// if (randomEvent >= 30 && randomEvent < 100) {
+		// if (randomEvent >= questionChance && randomEvent < 100) {
 		// 	NextStory();
 		// }
 	}

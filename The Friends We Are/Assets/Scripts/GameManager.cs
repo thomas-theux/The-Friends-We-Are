@@ -8,14 +8,16 @@ public class GameManager : MonoBehaviour {
 
 	public static int playerCount = 2;
 
+	public static int currentDay = 0;
 	public static int tripDays = 5;
+	public static int currentTime = 0;
 
 	public static int storyAP = 3;
 	public static int radioAP = 2;
 	public static int maxAP = 6;
 
 	public static int storyChance = 60;
-	public static int radioChance = 40;
+	public static int questionChance = 100;
 
 	public static bool enableNavigation;
 	public static bool skipStats = false;
