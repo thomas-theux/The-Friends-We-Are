@@ -21,6 +21,7 @@ public class QuestionManager : MonoBehaviour {
 	public GameObject[] titles;
 	public GameObject[] percentages;
 	public GameObject summaryLine;
+	public GameObject fsValue;
 	// ////////////////
 
 	public GameObject reviewInterface;
@@ -155,15 +156,40 @@ public class QuestionManager : MonoBehaviour {
 		// Reset all stat values
 		for (int k = 0; k < statValues.Length; k++) {
 			if (k < statValues.Length -1) {
-				statValues[k].text = "0.00";
+				statValues[k].text = "";
 			} else {
-				statValues[k].text = "+0.0";
+				statValues[k].text = "";
 			}
 			// Reset values
 			valuesArr[k] = 0;
 			// Reset stats colors
 			// statValues[k].GetComponent<GradientText>().enabled = false;
 		}
+
+		// Hide titles
+		for (int l = 0; l < titles.Length; l++) {
+			titles[l].SetActive(false);
+		}
+
+		// Hide percentages
+		for (int m = 0; m < percentages.Length; m++) {
+			percentages[m].SetActive(false);
+		}
+
+		// Hide seconds suffix
+		for (int n = 0; n < statValues.Length -1; n++) {
+			statValues[n].transform.GetChild(0).gameObject.SetActive(false);
+		}
+
+		// Hide summary line
+		summaryLine.SetActive(false);
+
+		// Hide overall percentage
+		fsValue.SetActive(false);
+
+		// Hide matchings answers icon
+		matchingIcon.SetActive(false);
+		notMatchingIcon.SetActive(false);
 
 		// Reset all other bools
 		stillIncreasing = false;
@@ -267,6 +293,9 @@ public class QuestionManager : MonoBehaviour {
 
 			// Show summary line
 			summaryLine.SetActive(true);
+
+			// Show overal percentage
+			fsValue.SetActive(true);
 
 			// Color the increased value with a gradient
 			// statValues[i].GetComponent<GradientText>().enabled = true;
@@ -654,6 +683,7 @@ public class QuestionManager : MonoBehaviour {
 
 			if (tempIndex == statValues.Length -2) {
 				summaryLine.SetActive(true);
+				fsValue.SetActive(true);
 			}
 
 			tempTime = 0;
