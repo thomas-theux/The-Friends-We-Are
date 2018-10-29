@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour {
 
+	public EventReview eventReviewScript;
+
 	public GameObject eventManager;
+	public GameObject eventReview;
 	public GameObject questionInterface;
 	public GameObject showQuestion;
 	public GameObject[] showAnswers;
@@ -20,7 +23,7 @@ public class QuestionManager : MonoBehaviour {
 	public Image questionTime;
 
 	public Text questionsText;
-	public Text[] statValues;
+	// public Text[] statValues;
 
 	public Slider oldScoreSlider;
 	public Slider newScoreSlider;
@@ -45,7 +48,7 @@ public class QuestionManager : MonoBehaviour {
 	private float waitDelay = 0;
 	private float answerTime = 10.0f;
 	private bool answeringOpen = false;
-	private bool stillIncreasing = false;
+	// private bool stillIncreasing = false;
 
 	private int xDistance = 25;
 	private int yDistance = 8;
@@ -54,12 +57,12 @@ public class QuestionManager : MonoBehaviour {
 	private int answerTwo = 0;
 	private bool pOneAnswered = false;
 	private bool pTwoAnswered = false;
-	private bool answersMatch;
+	// private bool answersMatch;
 
 	private float getPoints = 5.0f;
 	private float remainingTime;
 
-	private float[] valuesArr = {0, 0, 0};
+	// private float[] valuesArr = {0, 0, 0};
 	private float currentValue;
 	private float calculatedValue;
 
@@ -85,6 +88,8 @@ public class QuestionManager : MonoBehaviour {
 
 
 	private void OnEnable() {
+		eventReviewScript = eventReview.GetComponent<EventReview>();
+
 		// Save initial positions of indicators
 		indicatorOnePos = new Vector2(
 			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
@@ -99,7 +104,8 @@ public class QuestionManager : MonoBehaviour {
 
 		StartRadio();
 
-		increaseValuesCo = IncreaseValues();
+		increaseValuesCo = eventReviewScript.IncreaseValues();
+		// increaseValuesCo = IncreaseValues();
 	}
 
 
@@ -116,9 +122,9 @@ public class QuestionManager : MonoBehaviour {
 
 	private void GetInput() {
 		if(GameManager.playerDark.GetButtonDown("X")) {
-			if (stillIncreasing) {
+			if (EventReview.stillIncreasing) {
 				// Skip stats increasing animation
-				SkipStatsAnim();
+				eventReviewScript.SkipStatsAnim();
 			} else {
 				// Disable navigation
 				GameManager.enableNavigation = false;
@@ -138,21 +144,27 @@ public class QuestionManager : MonoBehaviour {
 		// Reset all gameobjects, values and texts
 		///////////
 
+		oldScoreSlider.value = newScoreSlider.value;
+
 		// Reset all stat values
-		for (int k = 0; k < statValues.Length; k++) {
-			if (k < statValues.Length -1) {
-				statValues[k].text = "0.00";
+		for (int k = 0; k < eventReviewScript.statValues.Length; k++) {
+			if (k < eventReviewScript.statValues.Length -1) {
+				eventReviewScript.statValues[k].text = "0.00";
 			} else {
-				statValues[k].text = "+0.0%";
+				eventReviewScript.statValues[k].text = "+0.0%";
 			}
 			// Reset stats colors
-			statValues[k].GetComponent<GradientText>().enabled = false;
+			eventReviewScript.statValues[k].GetComponent<GradientText>().enabled = false;
+		}
+
+		// Reset all transferred stats in the StatsHolder
+		for (int l = 0; l < StatsHolder.transferValues.Length; l++) {
+			StatsHolder.transferValues[l] = 0;
 		}
 
 		// Reset all other bools
-		stillIncreasing = false;
+		EventReview.stillIncreasing = false;
 		GameManager.enableNavigation = false;
-		answersMatch = false;
 		answeringOpen = false;
 
 		// Hide review interface popup
@@ -162,7 +174,7 @@ public class QuestionManager : MonoBehaviour {
 		sameAnswer.SetActive(false);
 
 		// Reset answers match bool
-		answersMatch = false;
+		EventReview.answersMatch = false;
 
 		// Reset indicator positions
 		answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = indicatorOnePos;
@@ -218,24 +230,27 @@ public class QuestionManager : MonoBehaviour {
 	}
 
 
-	private void SkipStatsAnim() {
-		stillIncreasing = false;
+	// private void SkipStatsAnim() {
+	// 	stillIncreasing = false;
 
-		StopCoroutine(increaseValuesCo);
+	// 	StopCoroutine(increaseValuesCo);
 
-		for (int i = 0; i < statValues.Length; i++) {
-			if (i < statValues.Length -1) {
-				statValues[i].text = valuesArr[i].ToString("F2");
-			} else {
-				statValues[i].text = "+" + valuesArr[i].ToString("F1") + "%";
-				newScoreSlider.value = oldScoreSlider.value + valuesArr[i];
-			}
+	// 	for (int i = 0; i < statValues.Length; i++) {
+	// 		if (i < statValues.Length -1) {
+	// 			statValues[i].text = StatsHolder.transferValues[i].ToString("F2");
+	// 			// statValues[i].text = valuesArr[i].ToString("F2");
+	// 		} else {
+	// 			statValues[i].text = "+" + StatsHolder.transferValues[i].ToString("F1") + "%";
+	// 			// statValues[i].text = "+" + valuesArr[i].ToString("F1") + "%";
+	// 			newScoreSlider.value = oldScoreSlider.value + StatsHolder.transferValues[i];
+	// 			// newScoreSlider.value = oldScoreSlider.value + valuesArr[i];
+	// 		}
 
-			// Color the increased value with a gradient
-			statValues[i].GetComponent<GradientText>().enabled = true;
-			finishedIncreasingSound.Play();
-		}
-	}
+	// 		// Color the increased value with a gradient
+	// 		statValues[i].GetComponent<GradientText>().enabled = true;
+	// 		finishedIncreasingSound.Play();
+	// 	}
+	// }
 	
 
 	public void StartRadio() {
@@ -422,7 +437,8 @@ public class QuestionManager : MonoBehaviour {
 
 
 	private void OneAnswered() {
-		valuesArr[0] = 10 - answerTime;
+		StatsHolder.transferValues[0] = 10 - answerTime;
+		// valuesArr[0] = 10 - answerTime;
 		pOneAnswered = true;
 		answerOneSound.Play();
 		answerEnteredOne.GetComponent<Image>().color = new Color(1, 1, 1, 1);
@@ -430,7 +446,8 @@ public class QuestionManager : MonoBehaviour {
 
 
 	private void TwoAnswered() {
-		valuesArr[1] = 10 - answerTime;
+		StatsHolder.transferValues[1] = 10 - answerTime;
+		// valuesArr[1] = 10 - answerTime;
 		pTwoAnswered = true;
 		answerTwoSound.Play();
 		answerEnteredTwo.GetComponent<Image>().color = new Color(1, 1, 1, 1);
@@ -466,7 +483,7 @@ public class QuestionManager : MonoBehaviour {
 
 		// If both players have chosen the same answer they will get points
 		if (answerOne != 0 && answerOne == answerTwo) {
-			answersMatch = true;
+			EventReview.answersMatch = true;
 			sameAnswer.SetActive(true);
 			sameAnswer.GetComponent<RectTransform>().anchoredPosition = new Vector2(
 				showAnswers[answerOne-1].GetComponent<RectTransform>().anchoredPosition.x,
@@ -475,7 +492,7 @@ public class QuestionManager : MonoBehaviour {
 			sameAnswerSound.Play();
 			yield return new WaitForSeconds(1.4f);
 		} else {
-			answersMatch = false;
+			EventReview.answersMatch = false;
 			notSameAnswerSound.Play();
 			yield return new WaitForSeconds(1.4f);
 		}
@@ -489,9 +506,10 @@ public class QuestionManager : MonoBehaviour {
 		questionInterface.SetActive(false);
 
 		// Setting the value for the friends score stat
-		if (answersMatch) {
+		if (EventReview.answersMatch) {
 			float addPoints = getPoints + (remainingTime / 2);
-			valuesArr[2] = addPoints;
+			StatsHolder.transferValues[2] = addPoints;
+			// valuesArr[2] = addPoints;
 
 			oldScoreSlider.value = GameManager.overallScore;
 			GameManager.overallScore += addPoints;
@@ -501,78 +519,82 @@ public class QuestionManager : MonoBehaviour {
 		reviewInterface.SetActive(true);
 		
 		// Call increase function
-		StartCoroutine(increaseValuesCo);
+		eventReviewScript.StartIncreaser();
 	}
 
 
-	IEnumerator IncreaseValues() {
-		yield return new WaitForSeconds(0.5f);
+	// IEnumerator IncreaseValues() {
+	// 	yield return new WaitForSeconds(0.5f);
 
-		// Enable navigation so players can skip if they like
-		GameManager.enableNavigation = true;
-		stillIncreasing = true;
+	// 	// Enable navigation so players can skip if they like
+	// 	GameManager.enableNavigation = true;
+	// 	stillIncreasing = true;
 
-		float tempTime = 0;
-		float increaseTime = 1.0f;
-		int tempIndex = 0;
+	// 	float tempTime = 0;
+	// 	float increaseTime = 1.0f;
+	// 	int tempIndex = 0;
 
-		// Increase values as long as there's time left
-		while (tempIndex < statValues.Length) {
-			while (tempTime < increaseTime) {
-				tempTime += Time.deltaTime;
+	// 	// Increase values as long as there's time left
+	// 	while (tempIndex < statValues.Length) {
+	// 		while (tempTime < increaseTime) {
+	// 			tempTime += Time.deltaTime;
 
-				MapFunction(tempTime, 0, increaseTime, 0, 1);
-				ApplyFormula(currentValue);
-				MapFunction(calculatedValue, 0, 1, 0, valuesArr[tempIndex]);
+	// 			MapFunction(tempTime, 0, increaseTime, 0, 1);
+	// 			ApplyFormula(currentValue);
+	// 			MapFunction(calculatedValue, 0, 1, 0, StatsHolder.transferValues[tempIndex]);
+	// 			// MapFunction(calculatedValue, 0, 1, 0, valuesArr[tempIndex]);
 
-				if (tempIndex < statValues.Length -1) {
-					statValues[tempIndex].text = currentValue.ToString("F2");
-				} else {
-					if (answersMatch) {
-						statValues[tempIndex].text = "+" + currentValue.ToString("F1") + "%";
-						newScoreSlider.value = oldScoreSlider.value + currentValue;
-					} else {
-						tempTime = increaseTime;
-						notSameAnswerSound.Play();
-					}
-				}
+	// 			if (tempIndex < statValues.Length -1) {
+	// 				statValues[tempIndex].text = currentValue.ToString("F2");
+	// 			} else {
+	// 				if (answersMatch) {
+	// 					statValues[tempIndex].text = "+" + currentValue.ToString("F1") + "%";
+	// 					newScoreSlider.value = oldScoreSlider.value + currentValue;
+	// 				} else {
+	// 					tempTime = increaseTime;
+	// 					notSameAnswerSound.Play();
+	// 				}
+	// 			}
 
-				increaseSound.Play();
-				yield return null;
-			}
+	// 			increaseSound.Play();
+	// 			yield return null;
+	// 		}
 
-			// Set the values to the real values
-			if (tempIndex < statValues.Length -1) {
-				statValues[tempIndex].text = valuesArr[tempIndex].ToString("F2");
-			} else {
-				statValues[tempIndex].text = "+" + valuesArr[tempIndex].ToString("F1") + "%";
-				newScoreSlider.value = oldScoreSlider.value + valuesArr[tempIndex];
-			}
+	// 		// Set the values to the real values
+	// 		if (tempIndex < statValues.Length -1) {
+	// 			statValues[tempIndex].text = StatsHolder.transferValues[tempIndex].ToString("F2");
+	// 			// statValues[tempIndex].text = valuesArr[tempIndex].ToString("F2");
+	// 		} else {
+	// 			statValues[tempIndex].text = "+" + StatsHolder.transferValues[tempIndex].ToString("F1") + "%";
+	// 			// statValues[tempIndex].text = "+" + valuesArr[tempIndex].ToString("F1") + "%";
+	// 			newScoreSlider.value = oldScoreSlider.value + StatsHolder.transferValues[tempIndex];
+	// 			// newScoreSlider.value = oldScoreSlider.value + valuesArr[tempIndex];
+	// 		}
 
-			// Color the increased value with a gradient
-			statValues[tempIndex].GetComponent<GradientText>().enabled = true;
-			finishedIncreasingSound.Play();
+	// 		// Color the increased value with a gradient
+	// 		statValues[tempIndex].GetComponent<GradientText>().enabled = true;
+	// 		finishedIncreasingSound.Play();
 
-			tempTime = 0;
-			tempIndex++;
-		}
+	// 		tempTime = 0;
+	// 		tempIndex++;
+	// 	}
 
-		// Stop the possibility to skip the increasing animation
-		stillIncreasing = false;
-	}
-
-
-	// Map function to map the numbers / Dreisatz
-	private void MapFunction(float number, float oldMin, float oldMax, float newMin, float newMax) {
-		currentValue = newMin + (newMax - newMin) * (number - oldMin) / (oldMax - oldMin);
-	}
+	// 	// Stop the possibility to skip the increasing animation
+	// 	stillIncreasing = false;
+	// }
 
 
-	// The formula with which the stats gets increased
-	private void ApplyFormula(float currentValue) {
-		// Formula: y = (x-1)^3 + 1
-		calculatedValue = Mathf.Pow(currentValue, 1);
-	}
+	// // Map function to map the numbers / Dreisatz
+	// private void MapFunction(float number, float oldMin, float oldMax, float newMin, float newMax) {
+	// 	currentValue = newMin + (newMax - newMin) * (number - oldMin) / (oldMax - oldMin);
+	// }
+
+
+	// // The formula with which the stats gets increased
+	// private void ApplyFormula(float currentValue) {
+	// 	// Formula: y = (x-1)^3 + 1
+	// 	calculatedValue = Mathf.Pow(currentValue, 1);
+	// }
 
 
 }

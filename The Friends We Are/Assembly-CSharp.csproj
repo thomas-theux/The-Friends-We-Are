@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\BusRide.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\EventManager.cs" />
+     <Compile Include="Assets\Scripts\EventReview.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GradientText.cs" />
