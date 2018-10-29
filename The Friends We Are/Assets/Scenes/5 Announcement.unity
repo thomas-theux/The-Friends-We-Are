@@ -1386,7 +1386,7 @@ GameObject:
   - component: {fileID: 218043269}
   - component: {fileID: 218043268}
   m_Layer: 5
-  m_Name: PercentageSign01
+  m_Name: PercentageSign03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1675,7 +1675,7 @@ GameObject:
   - component: {fileID: 325514172}
   - component: {fileID: 325514171}
   m_Layer: 5
-  m_Name: StatPercentage01
+  m_Name: OverallPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6531,7 +6531,7 @@ MonoBehaviour:
   - {fileID: 1206805624}
   - {fileID: 1178783937}
   - {fileID: 385394402}
-  precentages:
+  percentages:
   - {fileID: 1362010201}
   - {fileID: 35815}
   - {fileID: 849829940}

@@ -19,7 +19,7 @@ public class QuestionManager : MonoBehaviour {
 	public GameObject matchingIcon;
 	public GameObject notMatchingIcon;
 	public GameObject[] titles;
-	public GameObject[] precentages;
+	public GameObject[] percentages;
 	public GameObject summaryLine;
 	// ////////////////
 
@@ -68,7 +68,7 @@ public class QuestionManager : MonoBehaviour {
 	private bool answersMatch;
 
 	private float getPoints = 5.0f;
-	private float remainingTime;
+	private float[] remainingTimes = {0, 0};
 
 	private float[] valuesArr = {0, 0, 0};
 	private float currentValue;
@@ -382,7 +382,6 @@ public class QuestionManager : MonoBehaviour {
 
 
 	private void StopAnswering() {
-		remainingTime = answerTime;
 		answeringOpen = false;
 		clockTickingSound.Stop();
 
@@ -506,7 +505,10 @@ public class QuestionManager : MonoBehaviour {
 
 		// Setting the value for the friends score stat
 		if (answersMatch) {
-			float addPoints = getPoints + (remainingTime / 2);
+			remainingTimes[0] = (10 - valuesArr[0]) / 5;
+			remainingTimes[1] = (10 - valuesArr[1]) / 5;
+
+			float addPoints = getPoints + remainingTimes[0] + remainingTimes[1];
 			valuesArr[2] = addPoints;
 
 			oldScoreSlider.value = GameManager.overallScore;
@@ -544,7 +546,7 @@ public class QuestionManager : MonoBehaviour {
 
 		// Show percentage players get for having the same answer
 		yield return new WaitForSeconds(statsWait);
-		precentages[0].SetActive(true);
+		percentages[0].SetActive(true);
 		showStatSound.Play();
 
 		yield return new WaitForSeconds(statsWait);
@@ -607,9 +609,11 @@ public class QuestionManager : MonoBehaviour {
 				}
 
 				// After all stats increasing show the final overall percentage
-				yield return new WaitForSeconds(statsWait);
-				totalPercentage.text = (oldScoreSlider.value + valuesArr[tempIndex]).ToString("F1");
-				totalPercentageSound.Play();
+				if (answersMatch) {
+					yield return new WaitForSeconds(statsWait);
+					totalPercentage.text = (oldScoreSlider.value + valuesArr[tempIndex]).ToString("F1");
+					totalPercentageSound.Play();
+				}
 			}
 
 			if (tempIndex < statValues.Length -1) {
@@ -620,7 +624,8 @@ public class QuestionManager : MonoBehaviour {
 
 				// Show percentage for values
 				yield return new WaitForSeconds(statsWait);
-				precentages[tempIndex+1].SetActive(true);
+				percentages[tempIndex+1].SetActive(true);
+				percentages[tempIndex+1].GetComponent<Text>().text = "+" + remainingTimes[tempIndex].ToString("F1");
 				showStatSound.Play();
 
 				yield return new WaitForSeconds(statsWait);
