@@ -242,10 +242,31 @@ public class QuestionManager : MonoBehaviour {
 		for (int i = 0; i < statValues.Length; i++) {
 			if (i < statValues.Length -1) {
 				statValues[i].text = valuesArr[i].ToString("F1");
+				statValues[i].transform.GetChild(0).gameObject.SetActive(true);
+				titles[i+1].SetActive(true);
+				percentages[i+1].SetActive(true);
 			} else {
 				statValues[i].text = "+" + valuesArr[i].ToString("F1");
 				newScoreSlider.value = oldScoreSlider.value + valuesArr[i];
 			}
+
+			// Show icon according to if the answers match or not
+			if (answersMatch) {
+				matchingIcon.SetActive(true);
+				sameAnswerSound.Play();
+			} else {
+				notMatchingIcon.SetActive(true);
+				notSameAnswerSound.Play();
+			}
+
+			// Show title for answer match
+			titles[0].SetActive(true);
+
+			// Show percentage for answer match
+			percentages[0].SetActive(true);
+
+			// Show summary line
+			summaryLine.SetActive(true);
 
 			// Color the increased value with a gradient
 			// statValues[i].GetComponent<GradientText>().enabled = true;
@@ -611,7 +632,7 @@ public class QuestionManager : MonoBehaviour {
 				// After all stats increasing show the final overall percentage
 				if (answersMatch) {
 					yield return new WaitForSeconds(statsWait);
-					totalPercentage.text = (oldScoreSlider.value + valuesArr[tempIndex]).ToString("F1");
+					totalPercentage.text = "" + Mathf.Round((oldScoreSlider.value + valuesArr[tempIndex]) * 10) / 10;
 					totalPercentageSound.Play();
 				}
 			}
@@ -625,7 +646,7 @@ public class QuestionManager : MonoBehaviour {
 				// Show percentage for values
 				yield return new WaitForSeconds(statsWait);
 				percentages[tempIndex+1].SetActive(true);
-				percentages[tempIndex+1].GetComponent<Text>().text = "+" + remainingTimes[tempIndex].ToString("F1");
+				percentages[tempIndex+1].GetComponent<Text>().text = "+" + Mathf.Round(remainingTimes[tempIndex] * 10) / 10;
 				showStatSound.Play();
 
 				yield return new WaitForSeconds(statsWait);
