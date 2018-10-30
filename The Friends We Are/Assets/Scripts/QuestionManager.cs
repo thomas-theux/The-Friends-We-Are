@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class QuestionManager : MonoBehaviour {
+
+	private QuestionReview questionReviewScript;
 
 	public GameObject eventManager;
 	public GameObject questionInterface;
@@ -70,6 +73,7 @@ public class QuestionManager : MonoBehaviour {
 
 	private float getPoints = 5.0f;
 	private float[] remainingTimes = {0, 0};
+	private int answersMatchInt = 0;
 
 	private float[] valuesArr = {0, 0, 0};
 	private float currentValue;
@@ -98,6 +102,9 @@ public class QuestionManager : MonoBehaviour {
 
 
 	private void OnEnable() {
+		// Get the QuestionReview script
+		questionReviewScript = GetComponent<QuestionReview>();
+
 		// Save initial positions of indicators
 		indicatorOnePos = new Vector2(
 			answerEnteredOne.GetComponent<RectTransform>().anchoredPosition.x,
@@ -133,6 +140,9 @@ public class QuestionManager : MonoBehaviour {
 				// Skip stats increasing animation
 				SkipStatsAnim();
 			} else {
+				// Reload scene
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
 				// Disable navigation
 				GameManager.enableNavigation = false;
 
@@ -569,7 +579,14 @@ public class QuestionManager : MonoBehaviour {
 		reviewInterface.SetActive(true);
 		
 		// Call increase function
-		StartCoroutine(increaseValuesCo);
+		// StartCoroutine(increaseValuesCo);
+
+		// Call script to calculate and review questions
+		if (answersMatch) { answersMatchInt = 1; }
+		else { answersMatchInt = 0; }
+
+		questionReviewScript.OrganizeVariables(answersMatchInt, valuesArr[0], valuesArr[1]);
+
 	}
 
 
