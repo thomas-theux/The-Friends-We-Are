@@ -60,7 +60,6 @@ public class QuestionManager : MonoBehaviour {
 	private float waitDelay = 0;
 	private float answerTime = 10.0f;
 	private bool answeringOpen = false;
-	private bool stillIncreasing = false;
 
 	private int xDistance = 25;
 	private int yDistance = 8;
@@ -78,7 +77,6 @@ public class QuestionManager : MonoBehaviour {
 	private float[] valuesArr = {0, 0, 0};
 	private float currentValue;
 	private float calculatedValue;
-	private float statsWait = 0.4f;
 
 	private IEnumerator clockTicker;
 	private IEnumerator increaseValuesCo;
@@ -118,40 +116,12 @@ public class QuestionManager : MonoBehaviour {
 		eventManager.SetActive(false);
 
 		StartRadio();
-
-		increaseValuesCo = IncreaseValues();
 	}
 
 
 	private void Update() {
 		if (answeringOpen) {
 			RegisterInput();
-		}
-
-		if (GameManager.enableNavigation) {
-			GetInput();
-		}
-	}
-
-
-	private void GetInput() {
-		if(GameManager.playerDark.GetButtonDown("X")) {
-			if (stillIncreasing) {
-				// Skip stats increasing animation
-				SkipStatsAnim();
-			} else {
-				// Reload scene
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-				// Disable navigation
-				GameManager.enableNavigation = false;
-
-				// Reset all gameobjects, values and texts
-				HardReset();
-
-				// Get next random event
-				eventManager.SetActive(true);
-			}
 		}
 	}
 
@@ -202,7 +172,6 @@ public class QuestionManager : MonoBehaviour {
 		notMatchingIcon.SetActive(false);
 
 		// Reset all other bools
-		stillIncreasing = false;
 		GameManager.enableNavigation = false;
 		answersMatch = false;
 		answeringOpen = false;
@@ -267,50 +236,6 @@ public class QuestionManager : MonoBehaviour {
 		///////////
 		// Reset END
 		///////////
-	}
-
-
-	private void SkipStatsAnim() {
-		stillIncreasing = false;
-
-		StopCoroutine(increaseValuesCo);
-
-		for (int i = 0; i < statValues.Length; i++) {
-			if (i < statValues.Length -1) {
-				statValues[i].text = valuesArr[i].ToString("F1");
-				statValues[i].transform.GetChild(0).gameObject.SetActive(true);
-				titles[i+1].SetActive(true);
-				percentages[i+1].SetActive(true);
-			} else {
-				statValues[i].text = "+" + valuesArr[i].ToString("F1");
-				newScoreSlider.value = oldScoreSlider.value + valuesArr[i];
-			}
-
-			// Show icon according to if the answers match or not
-			if (answersMatch) {
-				matchingIcon.SetActive(true);
-				sameAnswerSound.Play();
-			} else {
-				notMatchingIcon.SetActive(true);
-				notSameAnswerSound.Play();
-			}
-
-			// Show title for answer match
-			titles[0].SetActive(true);
-
-			// Show percentage for answer match
-			percentages[0].SetActive(true);
-
-			// Show summary line
-			summaryLine.SetActive(true);
-
-			// Show overal percentage
-			fsValue.SetActive(true);
-
-			// Color the increased value with a gradient
-			// statValues[i].GetComponent<GradientText>().enabled = true;
-			finishedIncreasingSound.Play();
-		}
 	}
 	
 
@@ -577,9 +502,6 @@ public class QuestionManager : MonoBehaviour {
 
 		// Activate the review popup
 		reviewInterface.SetActive(true);
-		
-		// Call increase function
-		// StartCoroutine(increaseValuesCo);
 
 		// Call script to calculate and review questions
 		if (answersMatch) { answersMatchInt = 1; }
@@ -588,141 +510,5 @@ public class QuestionManager : MonoBehaviour {
 		questionReviewScript.OrganizeVariables(answersMatchInt, valuesArr[0], valuesArr[1]);
 
 	}
-
-
-	IEnumerator IncreaseValues() {
-		yield return new WaitForSeconds(statsWait);
-
-		// Enable navigation so players can skip if they like
-		GameManager.enableNavigation = true;
-		stillIncreasing = true;
-
-		// Show if answers match or not first
-		if (answersMatch) {
-			matchingIcon.SetActive(true);
-			sameAnswerSound.Play();
-		} else {
-			notMatchingIcon.SetActive(true);
-			notSameAnswerSound.Play();
-		}
-
-		// Show title for matching answers
-		yield return new WaitForSeconds(statsWait);
-		titles[0].SetActive(true);
-		showStatSound.Play();
-
-		// Show percentage players get for having the same answer
-		yield return new WaitForSeconds(statsWait);
-		percentages[0].SetActive(true);
-		showStatSound.Play();
-
-		yield return new WaitForSeconds(statsWait);
-
-		float tempTime = 0;
-		float increaseTime = 1.0f;
-		int tempIndex = 0;
-
-		// Increase values as long as there's time left
-		while (tempIndex < statValues.Length) {
-
-			// Show the value that will be increased
-			if (tempIndex < statValues.Length -1) {
-				statValues[tempIndex].enabled = true;
-				statValues[tempIndex].transform.GetChild(0).gameObject.SetActive(true);
-			}
-
-			while (tempTime < increaseTime) {
-				tempTime += Time.deltaTime;
-
-				MapFunction(tempTime, 0, increaseTime, 0, 1);
-				ApplyFormula(currentValue);
-				MapFunction(calculatedValue, 0, 1, 0, valuesArr[tempIndex]);
-
-				if (tempIndex < statValues.Length -1) {
-					statValues[tempIndex].text = currentValue.ToString("F1");
-				} else {
-					if (answersMatch) {
-						statValues[tempIndex].text = "+" + currentValue.ToString("F1");
-						newScoreSlider.value = oldScoreSlider.value + currentValue;
-					} else {
-						tempTime = increaseTime;
-					}
-				}
-
-				increaseSound.Play();
-				yield return null;
-			}
-
-			// Set the values to the real values
-			if (tempIndex < statValues.Length -1) {
-				statValues[tempIndex].text = valuesArr[tempIndex].ToString("F1");
-
-				// Color the increased value with a gradient
-				// statValues[tempIndex].GetComponent<GradientText>().enabled = true;
-				finishedIncreasingSound.Play();
-			} else {
-				statValues[tempIndex].text = "+" + valuesArr[tempIndex].ToString("F1");
-				newScoreSlider.value = oldScoreSlider.value + valuesArr[tempIndex];
-
-				// If the answers are the same it will color it and play a positive sound
-				if (answersMatch) {
-					// Color the increased value with a gradient
-					// statValues[tempIndex].GetComponent<GradientText>().enabled = true;
-					finishedIncreasingSound.Play();
-				} else {
-					yield return new WaitForSeconds(0.3f);
-					statValues[tempIndex].color = new Color(1, 0, 0, 1.0f);
-					notSameAnswerSound.Play();
-				}
-
-				// After all stats increasing show the final overall percentage
-				if (answersMatch) {
-					yield return new WaitForSeconds(statsWait);
-					totalPercentage.text = "" + Mathf.Round((oldScoreSlider.value + valuesArr[tempIndex]) * 10) / 10;
-					totalPercentageSound.Play();
-				}
-			}
-
-			if (tempIndex < statValues.Length -1) {
-				// Show title for value
-				yield return new WaitForSeconds(statsWait);
-				titles[tempIndex+1].SetActive(true);
-				showStatSound.Play();
-
-				// Show percentage for values
-				yield return new WaitForSeconds(statsWait);
-				percentages[tempIndex+1].SetActive(true);
-				percentages[tempIndex+1].GetComponent<Text>().text = "+" + Mathf.Round(remainingTimes[tempIndex] * 10) / 10;
-				showStatSound.Play();
-
-				yield return new WaitForSeconds(statsWait);
-			}
-
-			if (tempIndex == statValues.Length -2) {
-				summaryLine.SetActive(true);
-				fsValue.SetActive(true);
-			}
-
-			tempTime = 0;
-			tempIndex++;
-		}
-
-		// Stop the possibility to skip the increasing animation
-		stillIncreasing = false;
-	}
-
-
-	// Map function to map the numbers / Dreisatz
-	private void MapFunction(float number, float oldMin, float oldMax, float newMin, float newMax) {
-		currentValue = newMin + (newMax - newMin) * (number - oldMin) / (oldMax - oldMin);
-	}
-
-
-	// The formula with which the stats gets increased
-	private void ApplyFormula(float currentValue) {
-		// Formula: y = (x-1)^3 + 1
-		calculatedValue = Mathf.Pow(currentValue, 1);
-	}
-
 
 }

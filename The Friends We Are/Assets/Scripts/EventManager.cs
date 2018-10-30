@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour {
 
-	public GameObject questionManagerScript;
+	public GameObject questionManagerGO;
 	public GameObject radioInterface;
 
 	private LevelFade levelFadeScript;
@@ -39,7 +39,7 @@ public class EventManager : MonoBehaviour {
 
 	private void OnEnable() {
 		// Disable question manager
-		questionManagerScript.SetActive(false);
+		questionManagerGO.SetActive(false);
 
 		StartCoroutine(Continue());
 	}
@@ -70,7 +70,7 @@ public class EventManager : MonoBehaviour {
 
 
 	private void QuestionManager() {
-		questionManagerScript.SetActive(true);
+		questionManagerGO.SetActive(true);
 	}
 
 

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class QuestionReview : MonoBehaviour {
 
+	public GameObject eventManagerGO;
+
 	public GameObject reviewPopup;
 
 	public GameObject[] statTitleGOArr;
@@ -22,6 +24,8 @@ public class QuestionReview : MonoBehaviour {
 	public float[] getPercentageValuesArr = {0, 0, 0};
 	private float pointsForMatch = 5.0f;
 
+	private int tempIndex = 0;
+	private float tempTime = 0.0f;
 	private float currentValue = 0;
 	private float calculatedValue = 0;
 	private float tempScore = 0;
@@ -47,6 +51,14 @@ public class QuestionReview : MonoBehaviour {
 
 	private void Start() {
 		showStatsCo = ShowStats();
+	}
+
+
+	private void Update() {
+		// Check if the navigation is enabled yet
+		if (GameManager.enableNavigation) {
+			SkipAnimations();
+		}
 	}
 
 
@@ -83,29 +95,32 @@ public class QuestionReview : MonoBehaviour {
 				// Give 0 points because answers do not match
 				actualStatGOArr[0].GetComponent<Image>().sprite = noMatchSprite;
 				getPercentageValuesArr[i] = 0;
-				print(getPercentageValuesArr[i]);
 			}
 		}
-
-		// for (int i = 0; i < 3; i++) {
-		// 	if (i == 0) {
-		// 		// If the answers match, show the check icon and give 5 points
-		// 		if (isMatching) {
-		// 			actualStatGOArr[0].GetComponent<Image>().sprite = matchSprite;
-		// 			getPercentageValuesArr[0] = pointsForMatch;
-		// 		} else {
-		// 			actualStatGOArr[0].GetComponent<Image>().sprite = noMatchSprite;
-		// 			getPercentageValuesArr[0] = 0.0f;
-		// 		}
-		// 	} else {
-		// 		// Calculate and save the percentage each player gets for answering
-		// 		getPercentageValuesArr[i] = (10 - actualStatValuesArr[i]) / 5;
-		// 	}
-		// }
 
 		// After calculating the percentage we start showing the stats
 		StartCoroutine(showStatsCo);
 
+	}
+
+
+	private void SkipAnimations() {
+		// Check if the player hits the X button
+		if (GameManager.playerDark.GetButtonDown("X")) {
+			// Check if the animation is ongoing or not
+			if (isIncreasing) {
+				StopCoroutine(showStatsCo);
+				ShowFinalValues();
+			} else {
+				// Disable navigation
+				GameManager.enableNavigation = false;
+
+				// Reset all values
+
+				// Call next random event
+				eventManagerGO.SetActive(true);
+			}
+		}
 	}
 
 
@@ -116,8 +131,6 @@ public class QuestionReview : MonoBehaviour {
 		GameManager.enableNavigation = true;
 		isIncreasing = true;
 
-		int tempIndex = 0;
-		float tempTime = 0.0f;
 		float increaseTime = 1.0f;
 
 		while (tempIndex < statTitleGOArr.Length) {
@@ -175,9 +188,12 @@ public class QuestionReview : MonoBehaviour {
 
 			yield return new WaitForSeconds(medDelay);
 
-			tempTime = 0;
 			tempIndex++;
+			tempTime = 0;
 		}
+
+		// Stop the possibility to skip the animation
+		isIncreasing = false;
 	}
 
 
@@ -191,6 +207,45 @@ public class QuestionReview : MonoBehaviour {
 	private void ApplyFormula(float currentValue) {
 		// Formula: y = (x-1)^3 + 1
 		calculatedValue = Mathf.Pow(currentValue, 1);
+	}
+
+	
+	private void ShowFinalValues() {
+		// The animation is stopped
+		isIncreasing = false;
+
+		// Calculate the remaining stats that have to be shown
+		int repeatShow = statTitleGOArr.Length - tempIndex;
+
+		for (int j = tempIndex; j < repeatShow; j++) {
+			// Show the title of the stat
+			statTitleGOArr[j].SetActive(true);
+
+			// Show the actual stat and their suffix (like 's' for seconds)
+			actualStatGOArr[j].SetActive(true);
+			statSuffixGOArr[j].SetActive(true);
+			if (j != 0) {
+				actualStatGOArr[j].GetComponent<Text>().text = actualStatValuesArr[j].ToString("F1");
+			}
+
+			// Show all percentages
+			getPercentageGOArr[j].SetActive(true);
+			percentageSuffixGOArr[j].SetActive(true);
+
+			// Show final values and save temporary score after each increasing
+			float finalValue = (Mathf.Round(getPercentageValuesArr[j] * 10) / 10);
+			tempScore += finalValue;
+			getPercentageGOArr[j].GetComponent<Text>().text = finalValue.ToString("F1");
+			totalFriendsScoreGO.GetComponent<Text>().text = (Mathf.Round(tempScore * 10) / 10).ToString("F1");
+			newScoreSlider.value = tempScore;
+		}
+
+		// Play corresponding sounds
+		if (isMatching) {
+			finishedIncreasingSound.Play();
+		} else {
+			notMatchingSound.Play();
+		}
 	}
 
 }
