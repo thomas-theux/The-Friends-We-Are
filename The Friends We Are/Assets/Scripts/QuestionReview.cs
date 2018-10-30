@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class QuestionReview : MonoBehaviour {
 
 	public GameObject eventManagerGO;
-
+	public GameObject reviewInterfaceGO;
 	public GameObject reviewPopup;
 
 	public GameObject[] statTitleGOArr;
@@ -30,6 +30,7 @@ public class QuestionReview : MonoBehaviour {
 	private float calculatedValue = 0;
 	private float tempScore = 0;
 	private float totalScore = 0;
+	private float addPoints = 0;
 
 	public Slider oldScoreSlider;
 	public Slider newScoreSlider;
@@ -49,7 +50,7 @@ public class QuestionReview : MonoBehaviour {
 	// private float longDelay = 1.0f;
 
 
-	private void Start() {
+	private void OnEnable() {
 		showStatsCo = ShowStats();
 	}
 
@@ -87,10 +88,12 @@ public class QuestionReview : MonoBehaviour {
 			// If the answers match, show the check icon and give 5 points
 			if (isMatching) {
 				actualStatGOArr[0].GetComponent<Image>().sprite = matchSprite;
-				getPercentageValuesArr[0] = pointsForMatch;
+				float tempPercentage = Mathf.Floor(pointsForMatch * 10) / 10;
+				getPercentageValuesArr[0] = tempPercentage;
 
 				// Calculate and save the percentage each player gets for answering
-				getPercentageValuesArr[i] = (10 - actualStatValuesArr[i]) / 5;
+				tempPercentage = Mathf.Floor(((10 - actualStatValuesArr[i]) / 5) * 10) / 10;
+				getPercentageValuesArr[i] = tempPercentage;
 			} else {
 				// Give 0 points because answers do not match
 				actualStatGOArr[0].GetComponent<Image>().sprite = noMatchSprite;
@@ -112,10 +115,17 @@ public class QuestionReview : MonoBehaviour {
 				StopCoroutine(showStatsCo);
 				ShowFinalValues();
 			} else {
+				// Save score to overallScore
+				for (int m = 0; m < getPercentageValuesArr.Length; m++) {
+					addPoints += getPercentageValuesArr[m];
+				}
+				GameManager.overallScore += addPoints;
+
 				// Disable navigation
 				GameManager.enableNavigation = false;
 
 				// Reset all values
+				ResetValues();
 
 				// Call next random event
 				eventManagerGO.SetActive(true);
@@ -166,10 +176,9 @@ public class QuestionReview : MonoBehaviour {
 
 					getPercentageGOArr[tempIndex].GetComponent<Text>().text = currentValue.ToString("F1");
 
-					// Increase the slider value according to the percentage value
-					totalScore = oldScoreSlider.value + tempScore + currentValue;
+					totalScore = oldScoreSlider.value + currentValue + tempScore;
 					newScoreSlider.value = totalScore;
-					totalFriendsScoreGO.GetComponent<Text>().text = totalScore.ToString("F1");
+					totalFriendsScoreGO.GetComponent<Text>().text = "" + totalScore.ToString("F1");
 
 					increaseSound.Play();
 					yield return null;
@@ -180,11 +189,11 @@ public class QuestionReview : MonoBehaviour {
 				notMatchingSound.Play();
 			}
 
-			// Show final values and save temporary score after each increasing
-			float finalValue = (Mathf.Round(getPercentageValuesArr[tempIndex] * 10) / 10);
-			tempScore += finalValue;
-			getPercentageGOArr[tempIndex].GetComponent<Text>().text = finalValue.ToString("F1");
-			totalFriendsScoreGO.GetComponent<Text>().text = (Mathf.Round(totalScore * 10) / 10).ToString("F1");
+			float getPercentage = getPercentageValuesArr[tempIndex];
+			getPercentageGOArr[tempIndex].GetComponent<Text>().text = "" + getPercentage.ToString("F1");
+			newScoreSlider.value = oldScoreSlider.value + getPercentage + tempScore;
+			totalFriendsScoreGO.GetComponent<Text>().text = "" + newScoreSlider.value.ToString("F1");
+			tempScore += getPercentage;
 
 			yield return new WaitForSeconds(medDelay);
 
@@ -233,11 +242,11 @@ public class QuestionReview : MonoBehaviour {
 			percentageSuffixGOArr[j].SetActive(true);
 
 			// Show final values and save temporary score after each increasing
-			float finalValue = (Mathf.Round(getPercentageValuesArr[j] * 10) / 10);
+			float finalValue = getPercentageValuesArr[j];
 			tempScore += finalValue;
 			getPercentageGOArr[j].GetComponent<Text>().text = finalValue.ToString("F1");
-			totalFriendsScoreGO.GetComponent<Text>().text = (Mathf.Round(tempScore * 10) / 10).ToString("F1");
-			newScoreSlider.value = tempScore;
+			totalFriendsScoreGO.GetComponent<Text>().text = (GameManager.overallScore + tempScore).ToString("F1");
+			newScoreSlider.value = tempScore + oldScoreSlider.value;
 		}
 
 		// Play corresponding sounds
@@ -246,6 +255,44 @@ public class QuestionReview : MonoBehaviour {
 		} else {
 			notMatchingSound.Play();
 		}
+	}
+
+	
+	private void ResetValues() {
+		oldScoreSlider.value = GameManager.overallScore;
+		newScoreSlider.value = 0;
+
+		for (int k = 0; k < statTitleGOArr.Length; k++) {
+			if (k != 0) { actualStatGOArr[k].GetComponent<Text>().text = ""; }
+			getPercentageGOArr[k].GetComponent<Text>().text = "";
+			actualStatValuesArr[k] = 0;
+			getPercentageValuesArr[k] = 0;
+		}
+
+		tempIndex = 0;
+		tempTime = 0.0f;
+		currentValue = 0;
+		calculatedValue = 0;
+		tempScore = 0;
+		totalScore = 0;
+		addPoints = 0;
+
+		isMatching = false;
+		isIncreasing = false;
+
+		reviewPopup.SetActive(false);
+		
+		for (int l = 0; l < statTitleGOArr.Length; l++) {
+			statTitleGOArr[l].SetActive(false);
+
+			actualStatGOArr[l].SetActive(false);
+			statSuffixGOArr[l].SetActive(false);
+
+			getPercentageGOArr[l].SetActive(false);
+			percentageSuffixGOArr[l].SetActive(false);
+		}
+		
+		reviewInterfaceGO.SetActive(false);
 	}
 
 }

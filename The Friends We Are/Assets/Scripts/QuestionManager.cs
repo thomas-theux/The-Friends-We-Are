@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class QuestionManager : MonoBehaviour {
 
 	private QuestionReview questionReviewScript;
+	public GameObject reviewInterfaceGO;
 
 	public GameObject eventManager;
 	public GameObject questionInterface;
@@ -17,26 +18,9 @@ public class QuestionManager : MonoBehaviour {
 	public GameObject answerEnteredOne;
 	public GameObject answerEnteredTwo;
 	public GameObject sameAnswer;
-
-	// Include in RESETS
-	public GameObject matchingIcon;
-	public GameObject notMatchingIcon;
-	public GameObject[] titles;
-	public GameObject[] percentages;
-	public GameObject summaryLine;
-	public GameObject fsValue;
-	// ////////////////
-
-	public GameObject reviewInterface;
 	
 	public Image questionTime;
-
 	public Text questionsText;
-	public Text[] statValues;
-	public Text totalPercentage;
-
-	public Slider oldScoreSlider;
-	public Slider newScoreSlider;
 
 	public AudioSource hissSound;
 	public AudioSource radioIntroVoice;
@@ -51,10 +35,6 @@ public class QuestionManager : MonoBehaviour {
 	public AudioSource showIndicatorsSound;
 	public AudioSource sameAnswerSound;
 	public AudioSource notSameAnswerSound;
-	public AudioSource increaseSound;
-	public AudioSource finishedIncreasingSound;
-	public AudioSource showStatSound;
-	public AudioSource totalPercentageSound;
 
 	private bool firstVoice = false;
 	private float waitDelay = 0;
@@ -69,17 +49,11 @@ public class QuestionManager : MonoBehaviour {
 	private bool pOneAnswered = false;
 	private bool pTwoAnswered = false;
 	private bool answersMatch;
-
-	private float getPoints = 5.0f;
-	private float[] remainingTimes = {0, 0};
 	private int answersMatchInt = 0;
 
 	private float[] valuesArr = {0, 0, 0};
-	private float currentValue;
-	private float calculatedValue;
 
 	private IEnumerator clockTicker;
-	private IEnumerator increaseValuesCo;
 
 	public static List<RadioQuestions.RadioQuestion> questionsArr;
 
@@ -123,119 +97,6 @@ public class QuestionManager : MonoBehaviour {
 		if (answeringOpen) {
 			RegisterInput();
 		}
-	}
-
-
-	private void HardReset() {
-		///////////
-		// Reset all gameobjects, values and texts
-		///////////
-
-		oldScoreSlider.value = newScoreSlider.value;
-
-		// Reset all stat values
-		for (int k = 0; k < statValues.Length; k++) {
-			if (k < statValues.Length -1) {
-				statValues[k].text = "";
-			} else {
-				statValues[k].text = "";
-			}
-			// Reset values
-			valuesArr[k] = 0;
-			// Reset stats colors
-			// statValues[k].GetComponent<GradientText>().enabled = false;
-		}
-
-		// Hide titles
-		for (int l = 0; l < titles.Length; l++) {
-			titles[l].SetActive(false);
-		}
-
-		// Hide percentages
-		for (int m = 0; m < percentages.Length; m++) {
-			percentages[m].SetActive(false);
-		}
-
-		// Hide seconds suffix
-		for (int n = 0; n < statValues.Length -1; n++) {
-			statValues[n].transform.GetChild(0).gameObject.SetActive(false);
-		}
-
-		// Hide summary line
-		summaryLine.SetActive(false);
-
-		// Hide overall percentage
-		fsValue.SetActive(false);
-
-		// Hide matchings answers icon
-		matchingIcon.SetActive(false);
-		notMatchingIcon.SetActive(false);
-
-		// Reset all other bools
-		GameManager.enableNavigation = false;
-		answersMatch = false;
-		answeringOpen = false;
-
-		// Hide review interface popup
-		reviewInterface.SetActive(false);
-
-		// Hide "same answer" indicator
-		sameAnswer.SetActive(false);
-
-		// Reset answers match bool
-		answersMatch = false;
-
-		// Reset indicator positions
-		answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = indicatorOnePos;
-		answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition = indicatorTwoPos;
-
-		// Hide player indicators
-		answerEnteredOne.SetActive(false);
-		answerEnteredTwo.SetActive(false);
-
-		// Reset opacity of indicators
-		answerEnteredOne.GetComponent<Image>().color = defaultColorIndicator;
-		answerEnteredTwo.GetComponent<Image>().color = defaultColorIndicator;
-
-		// Reset answers
-		answerOne = 0;
-		answerTwo = 0;
-		pOneAnswered = false;
-		pTwoAnswered = false;
-
-		// Reset timer
-		answerTime = 10.0f;
-		questionTime.fillAmount = 1;
-
-		// Hide timer
-		showTimer.SetActive(false);
-
-		// Hide answer popups
-		for (int j = 0; j < showAnswers.Length; j++) {
-			showAnswers[j].SetActive(false);
-		}
-
-		// Hide indicators for players
-		answerEnteredOne.SetActive(false);
-		answerEnteredTwo.SetActive(false);
-
-		// Hide question popup
-		showQuestion.SetActive(false);
-
-		// Reset answer texts
-		for (int i = 0; i < 4; i++) {
-			showAnswers[i].transform.GetChild(0).GetComponent<Text>().text = "";
-		}
-
-		// Reset question text
-		questionsText.text = "";
-
-		// Hide whole Interface
-		questionInterface.SetActive(false);
-
-		///////////
-		// Reset END
-		///////////
 	}
 	
 
@@ -306,7 +167,7 @@ public class QuestionManager : MonoBehaviour {
 
 
 	IEnumerator WaitForQuestion() {
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(1.0f);
 		StartCoroutine(ShowAnswers());
 	}
 
@@ -488,27 +349,70 @@ public class QuestionManager : MonoBehaviour {
 		// Deactivate all question related gameobjects
 		questionInterface.SetActive(false);
 
-		// Setting the value for the friends score stat
-		if (answersMatch) {
-			remainingTimes[0] = (10 - valuesArr[0]) / 5;
-			remainingTimes[1] = (10 - valuesArr[1]) / 5;
-
-			float addPoints = getPoints + remainingTimes[0] + remainingTimes[1];
-			valuesArr[2] = addPoints;
-
-			oldScoreSlider.value = GameManager.overallScore;
-			GameManager.overallScore += addPoints;
-		}
-
 		// Activate the review popup
-		reviewInterface.SetActive(true);
+		reviewInterfaceGO.SetActive(true);
 
 		// Call script to calculate and review questions
 		if (answersMatch) { answersMatchInt = 1; }
 		else { answersMatchInt = 0; }
 
+		HardReset();
 		questionReviewScript.OrganizeVariables(answersMatchInt, valuesArr[0], valuesArr[1]);
+	}
 
+
+	private void HardReset() {
+		// Reset all other bools
+		GameManager.enableNavigation = false;
+		answersMatch = false;
+		answeringOpen = false;
+
+		// Hide "same answer" indicator
+		sameAnswer.SetActive(false);
+
+		// Reset indicator positions
+		answerEnteredOne.GetComponent<RectTransform>().anchoredPosition = indicatorOnePos;
+		answerEnteredTwo.GetComponent<RectTransform>().anchoredPosition = indicatorTwoPos;
+
+		// Hide player indicators
+		answerEnteredOne.SetActive(false);
+		answerEnteredTwo.SetActive(false);
+
+		// Reset opacity of indicators
+		answerEnteredOne.GetComponent<Image>().color = defaultColorIndicator;
+		answerEnteredTwo.GetComponent<Image>().color = defaultColorIndicator;
+
+		// Reset answers
+		answerOne = 0;
+		answerTwo = 0;
+		pOneAnswered = false;
+		pTwoAnswered = false;
+
+		// Reset timer
+		answerTime = 10.0f;
+		questionTime.fillAmount = 1;
+
+		// Hide timer
+		showTimer.SetActive(false);
+
+		// Hide answer popups
+		for (int j = 0; j < showAnswers.Length; j++) {
+			showAnswers[j].SetActive(false);
+		}
+
+		// Hide question popup
+		showQuestion.SetActive(false);
+
+		// Reset answer texts
+		for (int i = 0; i < 4; i++) {
+			showAnswers[i].transform.GetChild(0).GetComponent<Text>().text = "";
+		}
+
+		// Reset question text
+		questionsText.text = "";
+
+		// Hide whole Interface
+		questionInterface.SetActive(false);
 	}
 
 }

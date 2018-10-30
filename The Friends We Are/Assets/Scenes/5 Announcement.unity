@@ -4704,7 +4704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559a9b249816c4e4889e1ddbbbab526d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionManagerScript: {fileID: 1672268042}
+  questionManagerGO: {fileID: 1672268042}
   radioInterface: {fileID: 2111227569}
   btnContinue: {fileID: 812164773}
 --- !u!4 &1329409932
@@ -6272,6 +6272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff469ffee0ab54f6c8410301e43d4a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reviewInterfaceGO: {fileID: 872733340}
   eventManager: {fileID: 1329409930}
   questionInterface: {fileID: 979479511}
   showQuestion: {fileID: 1283130459}
@@ -6284,26 +6285,8 @@ MonoBehaviour:
   answerEnteredOne: {fileID: 1977221766}
   answerEnteredTwo: {fileID: 1112684040}
   sameAnswer: {fileID: 832713991}
-  matchingIcon: {fileID: 1876193297}
-  notMatchingIcon: {fileID: 0}
-  titles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  percentages:
-  - {fileID: 1362010201}
-  - {fileID: 35815}
-  - {fileID: 849829940}
-  summaryLine: {fileID: 0}
-  fsValue: {fileID: 0}
-  reviewInterface: {fileID: 872733340}
   questionTime: {fileID: 1019983422}
   questionsText: {fileID: 35693563}
-  statValues:
-  - {fileID: 1744582767}
-  - {fileID: 161141048}
-  - {fileID: 0}
-  totalPercentage: {fileID: 2008471335}
   oldScoreSlider: {fileID: 1287285791}
   newScoreSlider: {fileID: 1441663182}
   hissSound: {fileID: 62834168}
@@ -6319,10 +6302,6 @@ MonoBehaviour:
   showIndicatorsSound: {fileID: 918298783}
   sameAnswerSound: {fileID: 1865636713}
   notSameAnswerSound: {fileID: 2081055560}
-  increaseSound: {fileID: 2100693579}
-  finishedIncreasingSound: {fileID: 667121062}
-  showStatSound: {fileID: 1730939082}
-  totalPercentageSound: {fileID: 498912574}
 --- !u!114 &1672268044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6358,6 +6337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9803cc335e1bd462aaf3c7bafe963738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventManagerGO: {fileID: 1329409930}
+  reviewInterfaceGO: {fileID: 872733340}
   reviewPopup: {fileID: 46402245}
   statTitleGOArr:
   - {fileID: 751959265}
