@@ -43,12 +43,8 @@ public class DayDisplayer : MonoBehaviour {
 	IEnumerator WaitTillNextLevel() {
 		yield return new WaitForSeconds(4.0f);
 
-		// Check which day it is and load the appropriate scene
-		if (currentDay == 1) {
-			levelFadeScript.FadeToLevel("4 DrivexStory");
-		} else {
-			levelFadeScript.FadeToLevel("5 Announcement");
-		}
+		// Always go to the announcement scene to determine next event
+		levelFadeScript.FadeToLevel("5 Announcement");
 	}
 
 }

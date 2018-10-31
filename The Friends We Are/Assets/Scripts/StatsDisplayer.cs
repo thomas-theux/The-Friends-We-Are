@@ -47,6 +47,10 @@ public class StatsDisplayer : MonoBehaviour {
 
 		increaseValues = IncreaseValue();
 		StartCoroutine(increaseValues);
+
+		if (!EventManager.firstLevelPlayed) {
+			EventManager.firstLevelPlayed = true;
+		}
 	}
 
 

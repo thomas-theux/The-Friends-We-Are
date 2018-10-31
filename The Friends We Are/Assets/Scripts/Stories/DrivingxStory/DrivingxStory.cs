@@ -39,7 +39,7 @@ public class DrivingxStory : MonoBehaviour {
 	private float transfer;
 
 	public Text velocity;
-	public Text score;
+	// public Text score;
 
 	private bool isAccelerating = false;
 	private bool isBraking = false;
@@ -83,7 +83,7 @@ public class DrivingxStory : MonoBehaviour {
 
 			currentSpeed = rb.velocity.magnitude;
 			velocity.text = currentSpeed.ToString("F0") + " km/h";
-			score.text = experienceScore + "";
+			// score.text = experienceScore + "";
 
 			MaximumSpeed();
 
@@ -147,12 +147,24 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	private void GetInput() {
-		// Get input from player one (dark)
-		accelerating = GameManager.playerDark.GetAxis("R2");
-		braking = GameManager.playerDark.GetAxis("L2");
+		
+		// Roles have been randomized, so check which player has which task
+		if (EventManager.randomizeRole) {
+			// Get input from player one (dark)
+			accelerating = GameManager.playerDark.GetAxis("R2");
+			braking = GameManager.playerDark.GetAxis("L2");
 
-		// Get input from player two (light)
-		steering = GameManager.playerLight.GetAxis("LS Horizontal");
+			// Get input from player two (light)
+			steering = GameManager.playerLight.GetAxis("LS Horizontal");
+		} else {
+			// Get input from player two (light)
+			accelerating = GameManager.playerLight.GetAxis("R2");
+			braking = GameManager.playerLight.GetAxis("L2");
+
+			// Get input from player one (dark)
+			steering = GameManager.playerDark.GetAxis("LS Horizontal");
+		}
+		
 	}
 
 
