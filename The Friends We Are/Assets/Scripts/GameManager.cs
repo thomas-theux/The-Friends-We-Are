@@ -7,10 +7,8 @@ using Rewired;
 public class GameManager : MonoBehaviour {
 
 	public static int playerCount = 2;
-
-	public static int currentDay = 0;
+	
 	public static int tripDays = 5;
-	public static int currentTime = 0;
 
 	public static int storyAP = 3;
 	public static int radioAP = 2;
