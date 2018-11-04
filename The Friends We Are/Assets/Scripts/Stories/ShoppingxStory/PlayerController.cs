@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Rewired;
+
+public class PlayerController : MonoBehaviour {
+
+	public int playerID = 0;
+
+	private CharacterController cc;
+
+	private float moveSpeed = 10.0f;
+	private float moveHorizontal;
+	private float moveVertical;
+
+
+	private void Start() {
+		cc = this.gameObject.GetComponent<CharacterController>();
+	}
+
+
+	private void Update() {
+		GetInput();
+	}
+
+
+	private void FixedUpdate() {
+		PlayerMovement();
+	}
+
+
+	private void GetInput() {
+		moveHorizontal = ReInput.players.GetPlayer(playerID).GetAxis("LS Horizontal");
+		moveVertical = ReInput.players.GetPlayer(playerID).GetAxis("LS Vertical");
+	}
+
+
+	private void PlayerMovement() {
+		Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
+		movement = movement.normalized;
+		cc.Move(movement * moveSpeed * Time.deltaTime);
+	}
+
+}
