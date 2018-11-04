@@ -109,9 +109,11 @@
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\MoveAndDestroy.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />
+     <Compile Include="Assets\Scripts\Stories\ShoppingxStory\FoodChecklist.cs" />
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\FoodTrigger.cs" />
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\SpawnPlayers.cs" />
+     <Compile Include="Assets\Scripts\Stories\ShoppingxStory\SpawnTriggers.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
      <Compile Include="Assets\Scripts\Tests\TestTimeManager.cs" />
      <Compile Include="Assets\Scripts\TimeManager.cs" />
