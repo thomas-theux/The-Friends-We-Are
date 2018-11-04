@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnTriggers : MonoBehaviour {
 
@@ -51,6 +52,17 @@ public class SpawnTriggers : MonoBehaviour {
 		4.0f
 	};
 
+	private string[] departmentNames = {
+		"Vegetables",
+		"Fruits",
+		"Dairy",
+		"Meat",
+		"Frozen",
+		"Beverages",
+		"Sundries",
+		"Sweets",
+	};
+
 
 	private void Start() {
 		for (int i = 0; i < FoodChecklist.departments; i++) {
@@ -60,6 +72,7 @@ public class SpawnTriggers : MonoBehaviour {
 			newTrigger.transform.localScale = new Vector3(scaleX[i], 1, scaleZ[i]);
 
 			newTrigger.GetComponent<FoodTrigger>().triggerID = i;
+			newTrigger.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>().text = departmentNames[i];
 		}
 	}
 }
