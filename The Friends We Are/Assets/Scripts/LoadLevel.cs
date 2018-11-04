@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class LoadLevel : MonoBehaviour {
 
 	private void Start() {
-		 SceneManager.LoadScene("DrivexStory");
+		 SceneManager.LoadScene("7 New Day");
 	}
 }

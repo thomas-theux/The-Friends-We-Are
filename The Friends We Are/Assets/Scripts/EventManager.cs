@@ -61,17 +61,21 @@ public class EventManager : MonoBehaviour {
 
 	private void Start() {
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
+		timeInterface = GameObject.Find("TimeInterface").gameObject;
 		// GameManager.enableNavigation = true;
 
 		// Display radio interface and time
 		radioInterface.SetActive(true);
 		timeInterface.SetActive(true);
+
+		// Activate time
+		TimeManager.isDay = true;
 	}
 
 	private void OnEnable() {
 		// Disable question manager
 		questionManagerGO.SetActive(false);
-
+	
 		if (firstLevelPlayed) {
 			StartCoroutine(Continue());
 		} else {
@@ -136,7 +140,17 @@ public class EventManager : MonoBehaviour {
 	// When player hits continue it calls a random event
 	private IEnumerator Continue() {
 		yield return new WaitForSeconds(0.5f);
-		RandomEvent();
+
+		// Check if there is still enough time in the day
+		if (TimeManager.isDay) {
+			RandomEvent();
+		} else {
+			// Radio voice saying that the day is over
+
+			// Loading the "New Day" scene
+			TimeManager.currentTime = TimeManager.dayStartTime;
+			levelFadeScript.FadeToLevel("7 New Day");
+		}
 	}
 
 

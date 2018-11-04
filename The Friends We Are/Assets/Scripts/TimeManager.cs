@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour {
 
-	private LevelFade levelFadeScript;
+	// private LevelFade levelFadeScript;
 
 	public static bool isDay = false;
 
@@ -13,27 +13,29 @@ public class TimeManager : MonoBehaviour {
 	public Text hours;
 	public Text minutes;
 
-	public float currentTime;
+	public static float currentTime;
 	public float currentHours;
 	public float currentMinutes;
 
-	private float dayStartTime = 540;	//  9:00 Uhr
-	private float dayEndTime = 1440;	// 00:00 Uhr
+	public static float dayStartTime = 480;	//  8:00 Uhr
+	private float dayEndTime = 1320;		// 22:00 Uhr
 
-	private float multiplyTime = 3.0f;
+	private float multiplyTime = 14.0f;
 	// Minutes in a day (awake) when using the following mutliplier
-	// 02x = 7:30 min
-	// 03x = 5:00 min
-	// 04x = 3:45 min
-	// 06x = 2:30 min
-	// 10x = 1:30 min
+	// 02x = 7:00 min
+	// 03x = 4:40 min
+	// 04x = 3:30 min
+	// 06x = 2:20 min
+	// 07x = 2:00 min
+	// 08x = 1:45 min
+	// 14x = 1:00 min
 
 
 	private void Awake() {
 		DontDestroyOnLoad(this.gameObject);
 
 		// Load level fader for fade animation
-		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
+		// levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
 
 		currentTime = dayStartTime;
 
@@ -53,6 +55,7 @@ public class TimeManager : MonoBehaviour {
 		if (isDay) {
 			IncreaseTime();
 			ShowTime();
+			CheckForFeierabend();
 		}
 	}
 
@@ -65,8 +68,8 @@ public class TimeManager : MonoBehaviour {
 
 		if (currentTime >= dayEndTime) {
 			isDay = false;
-			levelFadeScript.FadeToLevel("5 Announcement");
-			currentTime = dayStartTime;
+			// levelFadeScript.FadeToLevel("5 Announcement");
+			// currentTime = dayStartTime;
 		}
 	}
 
@@ -77,6 +80,11 @@ public class TimeManager : MonoBehaviour {
 
 		if (currentMinutes < 10) { minutes.text = "0" + Mathf.Floor(currentMinutes); }
 		else { minutes.text = "" + Mathf.Floor(currentMinutes); }
+	}
+
+
+	private void CheckForFeierabend() {
+		// Check if the day is over and end the day
 	}
 
 }

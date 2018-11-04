@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "/Users/thomas_ge/Design/Feierabend Crew/The-Friends-We-Are/The Friends We Are/Assembly-CSharp.csproj",
+  "TargetFramework": "v3.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
