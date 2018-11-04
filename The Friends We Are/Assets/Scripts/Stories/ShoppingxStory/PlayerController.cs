@@ -36,9 +36,15 @@ public class PlayerController : MonoBehaviour {
 
 
 	private void PlayerMovement() {
+		// Movement of the character
 		Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 		movement = movement.normalized;
 		cc.Move(movement * moveSpeed * Time.deltaTime);
+
+		// Rotate character depending on the direction they are going
+		if (movement != Vector3.zero) {
+			transform.forward = movement;
+		}
 	}
 
 }
