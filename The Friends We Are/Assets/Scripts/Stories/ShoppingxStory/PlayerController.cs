@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	private CharacterController cc;
 
 	private float moveSpeed = 10.0f;
+
+	public bool pickup;
 	private float moveHorizontal;
 	private float moveVertical;
 
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour {
 	private void GetInput() {
 		moveHorizontal = ReInput.players.GetPlayer(playerID).GetAxis("LS Horizontal");
 		moveVertical = ReInput.players.GetPlayer(playerID).GetAxis("LS Vertical");
+
+		pickup = ReInput.players.GetPlayer(playerID).GetButtonDown("X");
 	}
 
 
