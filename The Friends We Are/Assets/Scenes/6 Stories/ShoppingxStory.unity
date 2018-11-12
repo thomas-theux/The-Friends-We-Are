@@ -4309,7 +4309,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 1936977917183852, guid: 3a19e1a2fd1e7459bab86637ebbd8506, type: 2}
+  triggerCanvas: {fileID: 1483235517933738, guid: 73c9b350d10cd4fd18c7c6db98d0a688,
+    type: 2}
   triggerParent: {fileID: 80947615}
+  materials:
+  - {fileID: 2100000, guid: 660e79d4a00b24bce83e668058a23ecd, type: 2}
+  - {fileID: 2100000, guid: 118934902156c45ffb4f2611d42f880a, type: 2}
+  - {fileID: 2100000, guid: e9228980a9a0547e6bf588549f8a4871, type: 2}
+  - {fileID: 2100000, guid: 403d42196cea0451cad49b705f26c222, type: 2}
+  - {fileID: 2100000, guid: 5f32774e5b8b04156b0e0439a439722d, type: 2}
+  - {fileID: 2100000, guid: fb3426cc2bc664b079865d69bb66d77f, type: 2}
+  - {fileID: 2100000, guid: 297537884f1f94c42894a27c7676d259, type: 2}
+  - {fileID: 2100000, guid: 33b00f68471374d1689840f68ea19de7, type: 2}
 --- !u!4 &1906317512
 Transform:
   m_ObjectHideFlags: 0

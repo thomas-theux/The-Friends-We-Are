@@ -6,7 +6,21 @@ using UnityEngine.UI;
 public class SpawnTriggers : MonoBehaviour {
 
 	public GameObject trigger;
+	public GameObject triggerCanvas;
 	public GameObject triggerParent;
+
+	public Material[] materials;
+
+	private Color32[] colors = {
+		new Color32(41, 177, 204, 255),		// Beverages
+		new Color32(41, 204, 177, 255),		// Dairy
+		new Color32(41, 82, 204, 255),		// Frozen
+		new Color32(204, 106, 41, 255),		// Fruits
+		new Color32(204, 41, 41, 255),		// Meat
+		new Color32(204, 182, 41, 255),		// Snacks
+		new Color32(204, 41, 163, 255),		// Sundries
+		new Color32(54, 204, 41, 255),		// Vegetables
+	};
 
 	private float[] posX = {
 		10.0f,
@@ -53,26 +67,34 @@ public class SpawnTriggers : MonoBehaviour {
 	};
 
 	private string[] departmentNames = {
-		"Vegetables",
-		"Fruits",
-		"Dairy",
-		"Meat",
-		"Frozen",
 		"Beverages",
+		"Dairy",
+		"Frozen",
+		"Fruits",
+		"Meat",
+		"Snacks",
 		"Sundries",
-		"Sweets",
+		"Vegetables",
 	};
 
 
 	private void Start() {
 		for (int i = 0; i < FoodChecklist.departments; i++) {
+			// Instantiate new department trigger
 			GameObject newTrigger = Instantiate(trigger, Vector3.zero, Quaternion.Euler(new Vector3(0, 40, 0)));
 			newTrigger.transform.SetParent(triggerParent.transform);
 			newTrigger.transform.localPosition = new Vector3(posX[i], 0.5f, posZ[i]);
 			newTrigger.transform.localScale = new Vector3(scaleX[i], 1, scaleZ[i]);
+			newTrigger.GetComponent<Renderer>().material = materials[i];
 
 			newTrigger.GetComponent<FoodTrigger>().triggerID = i;
-			newTrigger.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>().text = departmentNames[i];
+
+			// Instantiate new trigger canvas
+			GameObject newCanvas = Instantiate(triggerCanvas, Vector3.zero, Quaternion.Euler(new Vector3(0, -50, 0)));
+			newCanvas.transform.SetParent(triggerParent.transform);
+			newCanvas.transform.localPosition = newTrigger.transform.localPosition;
+			newCanvas.transform.GetChild(0).GetComponent<Image>().color = colors[i];
+			newCanvas.transform.GetChild(1).gameObject.GetComponent<Text>().text = departmentNames[i];
 		}
 	}
 }
