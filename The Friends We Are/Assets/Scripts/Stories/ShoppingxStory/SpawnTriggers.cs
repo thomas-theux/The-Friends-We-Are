@@ -11,7 +11,7 @@ public class SpawnTriggers : MonoBehaviour {
 
 	public Material[] materials;
 
-	private Color32[] colors = {
+	public static Color32[] colors = {
 		new Color32(41, 177, 204, 255),		// Beverages
 		new Color32(41, 204, 177, 255),		// Dairy
 		new Color32(41, 82, 204, 255),		// Frozen
@@ -66,7 +66,7 @@ public class SpawnTriggers : MonoBehaviour {
 		4.0f
 	};
 
-	private string[] departmentNames = {
+	public static string[] departmentNames = {
 		"Beverages",
 		"Dairy",
 		"Frozen",
