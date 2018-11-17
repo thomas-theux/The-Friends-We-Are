@@ -5,174 +5,165 @@ using UnityEngine.UI;
 
 public class StatsDisplayer : MonoBehaviour {
 
-	private LevelFade levelFadeScript;
+	public GameObject reviewInterfaceGO;
+	public GameObject reviewPopup;
 
-	private IEnumerator increaseValues;
+	public GameObject[] statTitleGOArr;
+	public GameObject[] actualStatGOArr;
+	public GameObject[] getPercentageGOArr;
 
-	public AudioSource increaseValue;
-	public AudioSource finishedIncreasing;
-	public AudioSource btnContinue;
+	public GameObject[] statSuffixGOArr;
+	public GameObject[] percentageSuffixGOArr;
+	public GameObject totalFriendsScoreGO;
 
-	public Text[] showValues;
-	public Text[] showTexts;
-	public Slider oldScore;
-	public Slider newScore;
-	private int index = 0;
+	public float[] actualStatValuesArr = {0, 0, 0};
+	public float[] getPercentageValuesArr = {0, 0, 0};
 
-	private float increaseTime = 0.8f;
-	private float tempTime = 0;
+	private int tempIndex = 0;
+	private float tempTime = 0.0f;
 	private float currentValue = 0;
 	private float calculatedValue = 0;
-	private float[] increasingValues = {0, 0, 0, 0, 0};
+	private float tempScore = 0;
+	private float totalScore = 0;
+	private float addPoints = 0;
 
-	private int overallValues = 5;
+	public Slider oldScoreSlider;
+	public Slider newScoreSlider;
 
-	public static bool didSkip;
+	private bool isIncreasing = false;
+
+	private IEnumerator showStatsCo;
+
+	public AudioSource increaseSound;
+	public AudioSource finishedIncreasingSound;
+	public AudioSource showStatSound;
+
+	private float shortDelay = 0.3f;
+	private float medDelay = 0.5f;
+	// private float longDelay = 1.0f;
+
+	private LevelFade levelFadeScript;
 
 
-	private void Start() {
-		// Get the level fader script
+	private void OnEnable() {
+		showStatsCo = ShowStats();
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
-
-		// Set old score to current overall score that is saved in Game Manager
-		oldScore.value = GameManager.overallScore;
-
-		// Show text in UI that got transferred from the Story
-		for (int i = 0; i < 4; i++) {
-			showTexts[i].text = StatsHolder.transferTexts[i];
-		}
-
-		// Enable basic navigation
-		GameManager.enableNavigation = true;
-
-		increaseValues = IncreaseValue();
-		StartCoroutine(increaseValues);
-
-		if (!EventManager.firstLevelPlayed) {
-			EventManager.firstLevelPlayed = true;
-		}
 	}
 
 
 	private void Update() {
-		SkipStatsAnim();
-
-		GetInput();
-	}
-
-
-	private void GetInput() {
-		// Get input from player one (dark)
+		// Check if the navigation is enabled yet
 		if (GameManager.enableNavigation) {
-			if(GameManager.playerDark.GetButtonDown("X")) {
-				if (!GameManager.skipStats) {
-					didSkip = true;
-					GameManager.skipStats = true;
-				} else {
-					StartCoroutine(Continue());
+			SkipAnimations();
+		}
+	}
+
+	public void GetFromStatsHolder() {
+		
+		// Get stat values and percentages from StatsHolder
+		for (int i = 0; i < statTitleGOArr.Length; i++) {
+			statTitleGOArr[i].GetComponent<Text>().text = StatsHolder.transferTexts[i];
+			statSuffixGOArr[i].GetComponent<Text>().text = StatsHolder.transferSuffixes[i];
+			actualStatValuesArr[i] = StatsHolder.transferValues[i];
+			getPercentageValuesArr[i] = StatsHolder.transferPercentages[i];
+		}
+		
+		// Show review popup
+		reviewPopup.SetActive(true);
+
+		// After calculating the percentage we start showing the stats
+		StartCoroutine(showStatsCo);
+
+	}
+
+
+	private void SkipAnimations() {
+		// Check if the player hits the X button
+		if (GameManager.playerDark.GetButtonDown("X")) {
+			// Check if the animation is ongoing or not
+			if (isIncreasing) {
+				StopCoroutine(showStatsCo);
+				ShowFinalValues();
+			} else {
+				// Save score to overallScore
+				for (int m = 0; m < getPercentageValuesArr.Length; m++) {
+					addPoints += getPercentageValuesArr[m];
 				}
-				btnContinue.Play();
+				GameManager.overallScore += addPoints;
+
+				// Disable navigation
+				GameManager.enableNavigation = false;
+
+				// Reset all values
+				ResetValues();
 			}
 		}
 	}
 
 
-	private void SkipStatsAnim() {
-		if (GameManager.skipStats) {
-			StopCoroutine(increaseValues);
+	IEnumerator ShowStats() {
+		yield return new WaitForSeconds(medDelay);
 
-			if (didSkip) {
-				for (int j = 0; j < 4; j++) {
-					if (StatsHolder.transferValues[j] >= 10) {
-						showValues[j].text = StatsHolder.transferValues[j].ToString("F0") + "";
-					} else {
-						showValues[j].text = "0" + StatsHolder.transferValues[j].ToString("F0") + "";
-					}
-					// Color the increased value with a gradient
-					showValues[index].GetComponent<GradientText>().enabled = true;
-					// showValues[j].color = new Color(1.0f, 0.427451f, 0.003921569f);
-				}
-				showValues[overallValues-1].text = "+" + StatsHolder.transferValues[overallValues-1].ToString("F1") + "%";
-				newScore.value = StatsHolder.transferValues[overallValues-1];
-				// GameManager.skipStats = false;
-			}
-			// Save new friends score to Game Manager
-			GameManager.overallScore = newScore.value;
+		// Enable navigation so players can skip if they like
+		GameManager.enableNavigation = true;
+		isIncreasing = true;
 
-			// // Save current score for UI slider interface
-			// oldScore.value = newScore.value;
-		}
-	}
+		float increaseTime = 1.0f;
 
+		while (tempIndex < statTitleGOArr.Length) {
 
-	// Show the single stats by animating them starting from 0
-	IEnumerator IncreaseValue() {
-		yield return new WaitForSeconds(1);
+			// Show the title of the stat
+			statTitleGOArr[tempIndex].SetActive(true);
+			showStatSound.Play();
 
-		while (index < overallValues) {
+			yield return new WaitForSeconds(shortDelay);
+
+			// Show the actual stat and their suffix (like 's' for seconds)
+			actualStatGOArr[tempIndex].SetActive(true);
+			statSuffixGOArr[tempIndex].SetActive(true);
+			actualStatGOArr[tempIndex].GetComponent<Text>().text = actualStatValuesArr[tempIndex].ToString("F1");
+			showStatSound.Play();
+
+			yield return new WaitForSeconds(shortDelay);
+
+			// Show the percentage value and their suffix (like % for percentage)
+			getPercentageGOArr[tempIndex].SetActive(true);
+			percentageSuffixGOArr[tempIndex].SetActive(true);
+
+			// Increase the percentage value the players get for succeeding
 			while (tempTime < increaseTime) {
 				tempTime += Time.deltaTime;
+
 				MapFunction(tempTime, 0, increaseTime, 0, 1);
 				ApplyFormula(currentValue);
-				MapFunction(calculatedValue, 0, 1, 0, StatsHolder.transferValues[index]);
-				increasingValues[index] = currentValue;
+				MapFunction(calculatedValue, 0, 1, 0, getPercentageValuesArr[tempIndex]);
 
-				if (increasingValues[index] < 9) {
-					if (index < overallValues - 1) {
-						// Show other stats
-						showValues[index].text = "0" + increasingValues[index].ToString("F0");
-					} else {
-						// Show friends score
-						showValues[index].text = "+" + increasingValues[index].ToString("F1") + "%";
-						newScore.value = increasingValues[index];
-					}
-					
-				} else {
-					if (index < overallValues - 1) {
-						// Show other stats
-						showValues[index].text = increasingValues[index].ToString("F0");
-					} else {
-						// Show friends score
-						showValues[index].text = "+" + increasingValues[index].ToString("F1") + "%";
-						newScore.value = increasingValues[index];
-					}
-				}
-				increaseValue.Play();
+				getPercentageGOArr[tempIndex].GetComponent<Text>().text = currentValue.ToString("F1");
 
+				totalScore = oldScoreSlider.value + currentValue + tempScore;
+				newScoreSlider.value = totalScore;
+				totalFriendsScoreGO.GetComponent<Text>().text = "" + totalScore.ToString("F1");
+
+				increaseSound.Play();
 				yield return null;
 			}
-			// After increasing the values we show the final value that got transferred from the story script
-			if (index < overallValues - 1) {
-				if (StatsHolder.transferValues[index] >= 10) {
-					showValues[index].text = StatsHolder.transferValues[index].ToString("F0") + "";
-				} else {
-					showValues[index].text = "0" + StatsHolder.transferValues[index].ToString("F0") + "";
-				}
-			} else {
-				showValues[index].text = "+" + StatsHolder.transferValues[index].ToString("F1") + "%";
-			}
-			// Color the increased value with a gradient
-			showValues[index].GetComponent<GradientText>().enabled = true;
-			// showValues[index].color = new Color(1.0f, 0.427451f, 0.003921569f);
-			finishedIncreasing.Play();
 
+			finishedIncreasingSound.Play();
+			
+			float getPercentage = getPercentageValuesArr[tempIndex];
+			getPercentageGOArr[tempIndex].GetComponent<Text>().text = "" + getPercentage.ToString("F1");
+			newScoreSlider.value = oldScoreSlider.value + getPercentage + tempScore;
+			totalFriendsScoreGO.GetComponent<Text>().text = "" + newScoreSlider.value.ToString("F1");
+			tempScore += getPercentage;
+
+			yield return new WaitForSeconds(medDelay);
+
+			tempIndex++;
 			tempTime = 0;
-			index++;
-
-			// yield return new WaitForSeconds(0.05f);
 		}
 
-		index = overallValues - 1;
-
-		// Stats can not be skipped anymore after they are fully displayed
-		GameManager.skipStats = true;
-	}
-
-
-	// The formula with which the stats gets increased
-	private void ApplyFormula(float currentValue) {
-		// Formula: y = (x-1)^3 + 1
-		calculatedValue = Mathf.Pow(currentValue, 1);
+		// Stop the possibility to skip the animation
+		isIncreasing = false;
 	}
 
 
@@ -182,9 +173,96 @@ public class StatsDisplayer : MonoBehaviour {
 	}
 
 
-	private IEnumerator Continue() {
+	// The formula with which the stats gets increased
+	private void ApplyFormula(float currentValue) {
+		// Formula: y = (x-1)^3 + 1
+		calculatedValue = Mathf.Pow(currentValue, 1);
+	}
+
+	
+	private void ShowFinalValues() {
+		// The animation is stopped
+		isIncreasing = false;
+
+		// Calculate the remaining stats that have to be shown
+		int repeatShow = statTitleGOArr.Length - tempIndex;
+
+		for (int j = tempIndex; j < repeatShow; j++) {
+			// Show the title of the stat
+			statTitleGOArr[j].SetActive(true);
+
+			// Show the actual stat and their suffix (like 's' for seconds)
+			actualStatGOArr[j].SetActive(true);
+			statSuffixGOArr[j].SetActive(true);
+			actualStatGOArr[j].GetComponent<Text>().text = actualStatValuesArr[j].ToString("F1");
+
+			// Show all percentages
+			getPercentageGOArr[j].SetActive(true);
+			percentageSuffixGOArr[j].SetActive(true);
+
+			// Show final values and save temporary score after each increasing
+			float finalValue = getPercentageValuesArr[j];
+			tempScore += finalValue;
+			getPercentageGOArr[j].GetComponent<Text>().text = finalValue.ToString("F1");
+			totalFriendsScoreGO.GetComponent<Text>().text = (GameManager.overallScore + tempScore).ToString("F1");
+			newScoreSlider.value = tempScore + oldScoreSlider.value;
+		}
+
+		// Play corresponding sounds
+		finishedIncreasingSound.Play();
+	}
+
+	
+	private void ResetValues() {
+		oldScoreSlider.value = GameManager.overallScore;
+		newScoreSlider.value = 0;
+
+		for (int k = 0; k < statTitleGOArr.Length; k++) {
+			actualStatGOArr[k].GetComponent<Text>().text = "";
+			getPercentageGOArr[k].GetComponent<Text>().text = "";
+			actualStatValuesArr[k] = 0;
+			getPercentageValuesArr[k] = 0;
+		}
+
+		tempIndex = 0;
+		tempTime = 0.0f;
+		currentValue = 0;
+		calculatedValue = 0;
+		tempScore = 0;
+		totalScore = 0;
+		addPoints = 0;
+
+		isIncreasing = false;
+
+		// Deactivate all interfaces
+		reviewPopup.SetActive(false);
+		
+		for (int l = 0; l < statTitleGOArr.Length; l++) {
+			statTitleGOArr[l].SetActive(false);
+
+			actualStatGOArr[l].SetActive(false);
+			statSuffixGOArr[l].SetActive(false);
+
+			getPercentageGOArr[l].SetActive(false);
+			percentageSuffixGOArr[l].SetActive(false);
+		}
+		
+		reviewInterfaceGO.SetActive(false);
+
+		// Played the first level
+		if (!EventAnnouncer.firstLevelPlayed) {
+			TimeManager.dayJustStarted = false;
+			EventAnnouncer.firstLevelPlayed = true;
+		}
+
+		// Load Announcement scene
+		StartCoroutine(NextAnnouncement());
+	}
+
+
+	IEnumerator NextAnnouncement() {
 		yield return new WaitForSeconds(0.5f);
-		// Fade to next level
+
 		levelFadeScript.FadeToLevel("5 Announcement");
 	}
 

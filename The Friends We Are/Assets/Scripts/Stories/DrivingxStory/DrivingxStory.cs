@@ -7,6 +7,9 @@ using Rewired;
 
 public class DrivingxStory : MonoBehaviour {
 
+	public GameObject statsDisplayerGO;
+	public GameObject killAllPoints;
+
 	public GameObject bus;
 	public Camera mainCamera;
 
@@ -29,12 +32,11 @@ public class DrivingxStory : MonoBehaviour {
 	private float speedIncrease = 1.0f;
 	private float speedDecrease = 0.8f;
 
-	private float maxSpeed;
+	// private float maxSpeed;
 	private float allSpeedValues;
 	private int divideSpeed;
 	private float averageSpeed;
 	private float addFriendsScore;
-	private float scoreMultiplier = 0.75f;
 
 	private float transfer;
 
@@ -85,7 +87,7 @@ public class DrivingxStory : MonoBehaviour {
 			velocity.text = currentSpeed.ToString("F0") + " km/h";
 			// score.text = experienceScore + "";
 
-			MaximumSpeed();
+			// MaximumSpeed();
 
 			AverageSpeed();
 
@@ -94,35 +96,35 @@ public class DrivingxStory : MonoBehaviour {
 
 		if (LevelTimer.levelEnd && !statsSaved) {
 
-			// Calculate the percentage the friends score is increasing
-			CalculatePercentage();
-
-			// Save the single values for the stats overview
-			StatsHolder.transferValues = new float[] {
-				bus.transform.position.z,
-				maxSpeed,
-				averageSpeed,
-				experienceScore,
-				addFriendsScore
-			};
-
-			// Transfer values WITH ceiling
-			// StatsHolder.transferValues = new float[] {
-			// 	Mathf.Ceil(bus.transform.position.z),
-			// 	Mathf.Ceil(maxSpeed),
-			// 	Mathf.Ceil(averageSpeed),
-			// 	drivingScore,
-			// 	addFriendsScore
-			// };
+			// Destroy all remaining points so they can't get collected anymore
+			Destroy(killAllPoints.gameObject);
 
 			// Save the titles for the stats
 			StatsHolder.transferTexts = new string[] {
 				"Meters Driven",
-				"Maximum Speed",
 				"Average Speed",
-				"Experience Gained",
-				"Friends Score"
+				"Road Experience"
 			};
+
+			// Save the suffixes for the stats
+			StatsHolder.transferSuffixes = new string[] {
+				"m",
+				"km/h",
+				""
+			};
+
+			// Save the single values for the stats overview
+			StatsHolder.transferValues = new float[] {
+				bus.transform.position.z,
+				averageSpeed,
+				experienceScore
+			};
+
+			// Calculate the percentage the friends score is increasing
+			CalculatePercentages();
+
+			// Set titles, values, and percentages in the StatsDisplayer
+			statsDisplayerGO.GetComponent<StatsDisplayer>().GetFromStatsHolder();
 
 			statsSaved = true;
 		}
@@ -155,11 +157,14 @@ public class DrivingxStory : MonoBehaviour {
 			braking = GameManager.playerDark.GetAxis("L2");
 
 			// Get input from player two (light)
-			steering = GameManager.playerLight.GetAxis("LS Horizontal");
+			// steering = GameManager.playerLight.GetAxis("LS Horizontal");
+			steering = GameManager.playerDark.GetAxis("LS Horizontal");
 		} else {
 			// Get input from player two (light)
-			accelerating = GameManager.playerLight.GetAxis("R2");
-			braking = GameManager.playerLight.GetAxis("L2");
+			// accelerating = GameManager.playerLight.GetAxis("R2");
+			// braking = GameManager.playerLight.GetAxis("L2");
+			accelerating = GameManager.playerDark.GetAxis("R2");
+			braking = GameManager.playerDark.GetAxis("L2");
 
 			// Get input from player one (dark)
 			steering = GameManager.playerDark.GetAxis("LS Horizontal");
@@ -246,11 +251,11 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	// Get stats for highest speed
-	private void MaximumSpeed() {
-		if (currentSpeed > maxSpeed) {
-			maxSpeed = currentSpeed;
-		}
-	}
+	// private void MaximumSpeed() {
+	// 	if (currentSpeed > maxSpeed) {
+	// 		maxSpeed = currentSpeed;
+	// 	}
+	// }
 
 
 	// Get stats for average speed
@@ -266,53 +271,15 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
-	private void CalculatePercentage() {
-		float overallScore = (bus.transform.position.z / 1000) * (
-			maxSpeed +
-			averageSpeed +
-			experienceScore
-		);
+	private void CalculatePercentages() {
+		// Percentage for Meters Driven
+		StatsHolder.transferPercentages[0] = Mathf.Ceil((bus.transform.position.z / 1000) * 10) / 10;
 
-		float minEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.storyAP);
-		float maxEvents = GameManager.tripDays * (GameManager.maxAP / GameManager.radioAP);
+		// Percentage for Average Speed
+		StatsHolder.transferPercentages[1] = Mathf.Ceil((averageSpeed / 50) * 10) / 10;
 
-		float calculateAllEvents = (minEvents * GameManager.storyChance + maxEvents * GameManager.questionChance) / 100;
-
-		float rankMultiplier = 0;
-
-		// CALCULATING THE SCORE WITHOUT RANKS
-		rankMultiplier = (overallScore / 1000) * scoreMultiplier;
-
-
-		// CALCULATING THE SCORE WITH RANKS
-		// Get rank D
-		// if (overallScore < tier1) {
-		// 	rankMultiplier = 0.6f;
-		// 	print("Rank D");
-		// }
-		// // Get rank C
-		// if (overallScore >= tier1 && overallScore < tier2) {
-		// 	rankMultiplier = 0.7f;
-		// 	print("Rank C");
-		// }
-		// // Get rank B
-		// if (overallScore >= tier2 && overallScore < tier3) {
-		// 	rankMultiplier = 0.8f;
-		// 	print("Rank B");
-		// }
-		// // Get rank A
-		// if (overallScore >= tier3 && overallScore < tier4) {
-		// 	rankMultiplier = 0.9f;
-		// 	print("Rank A");
-		// }
-		// // Get rank S
-		// if (overallScore >= tier4) {
-		// 	rankMultiplier = 1.0f;
-		// 	print("Rank S");
-		// }
-
-		addFriendsScore = (100 / calculateAllEvents) * rankMultiplier;
-
+		// Percentage for Road Experience Gained
+		StatsHolder.transferPercentages[2] = experienceScore / 100;
 	}
 
 

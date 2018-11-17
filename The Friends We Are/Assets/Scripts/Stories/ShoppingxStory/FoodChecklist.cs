@@ -12,7 +12,7 @@ public class FoodChecklist : MonoBehaviour {
 
 	private float waitMin = 4;
 	private float waitMax = 6;
-	private float speedIncrease = 0.2f;
+	private float speedIncrease = 0.1f;
 	public static int departments = 8;
 
 	private bool isAdding;
@@ -62,7 +62,7 @@ public class FoodChecklist : MonoBehaviour {
 
 
 		// Increase speed of blocks coming in
-		if (waitMin > 0.4f) {
+		if (waitMin > 0.2f) {
 			waitMin -= speedIncrease;
 			waitMax = waitMin + 1;
 		}

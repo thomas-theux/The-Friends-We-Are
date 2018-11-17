@@ -43,6 +43,8 @@ public class DayDisplayer : MonoBehaviour {
 	IEnumerator WaitTillNextLevel() {
 		yield return new WaitForSeconds(4.0f);
 
+		TimeManager.dayJustStarted = true;
+
 		// Always go to the announcement scene to determine next event
 		levelFadeScript.FadeToLevel("5 Announcement");
 	}

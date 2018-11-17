@@ -8,6 +8,7 @@ public class TimeManager : MonoBehaviour {
 	// private LevelFade levelFadeScript;
 
 	public static bool isDay = false;
+	public static bool dayJustStarted = false;
 
 	public Text day;
 	public Text hours;

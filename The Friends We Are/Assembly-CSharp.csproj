@@ -86,6 +86,7 @@
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\DayDisplayer.cs" />
      <Compile Include="Assets\Scripts\DontDestroy.cs" />
+     <Compile Include="Assets\Scripts\EventAnnouncer.cs" />
      <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -105,7 +106,6 @@
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroyEffect.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DestroySection.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\DrivingxStory.cs" />
-     <Compile Include="Assets\Scripts\Stories\DrivingxStory\KillAllPoints.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\MoveAndDestroy.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\PointSpawner.cs" />
      <Compile Include="Assets\Scripts\Stories\DrivingxStory\SectionSpawner.cs" />

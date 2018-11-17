@@ -109,15 +109,11 @@ public class QuestionManager : MonoBehaviour {
 	IEnumerator BootRadio() {
 		yield return new WaitForSeconds(0.5f);
 		questionInterface.SetActive(true);
-		hissSound.Play();
-		yield return new WaitForSeconds(2.4f);
 		ShowRadio();
 	}
 
 
 	private void ShowRadio() {
-		radioBGMusic.Play();
-
 		// Check if questions have been played before or not and play the according voice file
 		if (!firstVoice) {
 			// radioIntroVoice.Play();

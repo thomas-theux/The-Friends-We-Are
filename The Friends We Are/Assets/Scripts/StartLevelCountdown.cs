@@ -10,8 +10,6 @@ public class StartLevelCountdown : MonoBehaviour {
 	public AudioSource countdownSound;
 	public AudioSource goSound;
 
-	public GameObject burnout;
-
 	private float levelStartCountdownTime = 3;
 	private bool startCountdown = false;
 	private int beepAmount = 3;

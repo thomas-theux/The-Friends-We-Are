@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/7 New Day.unity
     guid: 17170fc6266a94f8e80e63e4d1e8aad2
+  - enabled: 1
+    path: Assets/Scenes/6 Stories/ShoppingxStory.unity
+    guid: 09f858a61410f4436b636d129057793a
   m_configObjects: {}

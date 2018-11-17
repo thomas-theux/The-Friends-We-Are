@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour {
 	public static int radioAP = 2;
 	public static int maxAP = 6;
 
-	public static int storyChance = 60;
-	public static int questionChance = 100;
+	public static int storyChance = 100;
+	public static int questionChance = 0;
 
 	public static bool enableNavigation;
 	public static bool skipStats = false;

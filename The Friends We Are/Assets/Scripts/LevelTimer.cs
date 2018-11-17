@@ -10,15 +10,15 @@ public class LevelTimer : MonoBehaviour {
 	public GameObject levelInterface;
 
 	public Text levelTimeText;
-	private float levelTime = 24;
+	private float levelTime = 4;
 	public static bool levelEnd;
 
-	public KillAllPoints killAllPointsScript;
-	public LevelFade levelFadeScript;
+	// private LevelFade levelFadeScript;
 
 
 	private void Start() {
 		levelTimeText = GameObject.Find("LevelTime").GetComponent<Text>();
+		// levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
 	}
 
 
@@ -41,15 +41,10 @@ public class LevelTimer : MonoBehaviour {
 
 
 	IEnumerator LastSeconds() {
+		// Wait another second before going to the Story Overview screen
+		yield return new WaitForSeconds(1);
+
 		// End the level
-		levelEnd = true;
-
-		// Destroy all remaining points
-		killAllPointsScript.DestroyRemainingPoints();
-
-		// Wait another 2 seconds before going to the Story Overview screen
-		yield return new WaitForSeconds(2);
-
 		LevelEnd();
 	}
 
@@ -58,8 +53,7 @@ public class LevelTimer : MonoBehaviour {
 		// Load Story Overview screen
 		levelInterface.SetActive(false);
 		statsManager.SetActive(true);
-		// levelFadeScript.FadeToLevel("6 Summary");
-
+		levelEnd = true;
 	}
 	
 }

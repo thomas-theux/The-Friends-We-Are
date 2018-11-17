@@ -55,7 +55,6 @@ public class EventManager : MonoBehaviour {
 				taskImages[i].GetComponent<RectTransform>().anchoredPosition.y
 			);
 		}
-		
 	}
 
 
@@ -113,6 +112,9 @@ public class EventManager : MonoBehaviour {
 		if (firstLevelPlayed) {
 			int randomVoice = Random.Range(0, nextEventVoice.Length);
 			nextEventVoice[randomVoice].Play();
+			yield return new WaitForSeconds(0.5f);
+
+			// 
 		} else {
 			// Voice introducing first game
 			firstStoryGameVoice.Play();
@@ -165,9 +167,9 @@ public class EventManager : MonoBehaviour {
 		}
 
 		// Start story event
-		// if (randomEvent >= questionChance && randomEvent < 100) {
-		// 	NextStory();
-		// }
+		if (randomEvent >= GameManager.questionChance && randomEvent < 100) {
+			NextStory();
+		}
 	}
 
 
