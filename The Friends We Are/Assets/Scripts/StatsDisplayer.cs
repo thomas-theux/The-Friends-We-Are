@@ -48,6 +48,9 @@ public class StatsDisplayer : MonoBehaviour {
 	private void OnEnable() {
 		showStatsCo = ShowStats();
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
+
+		// Get titles, values, and percentages from the StatsHolder
+		GetFromStatsHolder();
 	}
 
 

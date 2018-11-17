@@ -124,7 +124,7 @@ public class DrivingxStory : MonoBehaviour {
 			CalculatePercentages();
 
 			// Set titles, values, and percentages in the StatsDisplayer
-			statsDisplayerGO.GetComponent<StatsDisplayer>().GetFromStatsHolder();
+			// statsDisplayerGO.GetComponent<StatsDisplayer>().GetFromStatsHolder();
 
 			statsSaved = true;
 		}
