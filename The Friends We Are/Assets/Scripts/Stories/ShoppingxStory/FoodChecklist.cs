@@ -26,8 +26,10 @@ public class FoodChecklist : MonoBehaviour {
 
 
 	private void Update() {
-		if (!isAdding) {
-			StartCoroutine(SpawnNewReq());
+		if (StartLevelCountdown.startLevel) {
+			if (!isAdding) {
+				StartCoroutine(SpawnNewReq());
+			}
 		}
 	}
 

@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour {
 
 
 	private void Update() {
-		GetInput();
+		if (StartLevelCountdown.startLevel) {
+			GetInput();
+		}
 	}
 
 
