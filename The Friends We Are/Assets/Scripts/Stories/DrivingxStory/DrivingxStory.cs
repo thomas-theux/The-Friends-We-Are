@@ -101,30 +101,30 @@ public class DrivingxStory : MonoBehaviour {
 
 			// Save the titles for the stats
 			StatsHolder.transferTexts = new string[] {
+				"Road Experience",
 				"Meters Driven",
-				"Average Speed",
-				"Road Experience"
+				"Average Speed"
 			};
 
 			// Save the suffixes for the stats
 			StatsHolder.transferSuffixes = new string[] {
+				"",
 				"m",
-				"km/h",
-				""
+				"km/h"
 			};
 
 			// Save the single values for the stats overview
 			StatsHolder.transferValues = new float[] {
+				experienceScore,
 				bus.transform.position.z,
-				averageSpeed,
-				experienceScore
+				averageSpeed
 			};
 
 			// Calculate the percentage the friends score is increasing
 			CalculatePercentages();
 
-			// Set titles, values, and percentages in the StatsDisplayer
-			// statsDisplayerGO.GetComponent<StatsDisplayer>().GetFromStatsHolder();
+			// Enable StatsDisplayer script
+			statsDisplayerGO.GetComponent<StatsDisplayer>().enabled = true;
 
 			statsSaved = true;
 		}
@@ -250,14 +250,6 @@ public class DrivingxStory : MonoBehaviour {
 	}
 
 
-	// Get stats for highest speed
-	// private void MaximumSpeed() {
-	// 	if (currentSpeed > maxSpeed) {
-	// 		maxSpeed = currentSpeed;
-	// 	}
-	// }
-
-
 	// Get stats for average speed
 	private void AverageSpeed() {
 		allSpeedValues += currentSpeed;
@@ -272,14 +264,14 @@ public class DrivingxStory : MonoBehaviour {
 
 
 	private void CalculatePercentages() {
+		// Percentage for Road Experience Gained
+		StatsHolder.transferPercentages[0] = experienceScore / 100;
+
 		// Percentage for Meters Driven
-		StatsHolder.transferPercentages[0] = Mathf.Ceil((bus.transform.position.z / 1000) * 10) / 10;
+		StatsHolder.transferPercentages[1] = Mathf.Ceil((bus.transform.position.z / 1000) * 10) / 10;
 
 		// Percentage for Average Speed
-		StatsHolder.transferPercentages[1] = Mathf.Ceil((averageSpeed / 50) * 10) / 10;
-
-		// Percentage for Road Experience Gained
-		StatsHolder.transferPercentages[2] = experienceScore / 100;
+		StatsHolder.transferPercentages[2] = Mathf.Ceil((averageSpeed / 50) * 10) / 10;
 	}
 
 

@@ -10,7 +10,7 @@ public class LevelTimer : MonoBehaviour {
 	public GameObject levelInterface;
 
 	public Text levelTimeText;
-	private float levelTime = 4;
+	private float levelTime = 24;
 	public static bool levelEnd;
 
 	// private LevelFade levelFadeScript;

@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour {
 
 
 	private void FixedUpdate() {
-		PlayerMovement();
+		if (StartLevelCountdown.startLevel) {
+			PlayerMovement();
+		}
 	}
 
 

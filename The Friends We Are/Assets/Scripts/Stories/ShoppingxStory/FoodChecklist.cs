@@ -7,11 +7,14 @@ public class FoodChecklist : MonoBehaviour {
 
 	public GameObject foodBlock;
 	public GameObject foodCanvas;
+	public GameObject statsDisplayerGO;
 
 	public static List<int> reqFoodArr = new List<int>();
+	public static int currentStreak = 0;
+	public static int maxStreak = 0;
 
-	private float waitMin = 4;
-	private float waitMax = 6;
+	private float waitMin = 1;
+	private float waitMax = 2;
 	private float speedIncrease = 0.1f;
 	public static int departments = 8;
 
@@ -20,6 +23,10 @@ public class FoodChecklist : MonoBehaviour {
 	private float startX = 20;
 	private float startY = Screen.height / 4;
 	private float blockDistance = 30;
+
+	public static int[] foodCount = {0, 0};
+
+	private bool statsSaved;
 
 
 	private string showActive;
@@ -30,6 +37,37 @@ public class FoodChecklist : MonoBehaviour {
 			if (!isAdding) {
 				StartCoroutine(SpawnNewReq());
 			}
+		}
+		
+		if (LevelTimer.levelEnd && !statsSaved) {
+			// Save the titles for the stats
+			StatsHolder.transferTexts = new string[] {
+				"P1 Food Collected",
+				"P2 Food Collected",
+				"Best Streak"
+			};
+
+			// Save the suffixes for the stats
+			StatsHolder.transferSuffixes = new string[] {
+				"",
+				"",
+				""
+			};
+
+			// Save the single values for the stats overview
+			StatsHolder.transferValues = new float[] {
+				foodCount[0],
+				foodCount[1],
+				maxStreak
+			};
+
+			// Calculate the percentage the friends score is increasing
+			CalculatePercentages();
+
+			// Enable StatsDisplayer script
+			statsDisplayerGO.GetComponent<StatsDisplayer>().enabled = true;
+
+			statsSaved = true;
 		}
 	}
 
@@ -70,5 +108,16 @@ public class FoodChecklist : MonoBehaviour {
 		}
 
 		isAdding = false;
+	}
+
+
+	private void CalculatePercentages() {
+		// Percentage for collected food
+		for (int i = 0; i < 2; i++) {
+			StatsHolder.transferPercentages[i] = foodCount[i] / 2;
+		}
+
+		// Percentage for max streak
+		StatsHolder.transferPercentages[2] = maxStreak / 10;
 	}
 }

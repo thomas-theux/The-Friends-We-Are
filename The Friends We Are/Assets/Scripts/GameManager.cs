@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	// REWIRED PLUGIN
 	public static Player playerDark;
 	public static Player playerLight;
+	
 
 	private void Awake() {
 		// DontDestroyOnLoad(this.gameObject);

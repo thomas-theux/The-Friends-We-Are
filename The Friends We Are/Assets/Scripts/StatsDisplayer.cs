@@ -62,7 +62,6 @@ public class StatsDisplayer : MonoBehaviour {
 	}
 
 	public void GetFromStatsHolder() {
-		
 		// Get stat values and percentages from StatsHolder
 		for (int i = 0; i < statTitleGOArr.Length; i++) {
 			statTitleGOArr[i].GetComponent<Text>().text = StatsHolder.transferTexts[i];

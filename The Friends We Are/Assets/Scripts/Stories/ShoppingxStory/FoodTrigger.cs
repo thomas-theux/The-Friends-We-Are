@@ -16,8 +16,20 @@ public class FoodTrigger : MonoBehaviour {
 				GameObject deleteBlock = GameObject.Find(SpawnTriggers.departmentNames[triggerID]);
 				Destroy(deleteBlock);
 				FoodChecklist.reqFoodArr.Remove(triggerID);
+
+				// Check for streak stat
+				FoodChecklist.currentStreak++;
+				if (FoodChecklist.maxStreak < FoodChecklist.currentStreak) {
+					FoodChecklist.maxStreak = FoodChecklist.currentStreak;
+				}
+
+				// Add one point to the picked up food array
+				FoodChecklist.foodCount[other.GetComponent<PlayerController>().playerID] += 1;
 			} else {
 				// Subtract points for picking up the wrong food
+
+				// Reset streak counter
+				FoodChecklist.currentStreak = 0;
 			}
 		}
 	}
