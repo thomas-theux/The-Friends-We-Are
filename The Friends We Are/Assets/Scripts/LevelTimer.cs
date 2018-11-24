@@ -10,9 +10,11 @@ public class LevelTimer : MonoBehaviour {
 	public GameObject levelInterfaceGO;
 
 	public Text levelTimeText;
-	private float levelTimeDefault = 24;
+	private float levelTimeDefault = 4;
 	private float levelTime;
 	public static bool levelEnd;
+
+	public AudioSource levelEndSound;
 
 	// private LevelFade levelFadeScript;
 
@@ -44,6 +46,8 @@ public class LevelTimer : MonoBehaviour {
 
 
 	IEnumerator LastSeconds() {
+		levelEndSound.Play();
+		
 		// Wait another second before going to the Story Overview screen
 		yield return new WaitForSeconds(1);
 

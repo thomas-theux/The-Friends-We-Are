@@ -79,7 +79,7 @@ public class SpawnTriggers : MonoBehaviour {
 
 
 	private void Start() {
-		for (int i = 0; i < FoodChecklist.departments; i++) {
+		for (int i = 0; i < ShoppingxStory.departments; i++) {
 			// Instantiate new department trigger
 			GameObject newTrigger = Instantiate(trigger, Vector3.zero, Quaternion.Euler(new Vector3(0, 40, 0)));
 			newTrigger.transform.SetParent(triggerParent.transform);

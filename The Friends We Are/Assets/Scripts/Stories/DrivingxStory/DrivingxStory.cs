@@ -102,7 +102,7 @@ public class DrivingxStory : MonoBehaviour {
 			// Save the titles for the stats
 			StatsHolder.transferTexts = new string[] {
 				"Road Experience",
-				"Meters Driven",
+				"Distance",
 				"Average Speed"
 			};
 

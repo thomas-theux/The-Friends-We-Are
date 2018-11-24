@@ -109,3 +109,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerID: 0
+  pickUpFoodSound: {fileID: 0}
+  wrongFoodSound: {fileID: 0}
