@@ -37,7 +37,7 @@ public class EventAnnouncer : MonoBehaviour {
 
 	private LevelFade levelFadeScript;
 
-	private string nextStoryName;
+	private string nextStoryName = "";
 
 	public AudioSource hissSound;
 	public AudioSource radioBGMusic;
@@ -211,7 +211,13 @@ public class EventAnnouncer : MonoBehaviour {
 
 	// Randomize the roles for the minigame
 	private void RandomizeRoles() {
-		randomizeRole = (Random.value < 0.5);
+		if (nextStoryName.Contains("!")) {
+			randomizeRole = true;
+			print("Dont randomize");
+		} else {
+			randomizeRole = (Random.value < 0.5);
+		}
+		
 
 		if (randomizeRole) {
 			taskTexts[0].GetComponent<RectTransform>().anchoredPosition = textPos[0];
