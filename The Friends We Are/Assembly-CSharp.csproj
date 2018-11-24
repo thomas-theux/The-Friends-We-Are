@@ -87,7 +87,6 @@
      <Compile Include="Assets\Scripts\DayDisplayer.cs" />
      <Compile Include="Assets\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\EventAnnouncer.cs" />
-     <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GradientText.cs" />
@@ -114,9 +113,11 @@
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\SpawnPlayers.cs" />
      <Compile Include="Assets\Scripts\Stories\ShoppingxStory\SpawnTriggers.cs" />
+     <Compile Include="Assets\Scripts\StoryGameHandler.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
      <Compile Include="Assets\Scripts\Tests\TestTimeManager.cs" />
      <Compile Include="Assets\Scripts\TimeManager.cs" />
+     <Compile Include="Assets\Scripts\xxArchive\EventManager.cs" />
      <Compile Include="Assets\Scripts\xxArchive\MGDriving.cs" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />

@@ -6,17 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelTimer : MonoBehaviour {
 
-	public GameObject statsManager;
-	public GameObject levelInterface;
+	private GameObject reviewInterfaceGO;
+	public GameObject levelInterfaceGO;
 
 	public Text levelTimeText;
-	private float levelTime = 24;
+	private float levelTimeDefault = 24;
+	private float levelTime;
 	public static bool levelEnd;
 
 	// private LevelFade levelFadeScript;
 
 
-	private void Start() {
+	private void OnEnable() {
+		levelTime = levelTimeDefault;
+		reviewInterfaceGO = GameObject.Find("StatsManager").transform.GetChild(0).gameObject;
 		levelTimeText = GameObject.Find("LevelTime").GetComponent<Text>();
 		// levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
 	}
@@ -51,9 +54,13 @@ public class LevelTimer : MonoBehaviour {
 
 	private void LevelEnd() {
 		// Load Story Overview screen
-		levelInterface.SetActive(false);
-		statsManager.SetActive(true);
+		// levelInterfaceGO.SetActive(false);
+		reviewInterfaceGO.SetActive(true);
 		levelEnd = true;
+
+		levelTimeText.text = "";
+
+		this.enabled = false;
 	}
 	
 }

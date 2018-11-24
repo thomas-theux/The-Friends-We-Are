@@ -11,7 +11,8 @@ public class EventAnnouncer : MonoBehaviour {
 	public GameObject radioInterface;
 	public GameObject timeInterface;
 
-	public static bool firstLevelPlayed = true;
+	// To start with the driving level set this to false		--> Later needed when game is finished
+	public static bool firstLevelPlayed = false;
 	public static bool randomizeRole;
 	public static List<string> storyArr = new List<string>();
 	
@@ -85,7 +86,6 @@ public class EventAnnouncer : MonoBehaviour {
 
 		// Check if the first level has been played already
 		if (TimeManager.isDay) {
-			// Hier beim if das ! wegmachen, damit man auf das erste Storygame (Driving) kommt – dient nur als shortcut zu den andern Minigames!!!!!!!!!!!
 			if (firstLevelPlayed) {
 				if (TimeManager.dayJustStarted) {
 					// Voice: "Welcome to day x!"
@@ -121,7 +121,6 @@ public class EventAnnouncer : MonoBehaviour {
 	private void Update() {
 		if (GameManager.enableNavigation) {
 			if (GameManager.playerDark.GetButtonDown("X")) {
-				// Hier beim if das ! wegmachen, damit man auf das erste Storygame (Driving) kommt – dient nur als shortcut zu den andern Minigames!!!!!!!!!!!
 				if (firstLevelPlayed) {
 					// Load chosen scene
 					levelFadeScript.FadeToLevel(nextStoryName);

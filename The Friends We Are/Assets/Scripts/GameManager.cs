@@ -6,6 +6,9 @@ using Rewired;
 
 public class GameManager : MonoBehaviour {
 
+	private StartLevelCountdown startLevelCountdownScript;
+	private LevelTimer levelTimerScript;
+
 	public static int playerCount = 2;
 	
 	public static int tripDays = 5;
@@ -28,11 +31,36 @@ public class GameManager : MonoBehaviour {
 	
 
 	private void Awake() {
-		// DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.gameObject);
 		Cursor.visible = false;
 		
 		playerDark = ReInput.players.GetPlayer(0);
 		playerLight = ReInput.players.GetPlayer(1);
+
+		startLevelCountdownScript = GetComponent<StartLevelCountdown>();
+		levelTimerScript = GetComponent<LevelTimer>();
+	}
+
+
+	// private void Update() {
+	// 	if (StoryGameHandler.storyGameIsActive) {
+	// 		StoryGameHandler.storyGameIsActive = false;
+	// 		StartCoroutine(FadeDelay());
+	// 	}
+	// }
+
+
+	IEnumerator FadeDelay() {
+		yield return new WaitForSeconds(1);
+
+		// Activate time scripts
+		ActivateTimerScripts();
+	}
+
+
+	private void ActivateTimerScripts() {
+		startLevelCountdownScript.enabled = true;
+		levelTimerScript.enabled = true;
 	}
 	
 }

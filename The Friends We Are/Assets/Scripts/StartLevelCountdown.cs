@@ -10,14 +10,20 @@ public class StartLevelCountdown : MonoBehaviour {
 	public AudioSource countdownSound;
 	public AudioSource goSound;
 
-	private float levelStartCountdownTime = 3;
+	private int countDownSecondsDefault = 3;
+	private float levelStartCountdownTime;
 	private bool startCountdown = false;
-	private int beepAmount = 3;
+	private int beepAmount;
 
 	public static bool startLevel = false;
 
 
-	private void Start() {
+	private void OnEnable() {
+		levelStartCountdownTime = countDownSecondsDefault;
+		beepAmount = countDownSecondsDefault;
+
+		levelStartCountdownText.enabled = true;
+
 		StartCoroutine(StartCountdownDelay());
 	}
 
@@ -67,6 +73,10 @@ public class StartLevelCountdown : MonoBehaviour {
 		goSound.Play();
 		yield return new WaitForSeconds(1);
 		levelStartCountdownText.enabled = false;
+
+		levelStartCountdownText.text = "";
+		
+		this.enabled = false;
 	}
 
 }

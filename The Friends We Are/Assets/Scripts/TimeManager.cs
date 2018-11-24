@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour {
 	public static float dayStartTime = 480;	//  8:00 Uhr
 	private float dayEndTime = 1320;		// 22:00 Uhr
 
-	private float multiplyTime = 14.0f;
+	private float multiplyTime = 7.0f;
 	// Minutes in a day (awake) when using the following mutliplier
 	// 02x = 7:00 min
 	// 03x = 4:40 min

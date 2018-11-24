@@ -49,6 +49,8 @@ public class StatsDisplayer : MonoBehaviour {
 		showStatsCo = ShowStats();
 		levelFadeScript = GameObject.Find("LevelFader").GetComponent<LevelFade>();
 
+		oldScoreSlider.value = GameManager.overallScore;
+
 		// Get titles, values, and percentages from the StatsHolder
 		GetFromStatsHolder();
 	}
