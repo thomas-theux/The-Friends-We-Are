@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public static int playerCount = 2;
 	
 	public static int tripDays = 5;
+	public static float percentageMultiplier;
 
 	public static int storyAP = 3;
 	public static int radioAP = 2;
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour {
 
 		startLevelCountdownScript = GetComponent<StartLevelCountdown>();
 		levelTimerScript = GetComponent<LevelTimer>();
+
+		percentageMultiplier = Mathf.Pow(tripDays, -1) * 5;
 	}
 
 

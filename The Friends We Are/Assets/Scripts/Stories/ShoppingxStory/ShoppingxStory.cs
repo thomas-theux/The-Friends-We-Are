@@ -114,10 +114,12 @@ public class ShoppingxStory : MonoBehaviour {
 	private void CalculatePercentages() {
 		// Percentage for collected food
 		for (int i = 0; i < 2; i++) {
-			StatsHolder.transferPercentages[i] = foodCount[i] / 2;
+			float tempPercentageA = (foodCount[i] / 2) * GameManager.percentageMultiplier;
+			StatsHolder.transferPercentages[i] = tempPercentageA;
 		}
 
 		// Percentage for max streak
-		StatsHolder.transferPercentages[2] = maxStreak / 10;
+		float tempPercentageB = (maxStreak / 10) * GameManager.percentageMultiplier;
+		StatsHolder.transferPercentages[2] = tempPercentageB;
 	}
 }

@@ -265,13 +265,16 @@ public class DrivingxStory : MonoBehaviour {
 
 	private void CalculatePercentages() {
 		// Percentage for Road Experience Gained
-		StatsHolder.transferPercentages[0] = experienceScore / 100;
+		float tempPercentageA = (experienceScore / 100) * GameManager.percentageMultiplier;
+		StatsHolder.transferPercentages[0] = tempPercentageA;
 
 		// Percentage for Meters Driven
-		StatsHolder.transferPercentages[1] = Mathf.Ceil((bus.transform.position.z / 1000) * 10) / 10;
+		float tempPercentageB = (bus.transform.position.z / 1000) * GameManager.percentageMultiplier;
+		StatsHolder.transferPercentages[1] = Mathf.Ceil(tempPercentageB * 10) / 10;
 
 		// Percentage for Average Speed
-		StatsHolder.transferPercentages[2] = Mathf.Ceil((averageSpeed / 50) * 10) / 10;
+		float tempPercentageC = (averageSpeed / 50) * GameManager.percentageMultiplier;
+		StatsHolder.transferPercentages[2] = Mathf.Ceil(tempPercentageC * 10) / 10;
 	}
 
 
