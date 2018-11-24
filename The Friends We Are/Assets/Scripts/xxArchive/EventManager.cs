@@ -94,7 +94,7 @@ public class EventManager : MonoBehaviour {
 					levelFadeScript.FadeToLevel(nextStoryName);
 				} else {
 					// Load driving level
-					levelFadeScript.FadeToLevel("4 DrivexStory");
+					levelFadeScript.FadeToLevel("0 DrivexStory");
 				}
 			}
 		}

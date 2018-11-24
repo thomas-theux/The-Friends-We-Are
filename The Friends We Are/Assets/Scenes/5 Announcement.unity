@@ -3115,7 +3115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Steering
+  m_Text: Lorem & Ipsum
 --- !u!222 &704510758
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4851,8 +4851,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: Try and collect as much      Road Experience as you can to increase your
-    friends score.
+  m_Text: Lorem ipsum dolor sit amet consecetuer adipiscing elit.
 --- !u!222 &990622306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5027,8 +5026,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.1
-  m_Text: "Leaving home with this \u201Cborrowed\u201D school bus is the first of
-    many adventures."
+  m_Text: Lorem ipsum dolor sit amet consecetuer adipiscing elit.
 --- !u!222 &1050537832
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6006,7 +6004,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Accelerating & Braking
+  m_Text: Lorem & Ipsum
 --- !u!222 &1273087824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6315,6 +6313,13 @@ MonoBehaviour:
   taskImages:
   - {fileID: 2122278029}
   - {fileID: 15088242}
+  storyTitleText: {fileID: 1405516854}
+  storyTextText: {fileID: 1050537831}
+  storyGoalText: {fileID: 990622305}
+  storyTaskAText: {fileID: 1273087823}
+  storyTaskBText: {fileID: 704510757}
+  storyRuleAImage: {fileID: 2122278029}
+  storyRuleBImage: {fileID: 15088242}
   hissSound: {fileID: 62834168}
   radioBGMusic: {fileID: 1137918142}
   welcomeToDayVoice:
@@ -6547,7 +6552,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Driving
+  m_Text: Lorem ipsum
 --- !u!222 &1405516855
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8138,7 +8143,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1683934747}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 

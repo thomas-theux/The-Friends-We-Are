@@ -1763,6 +1763,7 @@ GameObject:
   - component: {fileID: 1424127177}
   - component: {fileID: 1424127176}
   - component: {fileID: 1424127175}
+  - component: {fileID: 1424127180}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1843,6 +1844,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424127180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1424127174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cb5666811be4b1a945c611c415d7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyTitles:
+  - Driving
+  - Shopping
+  storyTexts:
+  - Leaving home with this 'borrowed' school bus is the first of many adventures.
+  - If you're going on a road trip you need to eat and drink, right?
+  storyGoals:
+  - Try and collect as much Road Experience as you can to increase your friends score.
+  - Various grocery items will pop up on your list and you want to get as many as
+    you can.
+  storyTasksA:
+  - Accelerating & Braking
+  - Walking & Collecting
+  storyTasksB:
+  - Steering
+  - 
+  storyRulesA:
+  - {fileID: 21300000, guid: cee4b5286958d4511a10ba6aecf6f9b9, type: 3}
+  - {fileID: 21300000, guid: 62f2b4ccbabc2462d858e905f78c4abe, type: 3}
+  storyRulesB:
+  - {fileID: 21300000, guid: b2d5966ff7643455aa04f654611cc066, type: 3}
+  - {fileID: 21300000, guid: 1b448703e4df649a7a4a91ee9b6129ab, type: 3}
 --- !u!1 &1427476661
 GameObject:
   m_ObjectHideFlags: 0
