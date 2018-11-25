@@ -6,18 +6,38 @@ public class CampfirexStory : MonoBehaviour {
 	
 	public GameObject[] microGameScripts;
 
-	public static int activePlayer = 1;
+	public static int activePlayer;
 	private int newMicroGame;
 	private int oldMicroGame;
 	private float rndTimeframe;
 	private bool microGameActive;
 
-	private float minTime = 0.5f;
-	private float maxTime = 3.0f;
+	private float minTime = 2.0f;
+	private float maxTime = 5.0f;
 
 
 	private void Start() {
-		// Switch to the first player
+		// Randomize start player
+		activePlayer = Random.Range(0, GameManager.playerCount);
+
+		// Start first round
+		NextSession();
+	}
+
+
+	private void Update() {
+		if (microGameActive) {
+			rndTimeframe -= Time.deltaTime;
+
+			if (rndTimeframe <= 0) {
+				NextSession();
+			}
+		}
+	}
+
+
+	private void NextSession() {
+		// Switch to the other player
 		SwitchPlayers();
 
 		// Pick a random micro game that will be displayed
@@ -31,17 +51,6 @@ public class CampfirexStory : MonoBehaviour {
 
 		// Set old micro game to be disabled later
 		SetOldMicroGame();
-	}
-
-
-	private void Update() {
-		if (microGameActive) {
-			rndTimeframe -= Time.deltaTime;
-
-			if (rndTimeframe <= 0) {
-				print("Done");
-			}
-		}
 	}
 
 

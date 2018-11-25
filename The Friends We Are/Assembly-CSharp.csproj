@@ -113,7 +113,11 @@
      <Compile Include="Assets\Scripts\Stories\1 ShoppingxStory\ShoppingxStory.cs" />
      <Compile Include="Assets\Scripts\Stories\1 ShoppingxStory\SpawnPlayers.cs" />
      <Compile Include="Assets\Scripts\Stories\1 ShoppingxStory\SpawnTriggers.cs" />
+     <Compile Include="Assets\Scripts\Stories\2 CampfirexStory\Blow.cs" />
+     <Compile Include="Assets\Scripts\Stories\2 CampfirexStory\BreakSticks.cs" />
      <Compile Include="Assets\Scripts\Stories\2 CampfirexStory\CampfirexStory.cs" />
+     <Compile Include="Assets\Scripts\Stories\2 CampfirexStory\GenerateFriction.cs" />
+     <Compile Include="Assets\Scripts\Stories\2 CampfirexStory\PrepareWurst.cs" />
      <Compile Include="Assets\Scripts\StoryContent.cs" />
      <Compile Include="Assets\Scripts\StoryGameHandler.cs" />
      <Compile Include="Assets\Scripts\Tests\DrivingTest.cs" />
