@@ -13,6 +13,8 @@ public class Blow : MonoBehaviour {
 	private float decreaseValue = 1.0f;
 	private float tempDecrease;
 
+	public float test;
+
 
 	private void OnEnable() {
 		blowGO.SetActive(true);
@@ -41,12 +43,13 @@ public class Blow : MonoBehaviour {
 
 
 	private void ActionsInput() {
-		blowSlider.value += (tempDecrease + blowStrength) - (blowSlider.value / 100);
+		blowSlider.value += tempDecrease + blowStrength;
 	}
 
 
 	private void DecreaseWind() {
-		tempDecrease = decreaseValue + (blowSlider.value / 100 * 2);
+		// tempDecrease = (blowSlider.value / 100) * 2;
+		tempDecrease = (Mathf.Pow((blowSlider.value / 100), test)) * 2;
 		blowSlider.value -= tempDecrease;
 	}
 
