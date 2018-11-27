@@ -14,6 +14,11 @@ public class CampfirexStory : MonoBehaviour {
 
 	private float minTime = 2.0f;
 	private float maxTime = 5.0f;
+	
+	public static Vector2[] gaugePos = {
+		new Vector2(-400, 0),
+		new Vector2(400, 0)
+	};
 
 
 	private void Start() {
