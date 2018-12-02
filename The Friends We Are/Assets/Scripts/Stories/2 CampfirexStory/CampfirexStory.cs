@@ -6,14 +6,19 @@ public class CampfirexStory : MonoBehaviour {
 	
 	public GameObject[] microGameScripts;
 
+	public static float blowPercentage;
+	public static float frictionPercentage;
+	public static float sticksPercentage;
+	public static float wurstPercentage;
+
 	public static int activePlayer;
 	private int newMicroGame;
 	private int oldMicroGame;
 	private float rndTimeframe;
 	private bool microGameActive;
 
-	private float minTime = 2.0f;
-	private float maxTime = 5.0f;
+	private float minTime = 20.0f;
+	private float maxTime = 50.0f;
 	
 	public static Vector2[] gaugePos = {
 		new Vector2(-400, 0),
